@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Files — ConnectPro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <style>
+    .drop-zone {
+      border: 2px dashed rgba(99,102,241,0.4);
+      border-radius: var(--radius-xl);
+      padding: var(--space-12);
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition-base);
+      background: rgba(99,102,241,0.04);
+    }
+    .drop-zone:hover, .drop-zone.dragging { background: rgba(99,102,241,0.1); border-color: var(--indigo-500); }
+    .file-card { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4); background: var(--bg-card); border: 1px solid var(--border-card); border-radius: var(--radius-lg); transition: all var(--transition-base); }
+    .file-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .file-icon { width: 48px; height: 48px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+    .file-list { display: flex; flex-direction: column; gap: var(--space-3); }
+  </style>
+</head>
+<body>
+  <div id="toast-container"></div>
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo"><div class="logo-icon">🎥</div><span class="logo-text">ConnectPro</span></div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="files.html" class="nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          Files
+        </a>
+        <a href="settings.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
+          Settings
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-card"><div class="avatar avatar-md avatar-purple" id="nav-avatar">?</div><div style="flex:1;min-width:0"><div class="user-name" id="nav-name">Loading...</div><div class="user-role" id="nav-role">—</div></div></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Files</h1>
+          <p style="font-size:var(--text-sm);color:var(--text-muted);margin-top:4px" id="storage-display">Loading...</p>
+        </div>
+        <div style="display:flex;gap:var(--space-3)">
+          <button class="btn btn-ghost btn-icon" id="theme-toggle">🌙</button>
+          <button class="btn btn-primary" id="upload-btn">+ Upload File</button>
+          <input type="file" id="file-upload-input" multiple style="display:none">
+        </div>
+      </div>
+
+      <div class="page-content">
+        <!-- Drop Zone -->
+        <div class="drop-zone" id="drop-zone">
+          <div style="font-size:48px;margin-bottom:var(--space-3)">📁</div>
+          <h3 style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-2)">Drag & Drop Files Here</h3>
+          <p style="color:var(--text-muted);font-size:var(--text-sm)">or click to browse — Images, PDFs, Word, Excel, PowerPoint, ZIP, Videos</p>
+          <p style="color:var(--text-muted);font-size:var(--text-xs);margin-top:var(--space-2)">Max 100MB per file</p>
+        </div>
+
+        <!-- Storage Bar -->
+        <div class="glass-card mt-6" style="padding:var(--space-4)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-2)">
+            <span style="font-size:var(--text-sm);font-weight:600">Storage Usage</span>
+            <span style="font-size:var(--text-xs);color:var(--text-muted)" id="storage-text">—</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" id="storage-bar" style="width:0%"></div></div>
+        </div>
+
+        <!-- File List -->
+        <div style="margin-top:var(--space-6)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-4)">
+            <h2 style="font-size:var(--text-xl);font-weight:700">My Files</h2>
+            <div style="display:flex;gap:var(--space-3)">
+              <div class="input-group" style="width:240px">
+                <span class="input-icon">🔍</span>
+                <input type="text" id="search-files" class="form-input" placeholder="Search files...">
+              </div>
+            </div>
+          </div>
+
+          <div class="file-list" id="file-list">
+            <div class="skeleton" style="height:72px;border-radius:var(--radius-lg)"></div>
+            <div class="skeleton" style="height:72px;border-radius:var(--radius-lg)"></div>
+            <div class="skeleton" style="height:72px;border-radius:var(--radius-lg)"></div>
+          </div>
+
+          <div class="empty-state hidden" id="files-empty">
+            <div class="empty-state-icon">📄</div>
+            <div class="empty-state-title">No files yet</div>
+            <div class="empty-state-desc">Upload your first file to get started</div>
+            <button class="btn btn-primary mt-4" id="empty-upload-btn">+ Upload File</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!Auth.requireAuth()) return;
+      const user = await Auth.fetchMe();
+      if (!user) return;
+      Utils.setAvatar(document.getElementById('nav-avatar'), user);
+      document.getElementById('nav-name').textContent = user.full_name;
+      document.getElementById('nav-role').textContent = user.role;
+
+      loadFiles();
+      loadStorage();
+      initUpload();
+      initDrop();
+    });
+
+    async function loadFiles() {
+      try {
+        const res = await API.get('/api/files?limit=50');
+        const files = res.data.files || [];
+        renderFiles(files);
+      } catch (e) {
+        document.getElementById('file-list').innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:40px">Failed to load files</p>';
+      }
+    }
+
+    async function loadStorage() {
+      try {
+        const res = await API.get('/api/files/storage-usage');
+        const s = res.data;
+        document.getElementById('storage-display').textContent = `${s.used_formatted} used of ${s.limit_formatted} (${s.percentage}%)`;
+        document.getElementById('storage-text').textContent = `${s.percentage}% used`;
+        document.getElementById('storage-bar').style.width = `${Math.min(s.percentage, 100)}%`;
+      } catch {}
+    }
+
+    function renderFiles(files) {
+      const list = document.getElementById('file-list');
+      const empty = document.getElementById('files-empty');
+      if (!files.length) { list.innerHTML = ''; empty.classList.remove('hidden'); return; }
+      empty.classList.add('hidden');
+      list.innerHTML = files.map(f => `
+        <div class="file-card">
+          <div class="file-icon" style="background:rgba(99,102,241,0.1)">${getFileEmoji(f.mime_type)}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:var(--text-sm);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(f.name)}</div>
+            <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:2px">${Utils.formatBytes(f.size)} · ${Utils.formatDate(f.created_at)}</div>
+          </div>
+          <div style="display:flex;gap:var(--space-2)">
+            <button class="btn btn-secondary btn-sm" onclick="downloadFile('${f.id}', '${escHtml(f.name)}')">⬇ Download</button>
+            <button class="btn btn-ghost btn-icon btn-sm" onclick="copyFileLink('${f.id}')" title="Copy link">🔗</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteFile('${f.id}')">🗑</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function getFileEmoji(mime) {
+      if (!mime) return '📄';
+      if (mime.startsWith('image/')) return '🖼️';
+      if (mime === 'application/pdf') return '📕';
+      if (mime.includes('word')) return '📝';
+      if (mime.includes('excel') || mime.includes('spreadsheet')) return '📊';
+      if (mime.includes('powerpoint') || mime.includes('presentation')) return '📊';
+      if (mime.startsWith('video/')) return '🎬';
+      if (mime.includes('zip') || mime.includes('rar')) return '🗜️';
+      return '📄';
+    }
+
+    async function downloadFile(id, name) {
+      try {
+        const res = await API.get(`/api/files/${id}/download`);
+        const { url } = res.data;
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name || 'download';
+        a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } catch (e) {
+        Toast.error('Download failed', e.message);
+      }
+    }
+
+    async function copyFileLink(id) {
+      try {
+        const res = await API.get(`/api/files/${id}/download`);
+        Utils.copyToClipboard(res.data.url);
+        Toast.success('Link copied!');
+      } catch (e) {
+        Toast.error('Could not copy link', e.message);
+      }
+    }
+
+    async function deleteFile(id) {
+      if (!confirm('Delete this file?')) return;
+      try {
+        await API.delete(`/api/files/${id}`);
+        Toast.success('File deleted');
+        loadFiles();
+        loadStorage();
+      } catch (e) {
+        Toast.error('Delete failed', e.message);
+      }
+    }
+
+    function initUpload() {
+      const input = document.getElementById('file-upload-input');
+      document.getElementById('upload-btn').addEventListener('click', () => input.click());
+      document.getElementById('empty-upload-btn')?.addEventListener('click', () => input.click());
+      document.getElementById('drop-zone').addEventListener('click', () => input.click());
+      input.addEventListener('change', (e) => uploadFiles(Array.from(e.target.files)));
+    }
+
+    function initDrop() {
+      const zone = document.getElementById('drop-zone');
+      zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('dragging'); });
+      zone.addEventListener('dragleave', () => zone.classList.remove('dragging'));
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault(); zone.classList.remove('dragging');
+        uploadFiles(Array.from(e.dataTransfer.files));
+      });
+    }
+
+    async function uploadFiles(files) {
+      for (const file of files) {
+        const fd = new FormData();
+        fd.append('file', file);
+        try {
+          Toast.info(`Uploading ${file.name}...`);
+          await API.upload('/api/files/upload', fd);
+          Toast.success(`${file.name} uploaded!`);
+        } catch (e) {
+          Toast.error(`Failed to upload ${file.name}`, e.message);
+        }
+      }
+      loadFiles();
+      loadStorage();
+    }
+
+    function escHtml(s) { return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+    document.getElementById('search-files')?.addEventListener('input', Utils.debounce(async (e) => {
+      const q = e.target.value.trim();
+      const res = await API.get(`/api/files?limit=50${q ? '&search=' + encodeURIComponent(q) : ''}`);
+      renderFiles(res.data.files || []);
+    }, 400));
+  </script>
+</body>
+</html>

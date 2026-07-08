@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile — ConnectPro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <style>
+    .profile-cover { height: 200px; background: var(--gradient-brand); border-radius: var(--radius-xl) var(--radius-xl) 0 0; position: relative; overflow: hidden; }
+    .profile-cover::after { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='20'/%3E%3C/svg%3E") repeat; opacity: 0.3; }
+    .profile-avatar-wrap { position: absolute; bottom: -50px; left: 32px; }
+    .profile-avatar-img { width: 96px; height: 96px; border-radius: 50%; border: 4px solid var(--bg-secondary); background: var(--gradient-brand); display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; color: white; overflow: hidden; cursor: pointer; position: relative; }
+    .avatar-hover { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; font-size: 20px; opacity: 0; transition: opacity 0.2s; border-radius: 50%; cursor: pointer; }
+    .profile-avatar-img:hover .avatar-hover { opacity: 1; }
+    .profile-header { background: var(--bg-card); border: 1px solid var(--border-card); border-top: none; border-radius: 0 0 var(--radius-xl) var(--radius-xl); padding: 64px 32px 32px; margin-bottom: var(--space-6); }
+    .verification-badge { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: var(--green-400); padding: 2px 10px; border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 700; }
+    .profile-form { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    @media (max-width: 768px) { .profile-form { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div id="toast-container"></div>
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">🎥</div>
+        <span class="logo-text">ConnectPro</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="meetings.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.259a1 1 0 01-1.447.894L15 14"/><rect x="1" y="6" width="14" height="12" rx="2"/></svg>
+          Meetings
+        </a>
+        <a href="profile.html" class="nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile
+        </a>
+        <a href="settings.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          Settings
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-card" id="user-card">
+          <div class="avatar avatar-md avatar-purple" id="nav-avatar">?</div>
+          <div style="flex:1;min-width:0">
+            <div class="user-name" id="nav-name">Loading...</div>
+            <div class="user-role" id="nav-role">—</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="main-content">
+      <div class="page-header">
+        <h1 class="page-title">My Profile</h1>
+        <div style="display:flex;gap:var(--space-3)">
+          <button class="btn btn-ghost btn-icon" id="theme-toggle">🌙</button>
+        </div>
+      </div>
+
+      <div class="page-content" style="max-width:900px">
+        <!-- Profile Header Card -->
+        <div class="glass-card" style="padding:0;overflow:hidden;margin-bottom:var(--space-6)">
+          <div class="profile-cover">
+            <div class="profile-avatar-wrap">
+              <div class="profile-avatar-img" id="profile-avatar">
+                ?
+                <div class="avatar-hover" onclick="document.getElementById('avatar-upload').click()">📷</div>
+              </div>
+            </div>
+          </div>
+          <div class="profile-header">
+            <input type="file" id="avatar-upload" style="display:none" accept="image/*">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px">
+              <div>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <h2 id="profile-fullname" style="font-size:var(--text-2xl);font-weight:800">Loading...</h2>
+                  <span class="verification-badge" id="verify-badge" style="display:none">✓ Verified</span>
+                </div>
+                <div id="profile-jobtitle" style="color:var(--text-muted);font-size:var(--text-sm);margin-top:4px">—</div>
+                <div id="profile-email" style="color:var(--text-secondary);font-size:var(--text-sm);margin-top:4px">—</div>
+              </div>
+              <div style="display:flex;gap:var(--space-3)">
+                <span class="badge badge-purple" id="profile-role">User</span>
+                <span id="profile-joined" style="font-size:var(--text-xs);color:var(--text-muted);align-self:center">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit Profile Form -->
+        <div class="glass-card" style="margin-bottom:var(--space-6)">
+          <div class="card-header">
+            <h3 class="card-title">Personal Information</h3>
+            <p class="card-subtitle">Update your profile details</p>
+          </div>
+          <form id="profile-form">
+            <div class="profile-form">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="f-fullname" class="form-input" placeholder="John Doe">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Job Title</label>
+                <input type="text" id="f-jobtitle" class="form-input" placeholder="Senior Engineer">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Company</label>
+                <input type="text" id="f-company" class="form-input" placeholder="Acme Corp">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone</label>
+                <input type="tel" id="f-phone" class="form-input" placeholder="+1 (555) 000-0000">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Location</label>
+                <input type="text" id="f-location" class="form-input" placeholder="San Francisco, CA">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Timezone</label>
+                <select id="f-timezone" class="form-select">
+                  <option value="UTC">UTC</option>
+                  <option value="America/New_York">Eastern Time (ET)</option>
+                  <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                  <option value="Europe/London">London (GMT)</option>
+                  <option value="Asia/Kolkata">India (IST)</option>
+                  <option value="Asia/Tokyo">Tokyo (JST)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group mt-4">
+              <label class="form-label">Bio</label>
+              <textarea id="f-bio" class="form-textarea" placeholder="Tell us about yourself..."></textarea>
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:var(--space-3);margin-top:var(--space-6)">
+              <button type="button" class="btn btn-secondary" id="discard-btn">Discard</button>
+              <button type="submit" class="btn btn-primary" id="save-profile-btn">
+                <span id="save-text">Save Changes</span>
+                <span id="save-spinner" class="spinner hidden"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Change Password -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3 class="card-title">Change Password</h3>
+            <p class="card-subtitle">Keep your account secure</p>
+          </div>
+          <form id="password-form" style="display:flex;flex-direction:column;gap:var(--space-4);max-width:400px">
+            <div class="form-group">
+              <label class="form-label">Current Password</label>
+              <div class="input-group">
+                <span class="input-icon">🔒</span>
+                <input type="password" id="current-pwd" class="form-input" placeholder="Current password">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">New Password</label>
+              <div class="input-group">
+                <span class="input-icon">🔑</span>
+                <input type="password" id="new-pwd" class="form-input" placeholder="New password (8+ chars)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirm New Password</label>
+              <div class="input-group">
+                <span class="input-icon">🔑</span>
+                <input type="password" id="confirm-pwd" class="form-input" placeholder="Confirm new password">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:fit-content">Update Password</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/app.js"></script>
+  <script src="../../js/profile.js"></script>
+</body>
+</html>

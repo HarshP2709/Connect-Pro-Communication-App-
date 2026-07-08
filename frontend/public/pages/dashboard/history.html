@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meeting History — ConnectPro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <style>
+    .history-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      transition: all var(--transition-base);
+      box-shadow: var(--shadow-card);
+    }
+    .history-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .history-icon { width: 48px; height: 48px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; background: rgba(99,102,241,0.12); }
+    .history-title { font-size: var(--text-base); font-weight: 700; margin-bottom: 2px; }
+    .history-meta { font-size: var(--text-xs); color: var(--text-muted); display: flex; gap: var(--space-4); flex-wrap: wrap; }
+    .history-list { display: flex; flex-direction: column; gap: var(--space-3); }
+    .badge-ended { font-size: var(--text-xs); font-weight: 700; background: rgba(255,255,255,0.06); color: var(--text-muted); border-radius: 99px; padding: 2px 10px; }
+    .badge-cancelled { font-size: var(--text-xs); font-weight: 700; background: rgba(239,68,68,0.1); color: var(--red-400,#f87171); border-radius: 99px; padding: 2px 10px; }
+  </style>
+</head>
+<body>
+  <div id="toast-container"></div>
+  <div class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">🎥</div>
+        <span class="logo-text">ConnectPro</span>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="meetings.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.259a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
+          Meetings
+        </a>
+        <a href="schedule.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Schedule
+        </a>
+        <a href="history.html" class="nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          History
+        </a>
+        <div class="nav-section-title" style="margin-top:12px">Collaboration</div>
+        <a href="whiteboard.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Whiteboard
+        </a>
+        <a href="files.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          Files
+        </a>
+        <div class="nav-section-title" style="margin-top:12px">Account</div>
+        <a href="notifications.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+          Notifications
+        </a>
+        <a href="profile.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile
+        </a>
+        <a href="settings.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          Settings
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <div class="avatar avatar-md avatar-purple" id="nav-avatar">?</div>
+          <div style="flex:1;min-width:0">
+            <div class="user-name" id="nav-name">Loading...</div>
+            <div class="user-role" id="nav-role">—</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content" id="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">🕐 Meeting History</h1>
+          <p style="font-size:var(--text-sm);color:var(--text-muted);margin-top:2px">Past and ended meetings</p>
+        </div>
+        <div style="display:flex;gap:var(--space-3);align-items:center">
+          <button class="btn btn-ghost btn-icon" id="theme-toggle">🌙</button>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <!-- Filters -->
+        <div style="display:flex;gap:var(--space-3);margin-bottom:var(--space-6);flex-wrap:wrap;align-items:center">
+          <div class="input-group" style="max-width:280px">
+            <span class="input-icon">🔍</span>
+            <input type="text" id="search-input" class="form-input" placeholder="Search history...">
+          </div>
+          <select id="status-filter" class="form-select" style="max-width:160px">
+            <option value="ended">Ended</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="">All past</option>
+          </select>
+          <span style="font-size:var(--text-sm);color:var(--text-muted);margin-left:auto" id="count-label">Loading...</span>
+        </div>
+
+        <!-- History list -->
+        <div id="history-list">
+          <div class="skeleton" style="height:80px;border-radius:12px;margin-bottom:12px"></div>
+          <div class="skeleton" style="height:80px;border-radius:12px;margin-bottom:12px;opacity:.7"></div>
+          <div class="skeleton" style="height:80px;border-radius:12px;opacity:.4"></div>
+        </div>
+
+        <!-- Pagination -->
+        <div style="display:flex;justify-content:center;gap:var(--space-2);margin-top:var(--space-8)" id="pagination"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/app.js"></script>
+  <script>
+  'use strict';
+  let currentPage = 1;
+  const PAGE_SIZE = 15;
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    if (!Auth.requireAuth()) return;
+    const user = Auth.getUser() || await Auth.fetchMe();
+    if (user) {
+      Utils.setAvatar(document.getElementById('nav-avatar'), user);
+      const n = document.getElementById('nav-name'); if (n) n.textContent = user.full_name;
+      const r = document.getElementById('nav-role'); if (r) r.textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+    }
+    Theme.init();
+    document.getElementById('theme-toggle')?.addEventListener('click', () => Theme.toggle());
+    loadHistory();
+    document.getElementById('search-input')?.addEventListener('input', Utils.debounce(() => { currentPage = 1; loadHistory(); }, 300));
+    document.getElementById('status-filter')?.addEventListener('change', () => { currentPage = 1; loadHistory(); });
+  });
+
+  async function loadHistory() {
+    const search = document.getElementById('search-input')?.value.trim() || '';
+    const status = document.getElementById('status-filter')?.value || 'ended';
+    const list   = document.getElementById('history-list');
+    const label  = document.getElementById('count-label');
+
+    try {
+      const params = new URLSearchParams({ page: currentPage, limit: PAGE_SIZE });
+      if (status) params.set('status', status);
+      const res = await API.get(`/api/meetings?${params}`);
+      let meetings = res.data?.meetings || res.data || [];
+      const total  = res.data?.total || meetings.length;
+
+      if (search) meetings = meetings.filter(m => m.title.toLowerCase().includes(search.toLowerCase()));
+      if (label) label.textContent = `${total} meeting${total !== 1 ? 's' : ''}`;
+
+      if (!meetings.length) {
+        list.innerHTML = `<div style="text-align:center;padding:var(--space-16) 0;color:var(--text-muted)">
+          <div style="font-size:64px;margin-bottom:var(--space-4)">🕐</div>
+          <div style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-2)">No past meetings</div>
+          <div style="font-size:var(--text-sm)">Past meetings will appear here once they end.</div>
+        </div>`;
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+
+      list.innerHTML = `<div class="history-list">${meetings.map(m => `
+        <div class="history-card">
+          <div class="history-icon">${m.status === 'cancelled' ? '❌' : '✅'}</div>
+          <div style="flex:1;min-width:0">
+            <div class="history-title">${escHtml(m.title)}</div>
+            <div class="history-meta">
+              <span>🆔 ${escHtml(m.meeting_id)}</span>
+              ${m.started_at  ? `<span>▶ ${Utils.formatDateTime(m.started_at)}</span>` : ''}
+              ${m.ended_at    ? `<span>⏹ ${Utils.formatDateTime(m.ended_at)}</span>` : ''}
+              ${m.duration_seconds != null ? `<span>⏱ ${formatDuration(m.duration_seconds)}</span>` : ''}
+            </div>
+          </div>
+          <span class="${m.status === 'cancelled' ? 'badge-cancelled' : 'badge-ended'}">${m.status.charAt(0).toUpperCase()+m.status.slice(1)}</span>
+        </div>
+      `).join('')}</div>`;
+
+      renderPagination(total);
+    } catch (err) {
+      list.innerHTML = `<div style="text-align:center;padding:var(--space-12) 0;color:var(--text-muted)"><div style="font-size:48px">⚠️</div><div>Failed to load history</div></div>`;
+      console.error(err);
+    }
+  }
+
+  function renderPagination(total) {
+    const pages = Math.ceil(total / PAGE_SIZE);
+    const el = document.getElementById('pagination');
+    if (pages <= 1) { el.innerHTML = ''; return; }
+    el.innerHTML = Array.from({length: pages}, (_, i) => i + 1).map(p => `
+      <button class="btn btn-sm ${p === currentPage ? 'btn-primary' : 'btn-secondary'}" onclick="goPage(${p})">${p}</button>
+    `).join('');
+  }
+
+  function goPage(p) { currentPage = p; loadHistory(); window.scrollTo(0,0); }
+
+  function formatDuration(seconds) {
+    if (!seconds) return '0m';
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    return h ? `${h}h ${m}m` : m ? `${m}m ${s}s` : `${s}s`;
+  }
+
+  function escHtml(str) {
+    return String(str||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  </script>
+</body>
+</html>

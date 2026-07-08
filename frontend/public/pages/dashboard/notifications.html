@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications — ConnectPro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+  <div id="toast-container"></div>
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo"><div class="logo-icon">🎥</div><span class="logo-text">ConnectPro</span></div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="notifications.html" class="nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+          Notifications
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-card"><div class="avatar avatar-md avatar-purple" id="nav-avatar">?</div><div style="flex:1;min-width:0"><div class="user-name" id="nav-name">Loading...</div><div class="user-role" id="nav-role">—</div></div></div>
+      </div>
+    </aside>
+    <main class="main-content">
+      <div class="page-header">
+        <h1 class="page-title">Notifications</h1>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-ghost btn-icon" id="theme-toggle">🌙</button>
+          <button class="btn btn-secondary btn-sm" id="mark-all-read-btn">✓ Mark All Read</button>
+        </div>
+      </div>
+      <div class="page-content" style="max-width:700px">
+        <div id="notif-list" style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <div class="skeleton" style="height:72px;border-radius:var(--radius-lg)"></div>
+          <div class="skeleton" style="height:72px;border-radius:var(--radius-lg)"></div>
+          <div class="skeleton" style="height:72px;border-radius:var(--radius-lg)"></div>
+        </div>
+        <div class="empty-state hidden" id="notif-empty">
+          <div class="empty-state-icon">🔔</div>
+          <div class="empty-state-title">All caught up!</div>
+          <div class="empty-state-desc">No new notifications</div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!Auth.requireAuth()) return;
+      const user = await Auth.fetchMe();
+      if (user) {
+        Utils.setAvatar(document.getElementById('nav-avatar'), user);
+        document.getElementById('nav-name').textContent = user.full_name;
+        document.getElementById('nav-role').textContent = user.role;
+      }
+      loadNotifications();
+      document.getElementById('mark-all-read-btn').addEventListener('click', async () => {
+        await API.patch('/api/notifications/read-all');
+        Toast.success('All marked as read');
+        loadNotifications();
+      });
+    });
+
+    async function loadNotifications() {
+      try {
+        const res = await API.get('/api/notifications');
+        const notifs = res.data.notifications;
+        const list = document.getElementById('notif-list');
+        const empty = document.getElementById('notif-empty');
+        if (!notifs.length) { list.innerHTML = ''; empty.classList.remove('hidden'); return; }
+        empty.classList.add('hidden');
+        const icons = { meeting_join:'👥', file_shared:'📁', mention:'@', new_message:'💬', meeting_reminder:'⏰', system:'ℹ️' };
+        list.innerHTML = notifs.map(n => `
+          <div class="glass-card" style="cursor:pointer;opacity:${n.is_read ? 0.7 : 1};padding:var(--space-4)" onclick="markRead('${n.id}')">
+            <div style="display:flex;align-items:flex-start;gap:var(--space-3)">
+              <div style="font-size:24px;width:40px;text-align:center">${icons[n.type] || '🔔'}</div>
+              <div style="flex:1">
+                <div style="font-weight:${n.is_read ? '500' : '700'};font-size:var(--text-sm)">${n.title}</div>
+                <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:2px">${n.message || ''}</div>
+                <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:4px">${Utils.timeAgo(n.created_at)}</div>
+              </div>
+              ${!n.is_read ? '<span class="badge badge-purple">New</span>' : ''}
+              <button onclick="event.stopPropagation();deleteNotif('${n.id}')" style="background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:16px;padding:4px">✕</button>
+            </div>
+          </div>
+        `).join('');
+      } catch {
+        document.getElementById('notif-list').innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:40px">Failed to load notifications</p>';
+      }
+    }
+
+    async function markRead(id) {
+      await API.patch(`/api/notifications/${id}/read`).catch(() => {});
+      loadNotifications();
+    }
+
+    async function deleteNotif(id) {
+      await API.delete(`/api/notifications/${id}`).catch(() => {});
+      loadNotifications();
+    }
+
+    function timeAgo(iso) { return Utils.timeAgo(iso); }
+  </script>
+</body>
+</html>

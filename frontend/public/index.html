@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ConnectPro - Premium Real-Time Video Meeting & Collaboration Platform">
+  <meta name="theme-color" content="#6366f1">
+  <title>ConnectPro — Premium Video Meeting Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/mobile-nav.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%236366f1'/><stop offset='100%' style='stop-color:%23a855f7'/></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23g)'/><text y='0.9em' font-size='65' text-anchor='middle' x='50' fill='white'>C</text></svg>">
+</head>
+<body>
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- ═══════════════════════════ NAVBAR ═════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <div class="logo-icon">🎥</div>
+      <span class="logo-text">ConnectPro</span>
+    </div>
+
+    <div class="nav-links" id="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="pages/features.html" class="nav-link">Features</a>
+      <a href="pages/about.html" class="nav-link">About</a>
+      <a href="pages/contact.html" class="nav-link">Contact</a>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn btn-ghost btn-sm" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+      <a href="pages/auth/login.html" class="btn btn-secondary btn-sm">Sign In</a>
+      <a href="pages/auth/register.html" class="btn btn-primary btn-sm">Get Started Free</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Nav Menu -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#features" class="nav-link">Features</a>
+    <a href="pages/features.html" class="nav-link">Features</a>
+    <a href="pages/about.html" class="nav-link">About</a>
+    <a href="pages/contact.html" class="nav-link">Contact</a>
+    <div style="display:flex;gap:12px;padding-top:12px;border-top:1px solid var(--border-color)">
+      <a href="pages/auth/login.html" class="btn btn-secondary btn-sm w-full">Sign In</a>
+      <a href="pages/auth/register.html" class="btn btn-primary btn-sm w-full">Get Started</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════ HERO ══════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-orb hero-orb-3"></div>
+    </div>
+
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Now with AI Meeting Summaries & Noise Suppression
+    </div>
+
+    <h1 class="hero-title">
+      Meet, Collaborate &<br>
+      <span class="gradient-text">Build Together</span>
+    </h1>
+
+    <p class="hero-desc">
+      ConnectPro brings crystal-clear HD video, real-time collaboration, and enterprise-grade security into one beautifully designed platform. Better than Zoom. Smarter than Teams.
+    </p>
+
+    <div class="hero-actions">
+      <a href="pages/auth/register.html" class="btn btn-primary btn-xl btn-ripple">
+        🚀 Start for Free
+      </a>
+      <a href="#" class="btn btn-secondary btn-xl" id="join-meeting-btn">
+        📋 Join a Meeting
+      </a>
+    </div>
+
+    <div class="hero-preview">
+      <div class="hero-preview-img">
+        <div class="preview-mockup">
+          <div class="preview-video-tile">
+            <span class="preview-avatar">👩‍💼</span>
+            <span class="preview-name">Sarah Chen</span>
+          </div>
+          <div class="preview-video-tile">
+            <span class="preview-avatar">👨‍💻</span>
+            <span class="preview-name">Alex Kumar</span>
+          </div>
+          <div class="preview-video-tile">
+            <span class="preview-avatar">👩‍🎨</span>
+            <span class="preview-name">Maria Garcia</span>
+          </div>
+          <div class="preview-video-tile" style="position:relative">
+            <span class="preview-avatar">🧑‍🔬</span>
+            <span class="preview-name">You (Host)</span>
+          </div>
+          <div class="preview-video-tile">
+            <span class="preview-avatar">👨‍🏫</span>
+            <span class="preview-name">James Wilson</span>
+          </div>
+          <div class="preview-video-tile">
+            <span class="preview-avatar">👩‍⚕️</span>
+            <span class="preview-name">Priya Patel</span>
+          </div>
+          <div class="preview-controls">
+            <div class="preview-ctrl active">🎤</div>
+            <div class="preview-ctrl active">📹</div>
+            <div class="preview-ctrl active">🖥️</div>
+            <div class="preview-ctrl danger">📞</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ STATS ════════════════════════ -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-number" data-count="10">0</div>
+        <div class="stat-text">Million+ Users</div>
+      </div>
+      <div>
+        <div class="stat-number" data-count="99.9">0</div>
+        <div class="stat-text">% Uptime SLA</div>
+      </div>
+      <div>
+        <div class="stat-number" data-count="180">0</div>
+        <div class="stat-text">Countries Served</div>
+      </div>
+      <div>
+        <div class="stat-number" data-count="500">0</div>
+        <div class="stat-text">Meeting Participants</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ FEATURES ═════════════════════ -->
+  <section class="features-section" id="features">
+    <div class="section-header">
+      <div class="section-tag">Features</div>
+      <h2 class="section-title">Everything you need to <span class="gradient-text">collaborate</span></h2>
+      <p class="section-desc">Powerful features designed for modern teams. From startup to enterprise.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎥</div>
+        <h3 class="feature-title">Crystal-Clear HD Video</h3>
+        <p class="feature-desc">WebRTC-powered 4K video with adaptive bitrate. See every detail in real time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3 class="feature-title">Live Collaborative Whiteboard</h3>
+        <p class="feature-desc">Draw, annotate, and brainstorm together in real-time with our full-featured canvas.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3 class="feature-title">Enterprise Security</h3>
+        <p class="feature-desc">E2E encryption, waiting rooms, meeting lock, RLS policies, and SOC 2 compliance.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📁</div>
+        <h3 class="feature-title">Instant File Sharing</h3>
+        <p class="feature-desc">Share documents, images, PDFs during or outside meetings. Drag-and-drop simple.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3 class="feature-title">Rich In-Meeting Chat</h3>
+        <p class="feature-desc">Emojis, GIFs, replies, mentions, pinned messages, and file attachments.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖥️</div>
+        <h3 class="feature-title">Screen Sharing</h3>
+        <p class="feature-desc">Share your screen, specific windows, or browser tabs with one click.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3 class="feature-title">Smart Scheduling</h3>
+        <p class="feature-desc">Schedule, invite, and send automated reminders with calendar integration.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3 class="feature-title">AI Meeting Summary</h3>
+        <p class="feature-desc">Auto-generated summaries, action items, and transcripts after every meeting.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3 class="feature-title">Works Everywhere</h3>
+        <p class="feature-desc">Browser-based, no app installs needed. Works on desktop, tablet, and mobile.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ CTA ═══════════════════════════ -->
+  <section class="cta-section">
+    <h2 class="cta-title">Ready to <span class="gradient-text">level up</span> your meetings?</h2>
+    <p class="cta-desc">Join over 10 million professionals already using ConnectPro. No credit card required.</p>
+    <a href="pages/auth/register.html" class="btn btn-primary btn-xl btn-ripple">🚀 Get Started Free Today</a>
+  </section>
+
+  <!-- ═══════════════════════ FOOTER ════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="nav-logo">
+          <div class="logo-icon">🎥</div>
+          <span class="logo-text">ConnectPro</span>
+        </div>
+        <p class="footer-brand-desc">Premium real-time video meeting and collaboration platform for modern teams.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Product</h4>
+        <ul class="footer-links">
+          <li><a href="pages/features.html">Features</a></li>
+          <li><a href="pages/about.html">About Us</a></li>
+          <li><a href="#">Changelog</a></li>
+          <li><a href="#">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Company</h4>
+        <ul class="footer-links">
+          <li><a href="pages/about.html">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="pages/contact.html">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Legal</h4>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 ConnectPro. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+        <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+        <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+        <a href="#" class="social-link" aria-label="YouTube">▶️</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Join Meeting Quick Modal -->
+  <div class="modal-overlay hidden" id="join-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Join a Meeting</h3>
+        <button class="btn btn-ghost btn-icon modal-close" id="join-modal-close">✕</button>
+      </div>
+      <div class="form-group mt-4">
+        <label class="form-label">Meeting ID or Link</label>
+        <div class="input-group">
+          <span class="input-icon">📋</span>
+          <input type="text" class="form-input" id="meeting-id-input" placeholder="abc-1234-def">
+        </div>
+      </div>
+      <div class="form-group mt-4">
+        <label class="form-label">Your Name</label>
+        <div class="input-group">
+          <span class="input-icon">👤</span>
+          <input type="text" class="form-input" id="join-name-input" placeholder="Enter your name">
+        </div>
+      </div>
+      <div class="form-group mt-4">
+        <label class="form-label">Meeting Password (optional)</label>
+        <div class="input-group">
+          <span class="input-icon">🔒</span>
+          <input type="password" class="form-input" id="join-password-input" placeholder="Password if required">
+        </div>
+      </div>
+      <button class="btn btn-primary w-full mt-6" id="join-meeting-confirm">Join Meeting →</button>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/landing.js"></script>
+</body>
+</html>

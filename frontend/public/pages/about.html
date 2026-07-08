@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — ConnectPro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/mobile-nav.css">
+  <style>
+    /* Reuse landing navbar styles inline */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--header-height);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--space-8); z-index: 100;
+      background: rgba(10,10,20,0.85);
+      backdrop-filter: var(--blur-lg);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .nav-logo { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: var(--space-1); }
+    .nav-link { padding: 8px 14px; font-size: var(--text-sm); font-weight: 500; color: var(--text-secondary); border-radius: var(--radius-md); transition: all var(--transition-base); text-decoration: none; }
+    .nav-link:hover { color: var(--text-primary); background: var(--bg-glass); }
+    .nav-actions { display: flex; align-items: center; gap: var(--space-3); }
+
+    .page-hero {
+      min-height: 400px;
+      background: var(--gradient-hero);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: calc(var(--header-height) + 60px) var(--space-8) 80px;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(99,102,241,0.15) 0%, transparent 70%);
+    }
+    .page-hero-tag { display: inline-block; padding: 4px 14px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 700; color: var(--purple-400); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-5); }
+    .page-hero h1 { font-size: clamp(2.2rem,5vw,3.8rem); font-weight: 900; letter-spacing: -0.04em; margin-bottom: var(--space-5); position: relative; }
+    .page-hero p { font-size: var(--text-lg); color: var(--text-secondary); max-width: 580px; line-height: 1.8; position: relative; }
+
+    .content-section { max-width: 900px; margin: 0 auto; padding: 80px var(--space-8); }
+
+    .mission-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-10);
+      margin-bottom: 60px;
+      text-align: center;
+      box-shadow: var(--shadow-card), 0 0 60px rgba(99,102,241,0.08);
+    }
+    .mission-icon { font-size: 56px; margin-bottom: var(--space-5); }
+    .mission-card h2 { font-size: var(--text-3xl); font-weight: 800; margin-bottom: var(--space-4); }
+    .mission-card p { font-size: var(--text-lg); color: var(--text-secondary); line-height: 1.8; max-width: 640px; margin: 0 auto; }
+
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); margin-bottom: 60px; }
+    .value-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: var(--radius-xl); padding: var(--space-6); transition: all var(--transition-base); box-shadow: var(--shadow-card); }
+    .value-card:hover { transform: translateY(-3px); border-color: rgba(99,102,241,0.3); box-shadow: var(--shadow-xl); }
+    .value-icon { width: 52px; height: 52px; background: var(--gradient-brand); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: var(--space-4); box-shadow: 0 8px 24px rgba(99,102,241,0.3); }
+    .value-title { font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--space-2); }
+    .value-desc { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.7; }
+
+    .team-section { margin-bottom: 60px; }
+    .section-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--purple-400); margin-bottom: var(--space-3); }
+    .section-h2 { font-size: clamp(1.8rem,3vw,2.5rem); font-weight: 800; margin-bottom: var(--space-4); }
+    .section-sub { font-size: var(--text-base); color: var(--text-secondary); margin-bottom: var(--space-10); max-width: 560px; }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); }
+    .team-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: var(--radius-xl); padding: var(--space-6); text-align: center; transition: all var(--transition-base); }
+    .team-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .team-avatar { width: 72px; height: 72px; border-radius: 50%; margin: 0 auto var(--space-4); display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 700; color: white; }
+    .team-name { font-size: var(--text-base); font-weight: 700; margin-bottom: 4px; }
+    .team-role { font-size: var(--text-xs); color: var(--text-muted); }
+
+    .stats-band { background: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 60px var(--space-8); margin-bottom: 60px; }
+    .stats-band-inner { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-8); text-align: center; }
+    .stat-n { font-size: 2.8rem; font-weight: 900; background: var(--gradient-brand); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-l { font-size: var(--text-sm); color: var(--text-muted); margin-top: 4px; }
+
+    .cta-band { background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(168,85,247,0.08)); border: 1px solid rgba(99,102,241,0.2); border-radius: var(--radius-2xl); padding: var(--space-12); text-align: center; margin-bottom: 40px; }
+    .cta-band h2 { font-size: var(--text-3xl); font-weight: 800; margin-bottom: var(--space-4); }
+    .cta-band p { color: var(--text-secondary); margin-bottom: var(--space-8); max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    .page-footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: var(--space-8); text-align: center; color: var(--text-muted); font-size: var(--text-sm); }
+    .footer-links-row { display: flex; justify-content: center; gap: var(--space-6); margin-bottom: var(--space-4); flex-wrap: wrap; }
+    .footer-links-row a { color: var(--text-muted); transition: color var(--transition-fast); font-size: var(--text-sm); }
+    .footer-links-row a:hover { color: var(--text-primary); }
+
+    @media (max-width: 768px) {
+      .values-grid, .team-grid { grid-template-columns: 1fr 1fr; }
+      .stats-band-inner { grid-template-columns: 1fr 1fr; }
+      .navbar { padding: 0 var(--space-5); }
+      .nav-links { display: none; }
+      .content-section { padding: 60px var(--space-5); }
+    }
+    @media (max-width: 480px) {
+      .values-grid, .team-grid, .stats-band-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="../index.html" class="nav-logo">
+      <div class="logo-icon">🎥</div>
+      <span class="logo-text">ConnectPro</span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#features" class="nav-link">Features</a>
+      <a href="about.html" class="nav-link" style="color:var(--text-primary)">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-ghost btn-sm" id="theme-toggle">🌙</button>
+      <a href="auth/login.html" class="btn btn-secondary btn-sm">Sign In</a>
+      <a href="auth/register.html" class="btn btn-primary btn-sm">Get Started Free</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="page-hero-tag">About Us</div>
+    <h1>We're building the future of <span class="gradient-text">remote collaboration</span></h1>
+    <p>ConnectPro was founded with one mission: make professional video communication beautiful, fast, and accessible to every team on Earth.</p>
+  </section>
+
+  <!-- Content -->
+  <div class="content-section">
+
+    <!-- Mission -->
+    <div class="mission-card">
+      <div class="mission-icon">🚀</div>
+      <h2>Our Mission</h2>
+      <p>We believe distance should never be a barrier to great collaboration. ConnectPro brings enterprise-grade communication tools into a single, beautifully designed platform — so your team can focus on what matters most.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-band">
+      <div class="stats-band-inner">
+        <div><div class="stat-n">10M+</div><div class="stat-l">Active Users</div></div>
+        <div><div class="stat-n">99.9%</div><div class="stat-l">Uptime SLA</div></div>
+        <div><div class="stat-n">180+</div><div class="stat-l">Countries</div></div>
+        <div><div class="stat-n">2021</div><div class="stat-l">Founded</div></div>
+      </div>
+    </div>
+
+    <!-- Values -->
+    <div class="section-label">Our Values</div>
+    <h2 class="section-h2">What drives us every day</h2>
+    <p class="section-sub">Three core principles guide every decision we make — from product design to customer support.</p>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🔒</div>
+        <div class="value-title">Privacy First</div>
+        <p class="value-desc">End-to-end encryption, row-level security, and zero-knowledge architecture. Your data is yours — always.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <div class="value-title">Blazing Performance</div>
+        <p class="value-desc">WebRTC-powered HD video with adaptive bitrate. Crystal clear calls even on challenging connections.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🎨</div>
+        <div class="value-title">Delightful Design</div>
+        <p class="value-desc">Every pixel is crafted with intention. We believe productivity tools should be a joy to use every single day.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <div class="value-title">Global Accessibility</div>
+        <p class="value-desc">Multi-language support, low-bandwidth modes, and browser-based access. No app installs, no barriers.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <div class="value-title">Community Driven</div>
+        <p class="value-desc">Our roadmap is shaped by our users. We listen, iterate, and ship features that truly matter to teams.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📈</div>
+        <div class="value-title">Built to Scale</div>
+        <p class="value-desc">From solo freelancers to Fortune 500 enterprises — ConnectPro scales seamlessly with your growth.</p>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="team-section">
+      <div class="section-label">The Team</div>
+      <h2 class="section-h2">Meet the builders</h2>
+      <p class="section-sub">A small, passionate team obsessed with making remote work feel human.</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">AK</div>
+          <div class="team-name">Alex Kumar</div>
+          <div class="team-role">CEO & Co-founder</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#ec4899,#f43f5e)">SC</div>
+          <div class="team-name">Sarah Chen</div>
+          <div class="team-role">CTO & Co-founder</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#22d3ee,#3b82f6)">MG</div>
+          <div class="team-name">Maria Garcia</div>
+          <div class="team-role">Head of Design</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#4ade80,#22c55e)">JP</div>
+          <div class="team-name">James Patel</div>
+          <div class="team-role">Head of Engineering</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-band">
+      <h2>Ready to join us?</h2>
+      <p>Start your free ConnectPro account today and experience the future of team collaboration.</p>
+      <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
+        <a href="auth/register.html" class="btn btn-primary btn-lg">🚀 Get Started Free</a>
+        <a href="contact.html" class="btn btn-secondary btn-lg">💬 Contact Us</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="footer-links-row">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#features">Features</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="auth/login.html">Sign In</a>
+    </div>
+    <p>© 2024 ConnectPro. All rights reserved.</p>
+  </footer>
+
+  <script src="../js/app.js"></script>
+</body>
+</html>

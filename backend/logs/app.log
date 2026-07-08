@@ -1,0 +1,536 @@
+2026-07-05 13:29:32 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-05 13:29:32 [INFO]: 📡 Socket.io ready
+2026-07-05 13:29:32 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-05 13:29:33 [INFO]: ✅ Supabase connected successfully
+2026-07-05 13:30:53 [INFO]: ::1 - - [05/Jul/2026:08:00:53 +0000] "POST /api/auth/register HTTP/1.1" 400 241 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:31:06 [INFO]: ::1 - - [05/Jul/2026:08:01:06 +0000] "POST /api/auth/register HTTP/1.1" 400 241 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:36:33 [INFO]: ::1 - - [05/Jul/2026:08:06:33 +0000] "POST /api/auth/register HTTP/1.1" 201 542 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:36:35 [INFO]: ::1 - - [05/Jul/2026:08:06:35 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:36:35 [INFO]: ::1 - - [05/Jul/2026:08:06:35 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:36:35 [INFO]: ::1 - - [05/Jul/2026:08:06:35 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:37:19 [INFO]: ::1 - - [05/Jul/2026:08:07:19 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:37:19 [INFO]: ::1 - - [05/Jul/2026:08:07:19 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:37:20 [INFO]: ::1 - - [05/Jul/2026:08:07:20 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:38:24 [INFO]: ::1 - - [05/Jul/2026:08:08:24 +0000] "POST /api/meetings HTTP/1.1" 400 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:38:40 [INFO]: ::1 - - [05/Jul/2026:08:08:40 +0000] "POST /api/meetings HTTP/1.1" 400 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:38:55 [INFO]: ::1 - - [05/Jul/2026:08:08:55 +0000] "POST /api/meetings HTTP/1.1" 400 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:39:23 [INFO]: ::1 - - [05/Jul/2026:08:09:23 +0000] "POST /api/meetings HTTP/1.1" 201 684 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:39:46 [INFO]: ::1 - - [05/Jul/2026:08:09:46 +0000] "POST /api/meetings/u1p-aygq-hrn/join HTTP/1.1" 404 86 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:39:50 [INFO]: ::1 - - [05/Jul/2026:08:09:50 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:39:50 [INFO]: ::1 - - [05/Jul/2026:08:09:50 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:39:50 [INFO]: ::1 - - [05/Jul/2026:08:09:50 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 731 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:40:16 [INFO]: ::1 - - [05/Jul/2026:08:10:16 +0000] "POST /api/meetings/u1p-aygq-hrn/join HTTP/1.1" 404 86 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:40:20 [INFO]: ::1 - - [05/Jul/2026:08:10:20 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:40:21 [INFO]: ::1 - - [05/Jul/2026:08:10:21 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 731 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:40:21 [INFO]: ::1 - - [05/Jul/2026:08:10:21 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:40:45 [INFO]: ::1 - - [05/Jul/2026:08:10:45 +0000] "POST /api/meetings/u1p-aygq-hrn/join HTTP/1.1" 404 86 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:40:49 [INFO]: ::1 - - [05/Jul/2026:08:10:49 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:40:49 [INFO]: ::1 - - [05/Jul/2026:08:10:49 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:40:49 [INFO]: ::1 - - [05/Jul/2026:08:10:49 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 731 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:41:21 [INFO]: ::1 - - [05/Jul/2026:08:11:21 +0000] "POST /api/meetings/u1p-aygq-hrn/join HTTP/1.1" 404 86 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:41:25 [INFO]: ::1 - - [05/Jul/2026:08:11:25 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:41:25 [INFO]: ::1 - - [05/Jul/2026:08:11:25 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 731 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:41:25 [INFO]: ::1 - - [05/Jul/2026:08:11:25 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:42:13 [INFO]: ::1 - - [05/Jul/2026:08:12:13 +0000] "GET /api/auth/me HTTP/1.1" 200 97 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:42:25 [INFO]: ::1 - - [05/Jul/2026:08:12:25 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:42:25 [INFO]: ::1 - - [05/Jul/2026:08:12:25 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 731 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:42:25 [INFO]: ::1 - - [05/Jul/2026:08:12:25 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:45:26 [INFO]: ::1 - - [05/Jul/2026:08:15:26 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:45:26 [INFO]: ::1 - - [05/Jul/2026:08:15:26 +0000] "GET /api/files/storage-usage HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:45:26 [INFO]: ::1 - - [05/Jul/2026:08:15:26 +0000] "GET /api/meetings/dashboard HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:45:26 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-05 13:45:26 [INFO]: 📡 Socket.io ready
+2026-07-05 13:45:26 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-05 13:45:27 [INFO]: ✅ Supabase connected successfully
+2026-07-05 13:45:27 [INFO]: ::ffff:127.0.0.1 - - [05/Jul/2026:08:15:27 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 731 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:45:27 [INFO]: ::ffff:127.0.0.1 - - [05/Jul/2026:08:15:27 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:45:27 [INFO]: ::ffff:127.0.0.1 - - [05/Jul/2026:08:15:27 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:45:41 [INFO]: ::1 - - [05/Jul/2026:08:15:41 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:45:41 [INFO]: ::1 - - [05/Jul/2026:08:15:41 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:45:42 [INFO]: ::ffff:127.0.0.1 - - [05/Jul/2026:08:15:42 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 731 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:46:39 [INFO]: ::1 - - [05/Jul/2026:08:16:39 +0000] "POST /api/meetings/u1p-aygq-hrn/join HTTP/1.1" 404 86 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:46:42 [INFO]: ::1 - - [05/Jul/2026:08:16:42 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:46:42 [INFO]: ::1 - - [05/Jul/2026:08:16:42 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:46:42 [INFO]: ::1 - - [05/Jul/2026:08:16:42 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 731 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:05 [INFO]: ::1 - - [05/Jul/2026:08:17:05 +0000] "POST /api/meetings HTTP/1.1" 201 687 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:06 [INFO]: ::1 - - [05/Jul/2026:08:17:06 +0000] "POST /api/meetings/zvs-hbzz-n2p/join HTTP/1.1" 404 86 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:10 [INFO]: ::1 - - [05/Jul/2026:08:17:10 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:10 [INFO]: ::1 - - [05/Jul/2026:08:17:10 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:11 [INFO]: ::1 - - [05/Jul/2026:08:17:11 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:15 [INFO]: ::1 - - [05/Jul/2026:08:17:15 +0000] "POST /api/meetings/zvs-hbzz-n2p/join HTTP/1.1" 404 86 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:18 [INFO]: ::1 - - [05/Jul/2026:08:17:18 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:18 [INFO]: ::1 - - [05/Jul/2026:08:17:18 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:18 [INFO]: ::1 - - [05/Jul/2026:08:17:18 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:48 [INFO]: ::1 - - [05/Jul/2026:08:17:48 +0000] "POST /api/meetings/http://127.0.0.1:5500/frontend/public/pages/meeting/room.html?id=zvs-hbzz-n2p/join HTTP/1.1" 404 186 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:52 [INFO]: ::1 - - [05/Jul/2026:08:17:52 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:52 [INFO]: ::1 - - [05/Jul/2026:08:17:52 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:47:52 [INFO]: ::1 - - [05/Jul/2026:08:17:52 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-05 13:48:21 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-05 13:48:21 [INFO]: 📡 Socket.io ready
+2026-07-05 13:48:21 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-05 13:48:21 [INFO]: ✅ Supabase connected successfully
+2026-07-07 18:51:37 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 18:51:37 [INFO]: 📡 Socket.io ready
+2026-07-07 18:51:37 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 18:51:39 [INFO]: ✅ Supabase connected successfully
+2026-07-07 18:51:51 [INFO]: ::1 - - [07/Jul/2026:13:21:51 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:51:51 [INFO]: ::1 - - [07/Jul/2026:13:21:51 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:51:52 [INFO]: ::1 - - [07/Jul/2026:13:21:52 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:57:47 [INFO]: ::1 - - [07/Jul/2026:13:27:47 +0000] "GET /api/meetings?status=scheduled&limit=100 HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:57:59 [INFO]: ::1 - - [07/Jul/2026:13:27:59 +0000] "GET /api/meetings?page=1&limit=12&status=active HTTP/1.1" 200 153 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:01 [INFO]: ::1 - - [07/Jul/2026:13:28:01 +0000] "GET /api/meetings?page=1&limit=12&status=scheduled HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:03 [INFO]: ::1 - - [07/Jul/2026:13:28:03 +0000] "GET /api/meetings?page=1&limit=12&status=ended HTTP/1.1" 200 153 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:05 [INFO]: ::1 - - [07/Jul/2026:13:28:05 +0000] "GET /api/meetings?page=1&limit=12 HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:19 [INFO]: ::1 - - [07/Jul/2026:13:28:19 +0000] "POST /api/meetings/u1p-aygq-hrn/join HTTP/1.1" 404 86 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:23 [INFO]: ::1 - - [07/Jul/2026:13:28:23 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:23 [INFO]: ::1 - - [07/Jul/2026:13:28:23 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:24 [INFO]: ::1 - - [07/Jul/2026:13:28:24 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:39 [INFO]: ::1 - - [07/Jul/2026:13:28:39 +0000] "GET /api/meetings?page=1&limit=12&status=active HTTP/1.1" 200 153 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:41 [INFO]: ::1 - - [07/Jul/2026:13:28:41 +0000] "GET /api/meetings?page=1&limit=12&status=scheduled HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:44 [INFO]: ::1 - - [07/Jul/2026:13:28:44 +0000] "GET /api/meetings?page=1&limit=12&status=ended HTTP/1.1" 200 153 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:45 [INFO]: ::1 - - [07/Jul/2026:13:28:45 +0000] "GET /api/meetings?page=1&limit=12 HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:49 [INFO]: ::1 - - [07/Jul/2026:13:28:49 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:49 [INFO]: ::1 - - [07/Jul/2026:13:28:49 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:49 [INFO]: ::1 - - [07/Jul/2026:13:28:49 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:53 [INFO]: ::1 - - [07/Jul/2026:13:28:53 +0000] "GET /api/meetings?page=1&limit=15&status=ended HTTP/1.1" 200 153 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:57 [INFO]: ::1 - - [07/Jul/2026:13:28:57 +0000] "GET /api/meetings?page=1&limit=15&status=cancelled HTTP/1.1" 200 153 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:58:59 [INFO]: ::1 - - [07/Jul/2026:13:28:59 +0000] "GET /api/meetings?page=1&limit=15&status=ended HTTP/1.1" 200 153 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 18:59:16 [INFO]: ::1 - - [07/Jul/2026:13:29:16 +0000] "GET /api/auth/me HTTP/1.1" 200 97 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:00:10 [INFO]: ::1 - - [07/Jul/2026:13:30:10 +0000] "GET /api/auth/me HTTP/1.1" 200 97 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:00:15 [INFO]: ::1 - - [07/Jul/2026:13:30:15 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:00:15 [INFO]: ::1 - - [07/Jul/2026:13:30:15 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:00:16 [INFO]: ::1 - - [07/Jul/2026:13:30:16 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:00:19 [INFO]: ::1 - - [07/Jul/2026:13:30:19 +0000] "GET /api/auth/me HTTP/1.1" 200 97 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:00:19 [INFO]: ::1 - - [07/Jul/2026:13:30:19 +0000] "GET /api/notifications HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:00:44 [INFO]: ::1 - - [07/Jul/2026:13:30:44 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:00:44 [INFO]: ::1 - - [07/Jul/2026:13:30:44 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:00:44 [INFO]: ::1 - - [07/Jul/2026:13:30:44 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:00:45 [INFO]: ::1 - - [07/Jul/2026:13:30:45 +0000] "GET /api/auth/me HTTP/1.1" 200 97 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:01:09 [INFO]: ::1 - - [07/Jul/2026:13:31:09 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:01:10 [INFO]: ::1 - - [07/Jul/2026:13:31:10 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:01:10 [INFO]: ::1 - - [07/Jul/2026:13:31:10 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:01:11 [INFO]: ::1 - - [07/Jul/2026:13:31:11 +0000] "GET /api/auth/me HTTP/1.1" 200 97 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:03:43 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 19:03:43 [INFO]: 📡 Socket.io ready
+2026-07-07 19:03:43 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 19:03:44 [INFO]: ✅ Supabase connected successfully
+2026-07-07 19:03:44 [INFO]: ::1 - - [07/Jul/2026:13:33:44 +0000] "GET /api/auth/me HTTP/1.1" 200 565 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:03:45 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 19:03:45 [INFO]: 📡 Socket.io ready
+2026-07-07 19:03:45 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 19:03:46 [INFO]: ✅ Supabase connected successfully
+2026-07-07 19:03:46 [INFO]: ::1 - - [07/Jul/2026:13:33:46 +0000] "GET /api/auth/me HTTP/1.1" 200 1018 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:03:46 [INFO]: ::1 - - [07/Jul/2026:13:33:46 +0000] "GET /api/users/me/settings HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:03:47 [INFO]: ::1 - - [07/Jul/2026:13:33:47 +0000] "GET /api/auth/me HTTP/1.1" 200 1018 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:03:48 [INFO]: ::1 - - [07/Jul/2026:13:33:48 +0000] "GET /api/users/me/settings HTTP/1.1" 200 540 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:04:10 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 19:04:10 [INFO]: 📡 Socket.io ready
+2026-07-07 19:04:10 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 19:04:11 [INFO]: ::1 - - [07/Jul/2026:13:34:11 +0000] "GET /api/auth/me HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:04:11 [INFO]: ✅ Supabase connected successfully
+2026-07-07 19:04:12 [INFO]: ::1 - - [07/Jul/2026:13:34:12 +0000] "GET /api/auth/me HTTP/1.1" 200 1018 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:04:13 [INFO]: ::1 - - [07/Jul/2026:13:34:13 +0000] "GET /api/users/me/settings HTTP/1.1" 200 540 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:04:38 [INFO]: ::1 - - [07/Jul/2026:13:34:38 +0000] "GET /api/auth/me HTTP/1.1" 200 1018 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:04:39 [INFO]: ::1 - - [07/Jul/2026:13:34:39 +0000] "GET /api/users/me/settings HTTP/1.1" 200 540 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:04:45 [INFO]: ::1 - - [07/Jul/2026:13:34:45 +0000] "PATCH /api/users/me/settings HTTP/1.1" 200 549 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:04:46 [INFO]: ::1 - - [07/Jul/2026:13:34:46 +0000] "PATCH /api/users/me/settings HTTP/1.1" 200 549 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:04:51 [INFO]: ::1 - - [07/Jul/2026:13:34:51 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:04:51 [INFO]: ::1 - - [07/Jul/2026:13:34:51 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:04:51 [INFO]: ::1 - - [07/Jul/2026:13:34:51 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:04:59 [INFO]: ::1 - - [07/Jul/2026:13:34:59 +0000] "GET /api/meetings?page=1&limit=15&status=ended HTTP/1.1" 200 153 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:04 [INFO]: ::1 - - [07/Jul/2026:13:35:04 +0000] "GET /api/auth/me HTTP/1.1" 200 1018 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:04 [INFO]: ::1 - - [07/Jul/2026:13:35:04 +0000] "GET /api/notifications HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:09 [INFO]: ::1 - - [07/Jul/2026:13:35:09 +0000] "PATCH /api/notifications/read-all HTTP/1.1" 200 112 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:09 [INFO]: ::1 - - [07/Jul/2026:13:35:09 +0000] "GET /api/notifications HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:12 [INFO]: ::1 - - [07/Jul/2026:13:35:12 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:12 [INFO]: ::1 - - [07/Jul/2026:13:35:12 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:12 [INFO]: ::1 - - [07/Jul/2026:13:35:12 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:14 [INFO]: ::1 - - [07/Jul/2026:13:35:14 +0000] "GET /api/auth/me HTTP/1.1" 200 1018 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:33 [INFO]: ::1 - - [07/Jul/2026:13:35:33 +0000] "PATCH /api/users/me HTTP/1.1" 200 541 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:33 [INFO]: ::1 - - [07/Jul/2026:13:35:33 +0000] "GET /api/auth/me HTTP/1.1" 200 1017 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:53 [INFO]: ::1 - - [07/Jul/2026:13:35:53 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:53 [INFO]: ::1 - - [07/Jul/2026:13:35:53 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:05:53 [INFO]: ::1 - - [07/Jul/2026:13:35:53 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:06:41 [INFO]: ::1 - - [07/Jul/2026:13:36:41 +0000] "POST /api/meetings HTTP/1.1" 201 686 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:06:43 [INFO]: ::1 - - [07/Jul/2026:13:36:43 +0000] "POST /api/meetings/1ib-pqh1-zis/join HTTP/1.1" 404 86 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:06:47 [INFO]: ::1 - - [07/Jul/2026:13:36:47 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:06:47 [INFO]: ::1 - - [07/Jul/2026:13:36:47 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:06:47 [INFO]: ::1 - - [07/Jul/2026:13:36:47 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 733 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:06:50 [INFO]: ::1 - - [07/Jul/2026:13:36:50 +0000] "POST /api/meetings/1ib-pqh1-zis/join HTTP/1.1" 404 86 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:06:54 [INFO]: ::1 - - [07/Jul/2026:13:36:54 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:06:54 [INFO]: ::1 - - [07/Jul/2026:13:36:54 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:06:54 [INFO]: ::1 - - [07/Jul/2026:13:36:54 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 733 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:10:57 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 19:10:57 [INFO]: 📡 Socket.io ready
+2026-07-07 19:10:57 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 19:10:58 [INFO]: ::1 - - [07/Jul/2026:13:40:58 +0000] "GET /api/files/storage-usage HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:10:58 [INFO]: ::1 - - [07/Jul/2026:13:40:58 +0000] "GET /api/meetings/dashboard HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:10:58 [INFO]: ::1 - - [07/Jul/2026:13:40:58 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:10:58 [INFO]: ✅ Supabase connected successfully
+2026-07-07 19:10:59 [INFO]: ::1 - - [07/Jul/2026:13:40:59 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:10:59 [INFO]: ::1 - - [07/Jul/2026:13:40:59 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:10:59 [INFO]: ::1 - - [07/Jul/2026:13:40:59 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 733 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:01 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 19:11:01 [INFO]: 📡 Socket.io ready
+2026-07-07 19:11:01 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 19:11:02 [INFO]: ✅ Supabase connected successfully
+2026-07-07 19:11:02 [INFO]: ::1 - - [07/Jul/2026:13:41:02 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:02 [INFO]: ::1 - - [07/Jul/2026:13:41:02 +0000] "GET /api/files/storage-usage HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:02 [INFO]: ::1 - - [07/Jul/2026:13:41:02 +0000] "GET /api/meetings/dashboard HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:02 [INFO]: ::1 - - [07/Jul/2026:13:41:02 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:02 [INFO]: ::ffff:127.0.0.1 - - [07/Jul/2026:13:41:02 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 733 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:03 [INFO]: ::1 - - [07/Jul/2026:13:41:03 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:13 [INFO]: ::1 - - [07/Jul/2026:13:41:13 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:13 [INFO]: ::1 - - [07/Jul/2026:13:41:13 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:14 [INFO]: ::1 - - [07/Jul/2026:13:41:14 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 733 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:30 [INFO]: ::1 - - [07/Jul/2026:13:41:30 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:30 [INFO]: ::1 - - [07/Jul/2026:13:41:30 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 733 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:11:31 [INFO]: ::1 - - [07/Jul/2026:13:41:31 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:12:09 [INFO]: ::1 - - [07/Jul/2026:13:42:09 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:12:09 [INFO]: ::1 - - [07/Jul/2026:13:42:09 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:12:09 [INFO]: ::1 - - [07/Jul/2026:13:42:09 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 733 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:12:22 [INFO]: ::1 - - [07/Jul/2026:13:42:22 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:12:22 [INFO]: ::1 - - [07/Jul/2026:13:42:22 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:12:22 [INFO]: ::1 - - [07/Jul/2026:13:42:22 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 733 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:02 [INFO]: ::1 - - [07/Jul/2026:13:43:02 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:03 [INFO]: ::1 - - [07/Jul/2026:13:43:03 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 733 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:03 [INFO]: ::1 - - [07/Jul/2026:13:43:03 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:32 [INFO]: ::1 - - [07/Jul/2026:13:43:32 +0000] "POST /api/meetings HTTP/1.1" 201 686 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:35 [INFO]: ::1 - - [07/Jul/2026:13:43:35 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 676 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:35 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (YDAY616wxDaIgqvbAAAB)
+2026-07-07 19:13:39 [INFO]: ::1 - - [07/Jul/2026:13:43:39 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:40 [INFO]: ::1 - - [07/Jul/2026:13:43:40 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:40 [INFO]: ::1 - - [07/Jul/2026:13:43:40 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:43 [INFO]: ::1 - - [07/Jul/2026:13:43:43 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:43 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (pNFUaaWWoZYHbcKbAAAD)
+2026-07-07 19:13:47 [INFO]: ::1 - - [07/Jul/2026:13:43:47 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:48 [INFO]: ::1 - - [07/Jul/2026:13:43:48 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:48 [INFO]: ::1 - - [07/Jul/2026:13:43:48 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:52 [INFO]: ::1 - - [07/Jul/2026:13:43:52 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:53 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (XZjGVLWLzPd_LgsmAAAF)
+2026-07-07 19:13:57 [INFO]: ::1 - - [07/Jul/2026:13:43:57 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:57 [INFO]: ::1 - - [07/Jul/2026:13:43:57 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:13:57 [INFO]: ::1 - - [07/Jul/2026:13:43:57 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:14:13 [INFO]: ::1 - - [07/Jul/2026:13:44:13 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:14:13 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (_tS4KP0tOZmWpGFFAAAH)
+2026-07-07 19:14:17 [INFO]: ::1 - - [07/Jul/2026:13:44:17 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:14:17 [INFO]: ::1 - - [07/Jul/2026:13:44:17 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:14:18 [INFO]: ::1 - - [07/Jul/2026:13:44:18 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:17:32 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 19:17:32 [INFO]: 📡 Socket.io ready
+2026-07-07 19:17:32 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 19:17:33 [INFO]: ✅ Supabase connected successfully
+2026-07-07 19:39:57 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 19:39:57 [INFO]: 📡 Socket.io ready
+2026-07-07 19:39:57 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 19:39:59 [INFO]: ✅ Supabase connected successfully
+2026-07-07 19:40:07 [INFO]: ::1 - - [07/Jul/2026:14:10:07 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:40:07 [INFO]: ::1 - - [07/Jul/2026:14:10:07 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:40:08 [INFO]: ::1 - - [07/Jul/2026:14:10:08 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:40:47 [INFO]: ::1 - - [07/Jul/2026:14:10:47 +0000] "POST /api/meetings HTTP/1.1" 201 699 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:40:50 [INFO]: ::1 - - [07/Jul/2026:14:10:50 +0000] "POST /api/meetings/fnh-5iac-d1l/join HTTP/1.1" 200 689 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:40:51 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (5JXShnHgwguumoDcAAAB)
+2026-07-07 19:40:55 [INFO]: ::1 - - [07/Jul/2026:14:10:55 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:40:55 [INFO]: ::1 - - [07/Jul/2026:14:10:55 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:40:55 [INFO]: ::1 - - [07/Jul/2026:14:10:55 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:09 [INFO]: ::1 - - [07/Jul/2026:14:11:09 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:09 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (2FoMutFr3_abo8JUAAAD)
+2026-07-07 19:41:13 [INFO]: ::1 - - [07/Jul/2026:14:11:13 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:13 [INFO]: ::1 - - [07/Jul/2026:14:11:13 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:14 [INFO]: ::1 - - [07/Jul/2026:14:11:14 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:37 [INFO]: ::1 - - [07/Jul/2026:14:11:37 +0000] "POST /api/meetings/fnh-5iac-d1l/join HTTP/1.1" 200 712 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:38 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (MCXxBpio2i_1JHxcAAAF)
+2026-07-07 19:41:42 [INFO]: ::1 - - [07/Jul/2026:14:11:42 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:42 [INFO]: ::1 - - [07/Jul/2026:14:11:42 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:43 [INFO]: ::1 - - [07/Jul/2026:14:11:43 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:46 [INFO]: ::1 - - [07/Jul/2026:14:11:46 +0000] "POST /api/meetings/fnh-5iac-d1l/join HTTP/1.1" 200 712 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:47 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (KHbPJo3FexsK7mtCAAAH)
+2026-07-07 19:41:51 [INFO]: ::1 - - [07/Jul/2026:14:11:51 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:51 [INFO]: ::1 - - [07/Jul/2026:14:11:51 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:41:52 [INFO]: ::1 - - [07/Jul/2026:14:11:52 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:42:10 [INFO]: ::1 - - [07/Jul/2026:14:12:10 +0000] "POST /api/meetings/fnh-5iac-d1l/join HTTP/1.1" 200 712 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:42:10 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (mGiyCIWfeZLpeJxpAAAJ)
+2026-07-07 19:42:15 [INFO]: ::1 - - [07/Jul/2026:14:12:15 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:42:15 [INFO]: ::1 - - [07/Jul/2026:14:12:15 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:42:15 [INFO]: ::1 - - [07/Jul/2026:14:12:15 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:04 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 19:44:04 [INFO]: 📡 Socket.io ready
+2026-07-07 19:44:04 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 19:44:04 [INFO]: ::1 - - [07/Jul/2026:14:14:04 +0000] "GET /api/meetings/dashboard HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:04 [INFO]: ::1 - - [07/Jul/2026:14:14:04 +0000] "GET /api/files/storage-usage HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:04 [INFO]: ::1 - - [07/Jul/2026:14:14:04 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:05 [INFO]: ✅ Supabase connected successfully
+2026-07-07 19:44:05 [INFO]: ::1 - - [07/Jul/2026:14:14:05 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:05 [INFO]: ::1 - - [07/Jul/2026:14:14:05 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:05 [INFO]: ::1 - - [07/Jul/2026:14:14:05 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:23 [INFO]: ::1 - - [07/Jul/2026:14:14:23 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:23 [INFO]: ::1 - - [07/Jul/2026:14:14:23 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:23 [INFO]: ::1 - - [07/Jul/2026:14:14:23 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:34 [INFO]: ::1 - - [07/Jul/2026:14:14:34 +0000] "POST /api/meetings HTTP/1.1" 201 675 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:38 [INFO]: ::1 - - [07/Jul/2026:14:14:38 +0000] "POST /api/meetings/aaq-sf40-hkn/join HTTP/1.1" 200 665 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:44:38 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (BXODZg7g5Fx9w4wNAAAB)
+2026-07-07 19:44:39 [INFO]: Harsh Ashwinbhai Prajapati joined room aaq-sf40-hkn
+2026-07-07 19:46:28 [INFO]: ::1 - - [07/Jul/2026:14:16:28 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:46:28 [INFO]: ::1 - - [07/Jul/2026:14:16:28 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:46:28 [INFO]: ::1 - - [07/Jul/2026:14:16:28 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:49:44 [INFO]: Harsh Ashwinbhai Prajapati left room aaq-sf40-hkn
+2026-07-07 19:49:44 [INFO]: Harsh Ashwinbhai Prajapati left room aaq-sf40-hkn
+2026-07-07 19:49:46 [INFO]: ::1 - - [07/Jul/2026:14:19:46 +0000] "POST /api/meetings/307fcaf5-532e-481d-a052-f1803809d83b/end HTTP/1.1" 200 93 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:49:46 [INFO]: ::1 - - [07/Jul/2026:14:19:46 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:49:47 [INFO]: ::1 - - [07/Jul/2026:14:19:47 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:49:47 [INFO]: ::1 - - [07/Jul/2026:14:19:47 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:49:56 [INFO]: ::1 - - [07/Jul/2026:14:19:56 +0000] "POST /api/meetings/zvs-hbzz-n2p/join HTTP/1.1" 200 677 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:49:56 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (w0UeNzu3gpnuX2d2AAAD)
+2026-07-07 19:49:56 [INFO]: Harsh Ashwinbhai Prajapati joined room zvs-hbzz-n2p
+2026-07-07 19:50:04 [INFO]: Harsh Ashwinbhai Prajapati left room zvs-hbzz-n2p
+2026-07-07 19:50:04 [INFO]: Harsh Ashwinbhai Prajapati left room zvs-hbzz-n2p
+2026-07-07 19:50:06 [INFO]: ::1 - - [07/Jul/2026:14:20:06 +0000] "POST /api/meetings/77311630-e169-4905-9edb-50b2a35e8635/end HTTP/1.1" 200 93 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:07 [INFO]: ::1 - - [07/Jul/2026:14:20:07 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:07 [INFO]: ::1 - - [07/Jul/2026:14:20:07 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:07 [INFO]: ::1 - - [07/Jul/2026:14:20:07 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:20 [INFO]: ::1 - - [07/Jul/2026:14:20:20 +0000] "POST /api/meetings/aaq-sf40-hkn/join HTTP/1.1" 410 91 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:24 [INFO]: ::1 - - [07/Jul/2026:14:20:24 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:24 [INFO]: ::1 - - [07/Jul/2026:14:20:24 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:24 [INFO]: ::1 - - [07/Jul/2026:14:20:24 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:33 [INFO]: ::1 - - [07/Jul/2026:14:20:33 +0000] "POST /api/meetings/1ib-pqh1-zis/join HTTP/1.1" 200 676 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:33 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (ggNjwUilzCmgU8gdAAAF)
+2026-07-07 19:50:34 [INFO]: Harsh Ashwinbhai Prajapati joined room 1ib-pqh1-zis
+2026-07-07 19:50:40 [INFO]: Harsh Ashwinbhai Prajapati left room 1ib-pqh1-zis
+2026-07-07 19:50:40 [INFO]: Harsh Ashwinbhai Prajapati left room 1ib-pqh1-zis
+2026-07-07 19:50:42 [INFO]: ::1 - - [07/Jul/2026:14:20:42 +0000] "POST /api/meetings/4980ec03-b40b-410c-89eb-e27229f85e2a/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:42 [INFO]: ::1 - - [07/Jul/2026:14:20:42 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:43 [INFO]: ::1 - - [07/Jul/2026:14:20:43 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:43 [INFO]: ::1 - - [07/Jul/2026:14:20:43 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:50 [INFO]: ::1 - - [07/Jul/2026:14:20:50 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:50 [INFO]: ::1 - - [07/Jul/2026:14:20:50 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:50:50 [INFO]: ::1 - - [07/Jul/2026:14:20:50 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:00 [INFO]: ::1 - - [07/Jul/2026:14:21:00 +0000] "POST /api/meetings/fnh-5iac-d1l/join HTTP/1.1" 200 712 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:01 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (EX7vJq9WX4TUMzYpAAAH)
+2026-07-07 19:51:01 [INFO]: Harsh Ashwinbhai Prajapati joined room fnh-5iac-d1l
+2026-07-07 19:51:05 [INFO]: Harsh Ashwinbhai Prajapati left room fnh-5iac-d1l
+2026-07-07 19:51:05 [INFO]: Harsh Ashwinbhai Prajapati left room fnh-5iac-d1l
+2026-07-07 19:51:06 [INFO]: ::1 - - [07/Jul/2026:14:21:06 +0000] "POST /api/meetings/ed796f57-01ff-4491-b6f8-0afda5323277/end HTTP/1.1" 200 93 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:07 [INFO]: ::1 - - [07/Jul/2026:14:21:07 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:07 [INFO]: ::1 - - [07/Jul/2026:14:21:07 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:07 [INFO]: ::1 - - [07/Jul/2026:14:21:07 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:16 [INFO]: ::1 - - [07/Jul/2026:14:21:16 +0000] "POST /api/meetings/1ib-pqh1-zis/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:17 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (imlOpPRSl_0iuCPTAAAJ)
+2026-07-07 19:51:17 [INFO]: Harsh Ashwinbhai Prajapati joined room 1ib-pqh1-zis
+2026-07-07 19:51:20 [INFO]: Harsh Ashwinbhai Prajapati left room 1ib-pqh1-zis
+2026-07-07 19:51:20 [INFO]: Harsh Ashwinbhai Prajapati left room 1ib-pqh1-zis
+2026-07-07 19:51:22 [INFO]: ::1 - - [07/Jul/2026:14:21:22 +0000] "POST /api/meetings/4980ec03-b40b-410c-89eb-e27229f85e2a/end HTTP/1.1" 200 93 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:22 [INFO]: ::1 - - [07/Jul/2026:14:21:22 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:22 [INFO]: ::1 - - [07/Jul/2026:14:21:22 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:22 [INFO]: ::1 - - [07/Jul/2026:14:21:22 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:33 [INFO]: ::1 - - [07/Jul/2026:14:21:33 +0000] "GET /api/auth/me HTTP/1.1" 200 1017 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:33 [INFO]: ::1 - - [07/Jul/2026:14:21:33 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:33 [INFO]: ::1 - - [07/Jul/2026:14:21:33 +0000] "GET /api/files?limit=50 HTTP/1.1" 200 150 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:58 [INFO]: ::1 - - [07/Jul/2026:14:21:58 +0000] "POST /api/files/upload HTTP/1.1" 201 741 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:59 [INFO]: ::1 - - [07/Jul/2026:14:21:59 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 199 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:51:59 [INFO]: ::1 - - [07/Jul/2026:14:21:59 +0000] "GET /api/files?limit=50 HTTP/1.1" 200 905 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:52:14 [ERROR]: Error: File type application/x-zip-compressed not allowed
+    at C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\src\middleware\upload.middleware.js:38:8
+    at wrappedFileFilter (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\multer\index.js:44:7)
+    at Multipart.<anonymous> (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\multer\lib\make-middleware.js:109:7)
+    at Multipart.emit (node:events:518:28)
+    at HeaderParser.cb (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\busboy\lib\types\multipart.js:358:14)
+    at HeaderParser.push (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\busboy\lib\types\multipart.js:162:20)
+    at SBMH.ssCb [as _cb] (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\busboy\lib\types\multipart.js:394:37)
+    at feed (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\streamsearch\lib\sbmh.js:248:10)
+    at SBMH.push (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\streamsearch\lib\sbmh.js:104:16)
+    at Multipart._write (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\busboy\lib\types\multipart.js:567:19)
+2026-07-07 19:52:14 [INFO]: ::1 - - [07/Jul/2026:14:22:14 +0000] "POST /api/files/upload HTTP/1.1" 500 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:52:15 [INFO]: ::1 - - [07/Jul/2026:14:22:15 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 199 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:52:21 [INFO]: ::1 - - [07/Jul/2026:14:22:21 +0000] "GET /api/files?limit=50 HTTP/1.1" 200 905 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:52:29 [INFO]: ::1 - - [07/Jul/2026:14:22:29 +0000] "POST /api/files/upload HTTP/1.1" 201 817 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:52:30 [INFO]: ::1 - - [07/Jul/2026:14:22:30 +0000] "GET /api/files?limit=50 HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:52:30 [INFO]: ::1 - - [07/Jul/2026:14:22:30 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 201 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:16 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 19:55:16 [INFO]: 📡 Socket.io ready
+2026-07-07 19:55:16 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 19:55:16 [INFO]: ::1 - - [07/Jul/2026:14:25:16 +0000] "GET /api/auth/me HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:17 [INFO]: ✅ Storage bucket 'meeting-files' exists
+2026-07-07 19:55:17 [INFO]: ✅ Supabase connected successfully
+2026-07-07 19:55:17 [INFO]: ::1 - - [07/Jul/2026:14:25:17 +0000] "GET /api/auth/me HTTP/1.1" 200 1017 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:18 [INFO]: ::1 - - [07/Jul/2026:14:25:18 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 201 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:18 [INFO]: ::1 - - [07/Jul/2026:14:25:18 +0000] "GET /api/files?limit=50 HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:34 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 19:55:34 [INFO]: 📡 Socket.io ready
+2026-07-07 19:55:34 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 19:55:35 [INFO]: ✅ Supabase connected successfully
+2026-07-07 19:55:35 [INFO]: ::1 - - [07/Jul/2026:14:25:35 +0000] "GET /api/auth/me HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:36 [INFO]: ✅ Storage bucket 'meeting-files' exists
+2026-07-07 19:55:36 [INFO]: ::1 - - [07/Jul/2026:14:25:36 +0000] "GET /api/auth/me HTTP/1.1" 200 1017 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:37 [INFO]: ::1 - - [07/Jul/2026:14:25:37 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 201 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:37 [INFO]: ::1 - - [07/Jul/2026:14:25:37 +0000] "GET /api/files?limit=50 HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:46 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-07 19:55:46 [INFO]: 📡 Socket.io ready
+2026-07-07 19:55:46 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-07 19:55:46 [INFO]: ✅ Storage bucket 'meeting-files' exists
+2026-07-07 19:55:47 [INFO]: ✅ Supabase connected successfully
+2026-07-07 19:55:47 [INFO]: ::1 - - [07/Jul/2026:14:25:47 +0000] "GET /api/auth/me HTTP/1.1" - - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:48 [INFO]: ::1 - - [07/Jul/2026:14:25:48 +0000] "GET /api/auth/me HTTP/1.1" 200 1017 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:49 [INFO]: ::1 - - [07/Jul/2026:14:25:49 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 201 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:55:49 [INFO]: ::1 - - [07/Jul/2026:14:25:49 +0000] "GET /api/files?limit=50 HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:56:01 [INFO]: ::1 - - [07/Jul/2026:14:26:01 +0000] "GET /api/auth/me HTTP/1.1" 200 1017 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:56:01 [INFO]: ::1 - - [07/Jul/2026:14:26:01 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 201 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:56:02 [INFO]: ::1 - - [07/Jul/2026:14:26:02 +0000] "GET /api/files?limit=50 HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:56:12 [INFO]: ::1 - - [07/Jul/2026:14:26:12 +0000] "GET /api/auth/me HTTP/1.1" 200 1017 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:56:12 [INFO]: ::1 - - [07/Jul/2026:14:26:12 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 201 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:56:13 [INFO]: ::1 - - [07/Jul/2026:14:26:13 +0000] "GET /api/files?limit=50 HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:57:01 [INFO]: ::1 - - [07/Jul/2026:14:27:01 +0000] "GET /api/auth/me HTTP/1.1" 200 1017 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:57:02 [INFO]: ::1 - - [07/Jul/2026:14:27:02 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 201 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:57:02 [INFO]: ::1 - - [07/Jul/2026:14:27:02 +0000] "GET /api/files?limit=50 HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:57:06 [INFO]: ::1 - - [07/Jul/2026:14:27:06 +0000] "GET /api/files/0b482d7b-db39-47ae-8390-89c2315e69c1/download HTTP/1.1" 200 760 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:57:16 [INFO]: ::1 - - [07/Jul/2026:14:27:16 +0000] "GET /api/files/29079162-ef90-4b19-8b96-bd464c897004/download HTTP/1.1" 200 686 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:57:48 [INFO]: ::1 - - [07/Jul/2026:14:27:48 +0000] "DELETE /api/files/0b482d7b-db39-47ae-8390-89c2315e69c1 HTTP/1.1" 200 92 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:57:48 [INFO]: ::1 - - [07/Jul/2026:14:27:48 +0000] "GET /api/files?limit=50 HTTP/1.1" 200 905 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:57:49 [INFO]: ::1 - - [07/Jul/2026:14:27:49 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 199 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:57:56 [INFO]: ::1 - - [07/Jul/2026:14:27:56 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 199 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:57:56 [INFO]: ::1 - - [07/Jul/2026:14:27:56 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 19:57:56 [INFO]: ::1 - - [07/Jul/2026:14:27:56 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:00:05 [ERROR]: AuthApiError: Email address "abc@gmail.com" is invalid
+    at handleError (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\@supabase\auth-js\dist\main\lib\fetch.js:84:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async _handleRequest (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\@supabase\auth-js\dist\main\lib\fetch.js:127:9)
+    at async _request (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\@supabase\auth-js\dist\main\lib\fetch.js:109:18)
+    at async SupabaseAuthClient.signUp (C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\node_modules\@supabase\auth-js\dist\main\GoTrueClient.js:699:23)
+    at async C:\Users\harsh_prajapati_27\Downloads\Connect Pro(Communication App)\backend\src\controllers\auth.controller.js:28:48
+2026-07-07 20:00:05 [INFO]: ::1 - - [07/Jul/2026:14:30:05 +0000] "POST /api/auth/register HTTP/1.1" 400 111 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:00:20 [INFO]: ::1 - - [07/Jul/2026:14:30:20 +0000] "POST /api/auth/register HTTP/1.1" 201 522 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:00:22 [INFO]: ::1 - - [07/Jul/2026:14:30:22 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:00:22 [INFO]: ::1 - - [07/Jul/2026:14:30:22 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:00:23 [INFO]: ::1 - - [07/Jul/2026:14:30:23 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:00:37 [INFO]: ::1 - - [07/Jul/2026:14:30:37 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:00:37 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (oNF9ZXgovaLH_ffLAAAB)
+2026-07-07 20:00:37 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-07 20:00:46 [INFO]: ::1 - - [07/Jul/2026:14:30:46 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 701 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:00:47 [INFO]: Socket connected: abc (JRH-Twv_wMKER_F2AAAD)
+2026-07-07 20:00:47 [INFO]: abc joined room bh1-uvsd-m6m
+2026-07-07 20:01:17 [INFO]: abc left room bh1-uvsd-m6m
+2026-07-07 20:01:17 [INFO]: abc left room bh1-uvsd-m6m
+2026-07-07 20:01:20 [INFO]: ::1 - - [07/Jul/2026:14:31:20 +0000] "POST /api/meetings/6bf753dd-d1cb-45f0-bf8a-79a2d3d84e05/join HTTP/1.1" 200 701 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:01:20 [INFO]: ::1 - - [07/Jul/2026:14:31:20 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:01:20 [INFO]: ::1 - - [07/Jul/2026:14:31:20 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:01:20 [INFO]: ::1 - - [07/Jul/2026:14:31:20 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:01:56 [INFO]: ::1 - - [07/Jul/2026:14:31:56 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 701 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:01:56 [INFO]: Socket connected: abc (l651MGvEecYEUz6qAAAF)
+2026-07-07 20:01:57 [INFO]: abc joined room bh1-uvsd-m6m
+2026-07-07 20:02:45 [INFO]: abc left room bh1-uvsd-m6m
+2026-07-07 20:02:45 [INFO]: abc left room bh1-uvsd-m6m
+2026-07-07 20:02:45 [INFO]: ::1 - - [07/Jul/2026:14:32:45 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:02:46 [INFO]: ::1 - - [07/Jul/2026:14:32:46 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:02:46 [INFO]: ::1 - - [07/Jul/2026:14:32:46 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:03:43 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-07 20:03:43 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-07 20:03:45 [INFO]: ::1 - - [07/Jul/2026:14:33:45 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:03:45 [INFO]: ::1 - - [07/Jul/2026:14:33:45 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:03:45 [INFO]: ::1 - - [07/Jul/2026:14:33:45 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:03:46 [INFO]: ::1 - - [07/Jul/2026:14:33:46 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:03:46 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (A3ntBxTZ4R5OJjU2AAAH)
+2026-07-07 20:03:46 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-07 20:04:04 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-07 20:04:04 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-07 20:04:05 [INFO]: ::1 - - [07/Jul/2026:14:34:05 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:04:05 [INFO]: ::1 - - [07/Jul/2026:14:34:05 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:04:05 [INFO]: ::1 - - [07/Jul/2026:14:34:05 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:04:06 [INFO]: ::1 - - [07/Jul/2026:14:34:06 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:04:07 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (vwwsg_g7uLgqt7AmAAAJ)
+2026-07-07 20:04:07 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-07 20:04:19 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-07 20:04:19 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-07 20:04:19 [INFO]: ::1 - - [07/Jul/2026:14:34:19 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 120 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:04:19 [INFO]: ::1 - - [07/Jul/2026:14:34:19 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 195 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:04:19 [INFO]: ::1 - - [07/Jul/2026:14:34:19 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 151 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:04:20 [INFO]: ::1 - - [07/Jul/2026:14:34:20 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:04:21 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (JPp9m2J5a0lZXnNFAAAL)
+2026-07-07 20:04:21 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-07 20:05:02 [INFO]: ::1 - - [07/Jul/2026:14:35:02 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 701 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-07 20:05:02 [INFO]: Socket connected: abc (iLuNGFA8hDFhRgjKAAAN)
+2026-07-07 20:05:03 [INFO]: abc joined room bh1-uvsd-m6m
+2026-07-08 10:31:41 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-08 10:31:41 [INFO]: 📡 Socket.io ready
+2026-07-08 10:31:41 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-08 10:31:42 [INFO]: ✅ Storage bucket 'meeting-files' exists
+2026-07-08 10:31:43 [INFO]: ✅ Supabase connected successfully
+2026-07-08 10:34:00 [INFO]: ::1 - - [08/Jul/2026:05:04:00 +0000] "GET /api/files/storage-usage HTTP/1.1" 200 199 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:34:00 [INFO]: ::1 - - [08/Jul/2026:05:04:00 +0000] "GET /api/notifications?unread_only=true HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:34:00 [INFO]: ::1 - - [08/Jul/2026:05:04:00 +0000] "GET /api/meetings/dashboard HTTP/1.1" 200 - "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:34:06 [INFO]: ::1 - - [08/Jul/2026:05:04:06 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:34:07 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (_HOsVFNy5VWfTal-AAAB)
+2026-07-08 10:34:07 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:37:04 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:37:04 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:37:06 [INFO]: ::1 - - [08/Jul/2026:05:07:06 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:37:07 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (QLUIesHZTTr6brDRAAAD)
+2026-07-08 10:37:07 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:37:13 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:37:13 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:37:15 [INFO]: ::1 - - [08/Jul/2026:05:07:15 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:37:16 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (O7hC-ZeOeAvVU9UUAAAF)
+2026-07-08 10:37:16 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:37:21 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:37:21 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:37:23 [INFO]: ::1 - - [08/Jul/2026:05:07:23 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:37:23 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (REY_V1RgRPupxfX0AAAH)
+2026-07-08 10:37:23 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:37:34 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:37:34 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:37:36 [INFO]: ::1 - - [08/Jul/2026:05:07:36 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:37:36 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (MwRlUs2-7FAzeiYSAAAJ)
+2026-07-08 10:37:37 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:38:07 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:38:07 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:38:09 [INFO]: ::1 - - [08/Jul/2026:05:08:09 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:38:10 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (HigO0OZgEdrgjJQbAAAL)
+2026-07-08 10:38:10 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:39:54 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:39:54 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:39:56 [INFO]: ::1 - - [08/Jul/2026:05:09:56 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:39:56 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (d73xgPvn2rTJdwcIAAAN)
+2026-07-08 10:39:57 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:40:15 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:40:15 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:40:34 [INFO]: ::1 - - [08/Jul/2026:05:10:34 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:40:35 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (b9ki3LiQ1aV2YsY2AAAP)
+2026-07-08 10:40:35 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:40:48 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:40:48 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:40:50 [INFO]: ::1 - - [08/Jul/2026:05:10:50 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:40:50 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (j75HN2VxRkzgQryHAAAR)
+2026-07-08 10:40:51 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:41:11 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:41:11 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:41:13 [INFO]: ::1 - - [08/Jul/2026:05:11:13 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:41:13 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (_N-P82fJN1iGc6jdAAAT)
+2026-07-08 10:41:14 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:41:31 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:41:31 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:41:33 [INFO]: ::1 - - [08/Jul/2026:05:11:33 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:41:33 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (UOFFZSTBnYKwvH5wAAAV)
+2026-07-08 10:41:34 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:41:54 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:41:54 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:41:55 [INFO]: ::1 - - [08/Jul/2026:05:11:55 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:41:56 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (sbbzikN1DcMh2ygHAAAX)
+2026-07-08 10:41:56 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:42:09 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:42:09 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:42:11 [INFO]: ::1 - - [08/Jul/2026:05:12:11 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:42:12 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (iLKLJTXj__qS8ciVAAAZ)
+2026-07-08 10:42:12 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:45:24 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:45:24 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:45:26 [INFO]: ::1 - - [08/Jul/2026:05:15:26 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:45:26 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (fVL5CN-R6uaJlX9QAAAb)
+2026-07-08 10:45:27 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:45:53 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:45:53 [INFO]: Harsh Ashwinbhai Prajapati left room bh1-uvsd-m6m
+2026-07-08 10:45:56 [INFO]: ::1 - - [08/Jul/2026:05:15:56 +0000] "POST /api/meetings/bh1-uvsd-m6m/join HTTP/1.1" 200 700 "http://127.0.0.1:5500/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-07-08 10:45:56 [INFO]: Socket connected: Harsh Ashwinbhai Prajapati (UCLURh7XGTtOJnBIAAAd)
+2026-07-08 10:45:56 [INFO]: Harsh Ashwinbhai Prajapati joined room bh1-uvsd-m6m
+2026-07-08 10:47:46 [INFO]: 🚀 ConnectPro Server running on port 5000 [development]
+2026-07-08 10:47:46 [INFO]: 📡 Socket.io ready
+2026-07-08 10:47:46 [INFO]: 🌐 Frontend: http://localhost:3000
+2026-07-08 10:47:46 [INFO]: ✅ Supabase connected successfully
+2026-07-08 10:47:46 [INFO]: ✅ Storage bucket 'meeting-files' exists

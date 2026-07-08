@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meeting Room — ConnectPro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <style>
+    body { overflow: hidden; background: #050508; }
+
+    /* ── Room Layout ── */
+    .room-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* ── Video Grid ── */
+    .video-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      background: #050508;
+    }
+
+    .video-grid {
+      flex: 1;
+      display: grid;
+      gap: 8px;
+      padding: 16px;
+      align-content: center;
+      transition: all 0.4s ease;
+    }
+
+    .video-grid.grid-1  { grid-template-columns: 1fr; }
+    .video-grid.grid-2  { grid-template-columns: 1fr 1fr; }
+    .video-grid.grid-3  { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+    .video-grid.grid-4  { grid-template-columns: 1fr 1fr; }
+    .video-grid.grid-6  { grid-template-columns: repeat(3, 1fr); }
+    .video-grid.grid-9  { grid-template-columns: repeat(3, 1fr); }
+    .video-grid.grid-12 { grid-template-columns: repeat(4, 1fr); }
+
+    .video-tile {
+      position: relative;
+      background: #0f0f1a;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: all 0.25s ease;
+      aspect-ratio: 16/9;
+    }
+    .video-tile.speaking { border-color: #4ade80; box-shadow: 0 0 20px rgba(74,222,128,0.3); }
+    .video-tile.pinned { border-color: #6366f1; }
+    .video-tile.screen-share { border-color: #22d3ee; }
+
+    .video-tile video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .tile-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .tile-overlay.hidden-bg {
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .tile-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 700;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .tile-info {
+      position: absolute;
+      bottom: 10px; left: 12px; right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tile-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      background: rgba(0,0,0,0.6);
+      padding: 3px 10px;
+      border-radius: 20px;
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .tile-badges {
+      display: flex;
+      gap: 4px;
+    }
+
+    .tile-badge {
+      width: 24px; height: 24px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+    }
+
+    .tile-badge.muted { background: rgba(239,68,68,0.8); }
+
+    /* ── Speaker View ── */
+    .speaker-view {
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      gap: 8px;
+      height: 100%;
+      padding: 16px;
+    }
+
+    .speaker-main {
+      background: #0f0f1a;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .speaker-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+    }
+
+    .speaker-sidebar .video-tile { aspect-ratio: 4/3; }
+
+    /* ── Controls Bar ── */
+    .controls-bar {
+      height: 80px;
+      background: rgba(10,10,20,0.95);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      backdrop-filter: blur(20px);
+      flex-shrink: 0;
+    }
+
+    .controls-left { display: flex; align-items: center; gap: 8px; }
+    .controls-center { display: flex; align-items: center; gap: 8px; }
+    .controls-right { display: flex; align-items: center; gap: 8px; }
+
+    .ctrl-btn {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: white;
+      position: relative;
+    }
+
+    .ctrl-btn:hover { background: rgba(255,255,255,0.12); transform: translateY(-1px); }
+    .ctrl-btn:active { transform: scale(0.95); }
+    .ctrl-btn.active { background: rgba(99,102,241,0.25); border-color: rgba(99,102,241,0.5); }
+    .ctrl-btn.danger { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.4); }
+    .ctrl-btn.danger:hover { background: rgba(239,68,68,0.3); }
+    .ctrl-btn.off { background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.5); }
+
+    .ctrl-btn-label {
+      font-size: 9px;
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .end-call-btn {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      border-color: transparent;
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(239,68,68,0.4);
+    }
+    .end-call-btn:hover { box-shadow: 0 6px 28px rgba(239,68,68,0.6); transform: translateY(-2px); }
+
+    /* ── Timer ── */
+    .meeting-timer {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.06);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .meeting-id-badge {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.05);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.07);
+      cursor: pointer;
+    }
+    .meeting-id-badge:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── Side Panel ── */
+    .side-panel {
+      position: fixed;
+      right: 0; top: 0; bottom: 0;
+      width: 340px;
+      background: #0d0d1a;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      z-index: 200;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .side-panel.open { transform: translateX(0); }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+    .panel-tabs { display: flex; gap: 4px; }
+    .panel-tab {
+      padding: 6px 12px;
+      font-size: 12px; font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      color: rgba(255,255,255,0.5);
+      transition: all 0.2s;
+    }
+    .panel-tab.active { background: rgba(99,102,241,0.2); color: #a78bfa; }
+
+    /* ── Chat ── */
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-message {
+      display: flex;
+      gap: 10px;
+      animation: slideUp 0.2s ease;
+    }
+
+    .chat-bubble {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px 12px 12px 4px;
+      padding: 8px 12px;
+      max-width: 260px;
+    }
+
+    .chat-bubble.own {
+      background: rgba(99,102,241,0.2);
+      border-radius: 12px 12px 4px 12px;
+      margin-left: auto;
+    }
+
+    .chat-sender { font-size: 11px; font-weight: 700; color: #a78bfa; margin-bottom: 3px; }
+    .chat-text { font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.5; word-break: break-word; }
+    .chat-time { font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 4px; }
+
+    .chat-input-area {
+      padding: 12px 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: white;
+      resize: none;
+      max-height: 120px;
+      font-family: inherit;
+      outline: none;
+    }
+    .chat-input:focus { border-color: rgba(99,102,241,0.5); background: rgba(99,102,241,0.08); }
+    .chat-input::placeholder { color: rgba(255,255,255,0.3); }
+
+    .chat-send-btn {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .chat-send-btn:hover { transform: scale(1.05); }
+
+    /* ── Participants Panel ── */
+    .participant-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      transition: background 0.15s;
+    }
+    .participant-item:hover { background: rgba(255,255,255,0.04); }
+    .participant-role { font-size: 10px; font-weight: 700; color: #a78bfa; background: rgba(99,102,241,0.15); padding: 2px 8px; border-radius: 10px; }
+
+    /* ── Waiting Room ── */
+    .waiting-room-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      margin: 4px 0;
+    }
+
+    /* ── Emoji Reactions ── */
+    .emoji-reaction-overlay {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 500;
+    }
+
+    .emoji-float {
+      font-size: 32px;
+      position: absolute;
+      animation: emojiFloat 2.5s ease-out forwards;
+    }
+
+    @keyframes emojiFloat {
+      0%   { transform: translateY(0) scale(1);   opacity: 1; }
+      100% { transform: translateY(-200px) scale(0.5); opacity: 0; }
+    }
+
+    /* ── Emoji Picker ── */
+    .emoji-picker {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a2e;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 12px;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 4px;
+      z-index: 9999;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.8);
+      animation: scaleIn 0.2s var(--transition-spring);
+    }
+
+    .emoji-btn { font-size: 20px; padding: 6px; border-radius: 8px; cursor: pointer; transition: all 0.15s; text-align: center; }
+    .emoji-btn:hover { background: rgba(255,255,255,0.1); transform: scale(1.2); }
+
+    /* ── Network Indicator ── */
+    .network-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+    }
+    .network-bars { display: flex; gap: 2px; align-items: flex-end; }
+    .network-bar { width: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; transition: background 0.3s; }
+    .network-bar.filled { background: #4ade80; }
+    .network-bar.warning { background: #facc15; }
+    .network-bar.poor { background: #f87171; }
+
+    /* ── PiP ── */
+    .pip-container {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 200px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.1);
+      z-index: 400;
+      cursor: move;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+      display: none;
+    }
+    .pip-container.visible { display: block; }
+    .pip-container video { width: 100%; display: block; }
+
+    /* ── Top Bar ── */
+    .room-top-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+      z-index: 100;
+      pointer-events: none;
+    }
+    .room-top-bar > * { pointer-events: all; }
+
+    .room-title { font-size: 14px; font-weight: 700; color: white; max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* ── Recording indicator ── */
+    .recording-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(239,68,68,0.25);
+      border: 1px solid rgba(239,68,68,0.5);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #f87171;
+    }
+    .rec-dot { width: 8px; height: 8px; border-radius: 50%; background: #f87171; animation: pulse 1.2s ease infinite; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .side-panel { width: 100%; }
+      .controls-bar { padding: 0 12px; height: 72px; }
+      .ctrl-btn { width: 42px; height: 42px; font-size: 18px; }
+      .end-call-btn { width: 48px; height: 48px; }
+      .speaker-view { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+      .speaker-sidebar { flex-direction: row; overflow-x: auto; }
+      .speaker-sidebar .video-tile { min-width: 140px; aspect-ratio: 4/3; }
+    }
+
+    /* ── Waiting Room Screen ── */
+    .waiting-screen {
+      position: fixed;
+      inset: 0;
+      background: #050508;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      flex-direction: column;
+      gap: 24px;
+      text-align: center;
+      padding: 32px;
+    }
+
+    /* ── Loading Screen ── */
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      background: #050508;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      flex-direction: column;
+      gap: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen">
+    <div style="font-size:48px">🎬</div>
+    <div class="spinner spinner-lg"></div>
+    <p style="color:rgba(255,255,255,0.6);font-size:14px" id="loading-msg">Connecting to meeting...</p>
+  </div>
+
+  <!-- Waiting Room Screen -->
+  <div class="waiting-screen hidden" id="waiting-screen">
+    <div style="font-size:72px">⏳</div>
+    <h2 style="font-size:28px;font-weight:800;color:white">Waiting for host to admit you</h2>
+    <p style="color:rgba(255,255,255,0.5);max-width:400px">The host has been notified. Please wait while they admit you to the meeting.</p>
+    <div class="spinner"></div>
+    <button class="btn btn-secondary mt-4" onclick="leaveMeeting()">Cancel</button>
+  </div>
+
+  <!-- Main Room -->
+  <div class="room-layout" id="room-layout" style="display:none">
+
+    <!-- Top Bar -->
+    <div class="room-top-bar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="logo-icon" style="width:28px;height:28px;font-size:14px">🎥</div>
+        <span class="room-title" id="room-title">Meeting</span>
+        <div class="recording-badge hidden" id="recording-badge">
+          <span class="rec-dot"></span> REC
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="network-indicator" id="network-indicator">
+          <div class="network-bars" id="network-bars">
+            <div class="network-bar" style="height:6px"></div>
+            <div class="network-bar" style="height:10px"></div>
+            <div class="network-bar" style="height:14px"></div>
+            <div class="network-bar" style="height:18px"></div>
+          </div>
+          <span id="network-label">Good</span>
+        </div>
+        <div class="meeting-timer" id="meeting-timer">00:00</div>
+        <div class="meeting-id-badge" id="meeting-id-badge" title="Click to copy meeting link">
+          📋 <span id="meeting-id-display">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Area -->
+    <div class="video-area" id="video-area">
+      <div class="video-grid grid-1" id="video-grid">
+        <!-- Video tiles injected by JS -->
+      </div>
+    </div>
+
+    <!-- Emoji Overlay -->
+    <div class="emoji-reaction-overlay" id="emoji-overlay"></div>
+
+    <!-- PiP -->
+    <div class="pip-container" id="pip-container">
+      <video id="pip-video" autoplay muted playsinline></video>
+    </div>
+
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+      <div class="controls-left">
+        <div class="meeting-timer" id="meeting-timer-mobile" style="display:none">00:00</div>
+        <div class="network-indicator" style="display:none" id="network-mobile">
+          <div class="network-bars" id="network-bars-mobile">
+            <div class="network-bar" style="height:6px"></div>
+            <div class="network-bar" style="height:10px"></div>
+            <div class="network-bar" style="height:14px"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls-center">
+        <!-- Mic -->
+        <div class="ctrl-btn" id="btn-mic" title="Mute/Unmute (M)">
+          🎤
+          <span class="ctrl-btn-label">Microphone</span>
+        </div>
+        <!-- Camera -->
+        <div class="ctrl-btn" id="btn-camera" title="Camera On/Off (V)">
+          📹
+          <span class="ctrl-btn-label">Camera</span>
+        </div>
+        <!-- Screen Share -->
+        <div class="ctrl-btn" id="btn-screen" title="Share Screen (S)">
+          🖥️
+          <span class="ctrl-btn-label">Share</span>
+        </div>
+        <!-- Emoji -->
+        <div class="ctrl-btn" id="btn-emoji" title="Reactions">
+          😊
+          <span class="ctrl-btn-label">React</span>
+        </div>
+        <!-- Raise Hand -->
+        <div class="ctrl-btn" id="btn-hand" title="Raise Hand (H)">
+          ✋
+          <span class="ctrl-btn-label">Hand</span>
+        </div>
+
+        <!-- End Call -->
+        <div class="ctrl-btn end-call-btn" id="btn-end" title="End Call">
+          📞
+        </div>
+      </div>
+
+      <div class="controls-right">
+        <!-- Chat -->
+        <div class="ctrl-btn" id="btn-chat" title="Chat (C)">
+          💬
+          <span class="ctrl-btn-label">Chat</span>
+          <span style="position:absolute;top:-4px;right:-4px;background:#6366f1;color:white;font-size:9px;font-weight:700;padding:2px 5px;border-radius:10px;display:none" id="chat-badge">0</span>
+        </div>
+        <!-- Participants -->
+        <div class="ctrl-btn" id="btn-participants" title="Participants (P)">
+          👥
+          <span class="ctrl-btn-label">People</span>
+        </div>
+        <!-- View Toggle -->
+        <div class="ctrl-btn" id="btn-view" title="Toggle View">
+          ⊞
+          <span class="ctrl-btn-label">View</span>
+        </div>
+        <!-- More -->
+        <div class="ctrl-btn" id="btn-more" title="More options" onclick="toggleMoreMenu()">
+          ⋯
+          <span class="ctrl-btn-label">More</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Emoji Picker -->
+  <div class="emoji-picker hidden" id="emoji-picker">
+    <div class="emoji-btn" data-emoji="👍">👍</div>
+    <div class="emoji-btn" data-emoji="❤️">❤️</div>
+    <div class="emoji-btn" data-emoji="😂">😂</div>
+    <div class="emoji-btn" data-emoji="😮">😮</div>
+    <div class="emoji-btn" data-emoji="👏">👏</div>
+    <div class="emoji-btn" data-emoji="🎉">🎉</div>
+    <div class="emoji-btn" data-emoji="🔥">🔥</div>
+    <div class="emoji-btn" data-emoji="💯">💯</div>
+    <div class="emoji-btn" data-emoji="🙏">🙏</div>
+    <div class="emoji-btn" data-emoji="✅">✅</div>
+    <div class="emoji-btn" data-emoji="😍">😍</div>
+    <div class="emoji-btn" data-emoji="🤔">🤔</div>
+    <div class="emoji-btn" data-emoji="😢">😢</div>
+    <div class="emoji-btn" data-emoji="👎">👎</div>
+    <div class="emoji-btn" data-emoji="⭐">⭐</div>
+    <div class="emoji-btn" data-emoji="🚀">🚀</div>
+  </div>
+
+  <!-- More Options Dropdown -->
+  <div class="dropdown-menu" id="more-options" style="position:fixed;bottom:100px;right:20px;min-width:220px;z-index:9999;display:none">
+    <div class="dropdown-item" id="opt-pip">📱 Picture-in-Picture</div>
+    <div class="dropdown-item" id="opt-notes">📝 Meeting Notes</div>
+    <div class="dropdown-item" id="opt-whiteboard">🎨 Open Whiteboard</div>
+    <div class="dropdown-item" id="opt-lock">🔒 Lock Meeting</div>
+    <div class="dropdown-item" id="opt-record">⏺️ Start Recording</div>
+    <div class="dropdown-divider"></div>
+    <div class="dropdown-item" id="opt-copy-link">🔗 Copy Meeting Link</div>
+    <div class="dropdown-divider"></div>
+    <div class="dropdown-item danger" id="opt-leave">🚪 Leave Meeting</div>
+  </div>
+
+  <!-- Side Panel -->
+  <div class="side-panel" id="side-panel">
+    <div class="panel-header">
+      <div class="panel-tabs">
+        <div class="panel-tab active" data-tab="chat">Chat</div>
+        <div class="panel-tab" data-tab="participants">People (<span id="participant-count">0</span>)</div>
+      </div>
+      <button class="btn btn-ghost btn-icon-sm" id="close-panel" style="color:rgba(255,255,255,0.5)">✕</button>
+    </div>
+
+    <!-- Chat Tab -->
+    <div id="chat-tab" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+      <div class="chat-messages" id="chat-messages">
+        <div style="text-align:center;color:rgba(255,255,255,0.3);font-size:12px;margin-top:auto">
+          Chat messages appear here. Say hi! 👋
+        </div>
+      </div>
+      <div class="chat-input-area">
+        <textarea class="chat-input" id="chat-input" placeholder="Message everyone..." rows="1"></textarea>
+        <button class="chat-send-btn" id="send-message-btn">➤</button>
+      </div>
+    </div>
+
+    <!-- Participants Tab -->
+    <div id="participants-tab" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+      <div style="overflow-y:auto;flex:1">
+        <div id="participant-list"></div>
+      </div>
+
+      <!-- Waiting Room (host only) -->
+      <div id="waiting-room-section" style="display:none;border-top:1px solid rgba(255,255,255,0.08);padding:12px 16px">
+        <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.5);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em">
+          Waiting Room (<span id="waiting-count">0</span>)
+        </div>
+        <div id="waiting-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes Modal -->
+  <div class="modal-overlay hidden" id="notes-modal">
+    <div class="modal" style="max-width:600px">
+      <div class="modal-header">
+        <h3 class="modal-title">📝 Meeting Notes</h3>
+        <button class="btn btn-ghost btn-icon modal-close" id="close-notes">✕</button>
+      </div>
+      <textarea id="notes-content" style="width:100%;min-height:300px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;color:white;font-family:inherit;font-size:14px;resize:vertical;outline:none" placeholder="Type your meeting notes here..."></textarea>
+      <div style="display:flex;gap:12px;margin-top:16px">
+        <button class="btn btn-secondary flex-1" id="close-notes-btn">Close</button>
+        <button class="btn btn-primary flex-1" id="save-notes-btn">Save Notes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load socket.io client directly from the backend server (avoids CDN failures) -->
+  <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+  <script src="../../js/app.js"></script>
+  <script src="../../js/meeting.js"></script>
+  <script>
+    // ── More menu toggle — defined globally so onclick works before initControls ──
+    function toggleMoreMenu() {
+      const menu = document.getElementById('more-options');
+      if (!menu) return;
+      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    }
+    // Close more menu when clicking anywhere outside it
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('more-options');
+      const btn  = document.getElementById('btn-more');
+      if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

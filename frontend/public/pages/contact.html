@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — ConnectPro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/mobile-nav.css">
+  <style>
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--header-height);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--space-8); z-index: 100;
+      background: rgba(10,10,20,0.85);
+      backdrop-filter: var(--blur-lg);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .nav-logo { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: var(--space-1); }
+    .nav-link { padding: 8px 14px; font-size: var(--text-sm); font-weight: 500; color: var(--text-secondary); border-radius: var(--radius-md); transition: all var(--transition-base); text-decoration: none; }
+    .nav-link:hover { color: var(--text-primary); background: var(--bg-glass); }
+    .nav-actions { display: flex; align-items: center; gap: var(--space-3); }
+
+    .page-hero {
+      min-height: 360px;
+      background: var(--gradient-hero);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: calc(var(--header-height) + 60px) var(--space-8) 80px;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 40% 60%, rgba(168,85,247,0.12) 0%, transparent 70%);
+    }
+    .page-hero-tag { display: inline-block; padding: 4px 14px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 700; color: var(--purple-400); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-5); }
+    .page-hero h1 { font-size: clamp(2.2rem,5vw,3.8rem); font-weight: 900; letter-spacing: -0.04em; margin-bottom: var(--space-5); position: relative; }
+    .page-hero p { font-size: var(--text-lg); color: var(--text-secondary); max-width: 500px; line-height: 1.8; position: relative; }
+
+    .contact-layout {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 80px var(--space-8);
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Left: info */
+    .contact-info { display: flex; flex-direction: column; gap: var(--space-6); }
+    .contact-info-title { font-size: var(--text-2xl); font-weight: 800; margin-bottom: var(--space-2); }
+    .contact-info-sub { color: var(--text-secondary); font-size: var(--text-sm); line-height: 1.7; }
+
+    .contact-method {
+      display: flex; align-items: flex-start; gap: var(--space-4);
+      padding: var(--space-5);
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-xl);
+      transition: all var(--transition-base);
+    }
+    .contact-method:hover { border-color: rgba(99,102,241,0.3); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .cm-icon { width: 46px; height: 46px; background: var(--gradient-brand); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; box-shadow: 0 6px 20px rgba(99,102,241,0.3); }
+    .cm-title { font-size: var(--text-sm); font-weight: 700; margin-bottom: 3px; }
+    .cm-value { font-size: var(--text-sm); color: var(--text-secondary); }
+    .cm-value a { color: var(--text-accent); }
+
+    /* Right: form */
+    .contact-form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-card);
+    }
+    .form-title { font-size: var(--text-2xl); font-weight: 800; margin-bottom: var(--space-2); }
+    .form-sub { color: var(--text-muted); font-size: var(--text-sm); margin-bottom: var(--space-6); }
+    .contact-form { display: flex; flex-direction: column; gap: var(--space-4); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    .success-message {
+      display: none; text-align: center; padding: var(--space-8);
+    }
+    .success-message.visible { display: block; }
+    .contact-form.hidden { display: none; }
+
+    .page-footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: var(--space-8); text-align: center; color: var(--text-muted); font-size: var(--text-sm); }
+    .footer-links-row { display: flex; justify-content: center; gap: var(--space-6); margin-bottom: var(--space-4); flex-wrap: wrap; }
+    .footer-links-row a { color: var(--text-muted); transition: color var(--transition-fast); font-size: var(--text-sm); }
+    .footer-links-row a:hover { color: var(--text-primary); }
+
+    @media (max-width: 768px) {
+      .contact-layout { grid-template-columns: 1fr; padding: 60px var(--space-5); }
+      .form-row { grid-template-columns: 1fr; }
+      .navbar { padding: 0 var(--space-5); }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="../index.html" class="nav-logo">
+      <div class="logo-icon">🎥</div>
+      <span class="logo-text">ConnectPro</span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html#features" class="nav-link">Features</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link" style="color:var(--text-primary)">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-ghost btn-sm" id="theme-toggle">🌙</button>
+      <a href="auth/login.html" class="btn btn-secondary btn-sm">Sign In</a>
+      <a href="auth/register.html" class="btn btn-primary btn-sm">Get Started Free</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="page-hero-tag">Contact Us</div>
+    <h1>We'd love to <span class="gradient-text">hear from you</span></h1>
+    <p>Got a question, a partnership idea, or just want to say hello? Our team responds within 24 hours.</p>
+  </section>
+
+  <!-- Contact Layout -->
+  <div class="contact-layout">
+
+    <!-- Left: Info -->
+    <div class="contact-info">
+      <div>
+        <h2 class="contact-info-title">Get in touch</h2>
+        <p class="contact-info-sub">Choose the channel that works best for you. We're always happy to help — whether it's a quick question or a complex enterprise inquiry.</p>
+      </div>
+
+      <div class="contact-method">
+        <div class="cm-icon">✉️</div>
+        <div>
+          <div class="cm-title">Email Support</div>
+          <div class="cm-value"><a href="mailto:support@connectpro.io">support@connectpro.io</a></div>
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:3px">Typically replies within 4 hours</div>
+        </div>
+      </div>
+
+      <div class="contact-method">
+        <div class="cm-icon">💼</div>
+        <div>
+          <div class="cm-title">Enterprise Sales</div>
+          <div class="cm-value"><a href="mailto:sales@connectpro.io">sales@connectpro.io</a></div>
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:3px">Custom plans for teams of 100+</div>
+        </div>
+      </div>
+
+      <div class="contact-method">
+        <div class="cm-icon">🐙</div>
+        <div>
+          <div class="cm-title">GitHub</div>
+          <div class="cm-value"><a href="https://github.com/connectpro" target="_blank">github.com/connectpro</a></div>
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:3px">Bug reports &amp; open-source contributions</div>
+        </div>
+      </div>
+
+      <div class="contact-method">
+        <div class="cm-icon">🐦</div>
+        <div>
+          <div class="cm-title">Twitter / X</div>
+          <div class="cm-value"><a href="https://twitter.com/connectpro" target="_blank">@connectpro</a></div>
+          <div style="font-size:var(--text-xs);color:var(--text-muted);margin-top:3px">News, updates &amp; quick support</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:var(--radius-lg);padding:var(--space-4)">
+        <div style="font-size:var(--text-sm);font-weight:700;margin-bottom:var(--space-2)">🕐 Support Hours</div>
+        <div style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.8">
+          Monday – Friday: 9am – 6pm UTC<br>
+          Weekend: Limited coverage
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Form -->
+    <div class="contact-form-card">
+      <h2 class="form-title">Send us a message</h2>
+      <p class="form-sub">Fill in the form below and we'll get back to you as soon as possible.</p>
+
+      <!-- Success State -->
+      <div class="success-message" id="success-state">
+        <div style="font-size:64px;margin-bottom:var(--space-4)">🎉</div>
+        <h3 style="font-size:var(--text-xl);font-weight:800;margin-bottom:var(--space-3)">Message Sent!</h3>
+        <p style="color:var(--text-muted);font-size:var(--text-sm)">Thanks for reaching out. We'll get back to you within 24 hours.</p>
+        <button class="btn btn-primary mt-6" onclick="resetForm()">Send Another</button>
+      </div>
+
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name *</label>
+            <input type="text" id="first-name" class="form-input" placeholder="John" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name *</label>
+            <input type="text" id="last-name" class="form-input" placeholder="Doe" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <div class="input-group">
+            <span class="input-icon">✉️</span>
+            <input type="email" id="contact-email" class="form-input" placeholder="you@company.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Company (optional)</label>
+          <div class="input-group">
+            <span class="input-icon">🏢</span>
+            <input type="text" id="company" class="form-input" placeholder="Acme Corp">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Subject *</label>
+          <select id="subject" class="form-select" required>
+            <option value="">Select a topic...</option>
+            <option value="general">General Inquiry</option>
+            <option value="support">Technical Support</option>
+            <option value="billing">Billing & Plans</option>
+            <option value="enterprise">Enterprise Sales</option>
+            <option value="bug">Bug Report</option>
+            <option value="feature">Feature Request</option>
+            <option value="partnership">Partnership</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Message *</label>
+          <textarea id="message" class="form-textarea" placeholder="Tell us how we can help you..." rows="5" required style="min-height:130px"></textarea>
+        </div>
+
+        <div id="form-error" style="display:none;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);font-size:var(--text-sm);color:var(--red-400)"></div>
+
+        <button type="submit" class="btn btn-primary w-full btn-lg" id="submit-btn">
+          <span id="submit-text">Send Message →</span>
+          <span id="submit-spinner" class="spinner hidden"></span>
+        </button>
+
+        <p style="font-size:var(--text-xs);color:var(--text-muted);text-align:center">By submitting, you agree to our <a href="#">Privacy Policy</a>. We never spam.</p>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="footer-links-row">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#features">Features</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="auth/login.html">Sign In</a>
+    </div>
+    <p>© 2024 ConnectPro. All rights reserved.</p>
+  </footer>
+
+  <script src="../js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('contact-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const errEl = document.getElementById('form-error');
+        errEl.style.display = 'none';
+
+        const firstName = document.getElementById('first-name').value.trim();
+        const lastName  = document.getElementById('last-name').value.trim();
+        const email     = document.getElementById('contact-email').value.trim();
+        const subject   = document.getElementById('subject').value;
+        const message   = document.getElementById('message').value.trim();
+
+        if (!firstName || !lastName) { errEl.textContent = 'Please enter your full name.'; errEl.style.display = 'block'; return; }
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Please enter a valid email address.'; errEl.style.display = 'block'; return; }
+        if (!subject) { errEl.textContent = 'Please select a subject.'; errEl.style.display = 'block'; return; }
+        if (message.length < 10) { errEl.textContent = 'Please enter a message (at least 10 characters).'; errEl.style.display = 'block'; return; }
+
+        // Simulate sending
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        document.getElementById('submit-text').classList.add('hidden');
+        document.getElementById('submit-spinner').classList.remove('hidden');
+
+        await new Promise(r => setTimeout(r, 1200));
+
+        document.getElementById('contact-form').classList.add('hidden');
+        document.getElementById('success-state').classList.add('visible');
+        Toast.success('Message sent!', "We'll reply within 24 hours.");
+      });
+    });
+
+    function resetForm() {
+      document.getElementById('contact-form').reset();
+      document.getElementById('contact-form').classList.remove('hidden');
+      document.getElementById('success-state').classList.remove('visible');
+      document.getElementById('submit-btn').disabled = false;
+      document.getElementById('submit-text').classList.remove('hidden');
+      document.getElementById('submit-spinner').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
