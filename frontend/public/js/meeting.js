@@ -14,6 +14,7 @@ const Room = {
   meetingId: null,
   meetingDbId: null,
   isHost: false,
+  initialized: false,    // true after first room-joined (prevents re-init on reconnect)
   audioEnabled: true,
   videoEnabled: true,
   screenSharing: false,
@@ -112,25 +113,28 @@ function initSocket() {
 
   Room.socket.on('room-joined', ({ meeting, participants, isHost }) => {
     Room.isHost = isHost;
+    const localUserId = Auth.getUser()?.id;
 
-    // Show room, hide loading
-    hideLoading();
-    document.getElementById('room-layout').style.display = 'grid';
-    startTimer();
-    initControls();
-    initKeyboardShortcuts();
-    updateControlStates();
+    // Only run one-time setup on first join (not on reconnect)
+    if (!Room.initialized) {
+      Room.initialized = true;
+      hideLoading();
+      document.getElementById('room-layout').style.display = 'grid';
+      startTimer();
+      initControls();
+      initKeyboardShortcuts();
+      updateControlStates();
+      addLocalVideoTile();
+    }
 
-    // Render self
-    addLocalVideoTile();
-
-    // Connect to existing participants
+    // Connect to existing participants — skip self (by socketId OR userId)
     participants.forEach(p => {
-      if (p.socketId !== Room.socket.id) {
-        Room.participants[p.socketId] = p;
-        addRemoteVideoTile(p.socketId, p);
-        createPeerConnection(p.socketId, true); // initiator
-      }
+      if (p.socketId === Room.socket.id) return;
+      if (localUserId && p.id === localUserId) return;
+      if (document.getElementById(`tile-${p.socketId}`)) return; // already rendered
+      Room.participants[p.socketId] = p;
+      addRemoteVideoTile(p.socketId, p);
+      createPeerConnection(p.socketId, true); // initiator
     });
 
     updateParticipantList();
@@ -497,7 +501,7 @@ function initControls() {
     } else {
       emojiPicker.classList.add('hidden');
     }
-    document.getElementById('more-options')?.classList.add('hidden');
+    const moreMenu = document.getElementById('more-options'); if (moreMenu) moreMenu.style.display = 'none';
   });
   document.querySelectorAll('.emoji-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -533,34 +537,19 @@ function initControls() {
     tab.addEventListener('click', () => switchTab(tab.dataset.tab));
   });
 
+  // Whiteboard
+  document.getElementById('btn-whiteboard')?.addEventListener('click', () => {
+    window.open(url('pages/dashboard/whiteboard.html') + `?meeting=${Room.meetingId}`, '_blank');
+  });
+
   // View toggle
   document.getElementById('btn-view').addEventListener('click', toggleView);
 
-  // More options — handled via inline onclick="toggleMoreMenu()" in room.html
-  // The document click listener to close emoji picker
+  // Close emoji picker when clicking anywhere outside
   document.addEventListener('click', (e) => {
     if (!emojiPicker.contains(e.target) && !document.getElementById('btn-emoji').contains(e.target)) {
       emojiPicker.classList.add('hidden');
     }
-  });
-
-  // More option actions — each closes the menu after firing
-  const closeMore = () => { const m = document.getElementById('more-options'); if (m) m.style.display = 'none'; };
-  document.getElementById('opt-pip')?.addEventListener('click', () => { closeMore(); togglePiP(); });
-  document.getElementById('opt-notes')?.addEventListener('click', () => { closeMore(); openNotes(); });
-  document.getElementById('opt-whiteboard')?.addEventListener('click', () => {
-    closeMore();
-    window.open(url('pages/dashboard/whiteboard.html') + `?meeting=${Room.meetingId}`, '_blank');
-  });
-  document.getElementById('opt-lock')?.addEventListener('click', () => {
-    closeMore();
-    Room.locked = !Room.locked;
-    Room.socket.emit('toggle-lock-room', { locked: Room.locked });
-  });
-  document.getElementById('opt-leave')?.addEventListener('click', () => { closeMore(); leaveMeeting(); });
-  document.getElementById('opt-copy-link')?.addEventListener('click', () => {
-    closeMore();
-    Utils.copyToClipboard(url('pages/meeting/room.html') + `?id=${Room.meetingId}`);
   });
 
   // Chat input

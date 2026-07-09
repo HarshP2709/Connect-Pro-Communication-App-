@@ -579,7 +579,7 @@
         <!-- Mic -->
         <div class="ctrl-btn" id="btn-mic" title="Mute/Unmute (M)">
           🎤
-          <span class="ctrl-btn-label">Microphone</span>
+          <span class="ctrl-btn-label">Mic</span>
         </div>
         <!-- Camera -->
         <div class="ctrl-btn" id="btn-camera" title="Camera On/Off (V)">
@@ -601,14 +601,6 @@
           ✋
           <span class="ctrl-btn-label">Hand</span>
         </div>
-
-        <!-- End Call -->
-        <div class="ctrl-btn end-call-btn" id="btn-end" title="End Call">
-          📞
-        </div>
-      </div>
-
-      <div class="controls-right">
         <!-- Chat -->
         <div class="ctrl-btn" id="btn-chat" title="Chat (C)">
           💬
@@ -620,16 +612,24 @@
           👥
           <span class="ctrl-btn-label">People</span>
         </div>
+        <!-- Whiteboard -->
+        <div class="ctrl-btn" id="btn-whiteboard" title="Open Whiteboard">
+          🖊️
+          <span class="ctrl-btn-label">Whiteboard</span>
+        </div>
         <!-- View Toggle -->
         <div class="ctrl-btn" id="btn-view" title="Toggle View">
           ⊞
           <span class="ctrl-btn-label">View</span>
         </div>
-        <!-- More -->
-        <div class="ctrl-btn" id="btn-more" title="More options" onclick="toggleMoreMenu()">
-          ⋯
-          <span class="ctrl-btn-label">More</span>
+
+        <!-- End Call -->
+        <div class="ctrl-btn end-call-btn" id="btn-end" title="End Call">
+          📞
         </div>
+      </div>
+
+      <div class="controls-right">
       </div>
     </div>
   </div>
@@ -652,19 +652,6 @@
     <div class="emoji-btn" data-emoji="👎">👎</div>
     <div class="emoji-btn" data-emoji="⭐">⭐</div>
     <div class="emoji-btn" data-emoji="🚀">🚀</div>
-  </div>
-
-  <!-- More Options Dropdown -->
-  <div class="dropdown-menu" id="more-options" style="position:fixed;bottom:100px;right:20px;min-width:220px;z-index:9999;display:none">
-    <div class="dropdown-item" id="opt-pip">📱 Picture-in-Picture</div>
-    <div class="dropdown-item" id="opt-notes">📝 Meeting Notes</div>
-    <div class="dropdown-item" id="opt-whiteboard">🎨 Open Whiteboard</div>
-    <div class="dropdown-item" id="opt-lock">🔒 Lock Meeting</div>
-    <div class="dropdown-item" id="opt-record">⏺️ Start Recording</div>
-    <div class="dropdown-divider"></div>
-    <div class="dropdown-item" id="opt-copy-link">🔗 Copy Meeting Link</div>
-    <div class="dropdown-divider"></div>
-    <div class="dropdown-item danger" id="opt-leave">🚪 Leave Meeting</div>
   </div>
 
   <!-- Side Panel -->
@@ -725,21 +712,5 @@
   <script src="http://localhost:5000/socket.io/socket.io.js"></script>
   <script src="../../js/app.js"></script>
   <script src="../../js/meeting.js"></script>
-  <script>
-    // ── More menu toggle — defined globally so onclick works before initControls ──
-    function toggleMoreMenu() {
-      const menu = document.getElementById('more-options');
-      if (!menu) return;
-      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-    }
-    // Close more menu when clicking anywhere outside it
-    document.addEventListener('click', function(e) {
-      const menu = document.getElementById('more-options');
-      const btn  = document.getElementById('btn-more');
-      if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
-        menu.style.display = 'none';
-      }
-    });
-  </script>
 </body>
 </html>
