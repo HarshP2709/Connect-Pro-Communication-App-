@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ConnectPro23
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: FRONTEND_URL
+        value: https://connect-pro-communication-r58ut0gqb.vercel.app

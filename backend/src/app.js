@@ -43,6 +43,8 @@ app.use(helmet({
 // ─── CORS ─────────────────────────────────────────────────────────────────────
 const ALLOWED_ORIGINS = [
   process.env.FRONTEND_URL,          // production / env-configured origin
+  // Vercel production frontend — hardcoded so CORS works even if FRONTEND_URL is unset
+  'https://connect-pro-communication-r58ut0gqb.vercel.app',
   'http://localhost:3000',
   'http://127.0.0.1:3000',
   'http://localhost:5500',           // VS Code Live Server
