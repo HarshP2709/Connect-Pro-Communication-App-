@@ -30,11 +30,19 @@ const BASE = _findBase();
 const url = (relPath) => BASE + relPath.replace(/^\//, '');
 
 // ─── Config ──────────────────────────────────────────────────────────────────
+const _resolveBackendURL = () => {
+  // 1. Explicit override injected before this script (highest priority)
+  if (typeof window !== 'undefined' && window.__CP_BACKEND_URL__) return window.__CP_BACKEND_URL__;
+  // 2. Running on the production Vercel frontend → point at the Render backend
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    return 'https://connectpro23.onrender.com';
+  }
+  // 3. Local development default
+  return 'http://localhost:5000';
+};
+
 const CONFIG = {
-  // Override by setting window.__CP_BACKEND_URL__ before this script loads,
-  // e.g. <script>window.__CP_BACKEND_URL__ = 'https://api.yourapp.com';</script>
-  // Default targets the local backend server on port 5000.
-  BACKEND_URL: (typeof window !== 'undefined' && window.__CP_BACKEND_URL__) || 'http://localhost:5000',
+  BACKEND_URL: _resolveBackendURL(),
   SUPABASE_URL: '',
   SUPABASE_ANON_KEY: '',
 };
