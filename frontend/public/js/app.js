@@ -62,12 +62,17 @@ const API = {
     const headers = { 'Content-Type': 'application/json' };
     if (this.token) headers['Authorization'] = `Bearer ${this.token}`;
 
-    const config = { method, headers, credentials: 'include', ...opts };
+    // 90 s timeout — gives Render free tier enough time to wake from sleep
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 90000);
+
+    const config = { method, headers, credentials: 'include', signal: controller.signal, ...opts };
     if (data && !(data instanceof FormData)) config.body = JSON.stringify(data);
     if (data instanceof FormData) { delete headers['Content-Type']; config.body = data; }
 
     try {
       const res = await fetch(url, config);
+      clearTimeout(timeoutId);
       if (res.status === 401) {
         // Try to refresh token
         const refreshed = await this.refreshToken();
@@ -79,6 +84,8 @@ const API = {
       if (!res.ok) throw Object.assign(new Error(json.message || 'Request failed'), { status: res.status, errors: json.errors });
       return json;
     } catch (err) {
+      clearTimeout(timeoutId);
+      if (err.name === 'AbortError') throw new Error('Server is waking up — please wait a moment and try again');
       if (err.name === 'TypeError') throw new Error('Network error — check your connection');
       throw err;
     }
@@ -279,6 +286,11 @@ const Utils = {
     }
   },
 };
+
+// ─── Backend Wake-up Ping ─────────────────────────────────────────────────────
+// Render free tier sleeps after inactivity. Ping /health on page load so the
+// server is warm by the time the user submits the login / register form.
+fetch(`${CONFIG.BACKEND_URL}/health`, { method: 'GET' }).catch(() => {});
 
 // ─── DOM Ready ────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
