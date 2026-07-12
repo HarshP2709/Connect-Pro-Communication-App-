@@ -33,12 +33,9 @@ const url = (relPath) => BASE + relPath.replace(/^\//, '');
 const _resolveBackendURL = () => {
   // 1. Explicit override injected before this script (highest priority)
   if (typeof window !== 'undefined' && window.__CP_BACKEND_URL__) return window.__CP_BACKEND_URL__;
-  // 2. Running on the production Vercel frontend → point at the Render backend
-  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-    return 'https://connectpro23.onrender.com';
-  }
-  // 3. Local development default
-  return 'http://localhost:5000';
+  // 2. Always point to the Render backend (works on Vercel AND local Live Server)
+  //    Only use localhost:5000 when the developer explicitly sets the override above.
+  return 'https://connectpro23.onrender.com';
 };
 
 const CONFIG = {

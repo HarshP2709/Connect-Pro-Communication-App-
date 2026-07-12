@@ -24,6 +24,19 @@ const generateTokens = (userId, role) => {
 exports.register = asyncHandler(async (req, res) => {
   const { email, password, full_name } = req.body;
 
+  // Check if email already exists in profiles BEFORE calling signUp.
+  // Supabase signUp silently succeeds for existing emails (anti-enumeration),
+  // so we must do this check ourselves using the admin client.
+  const { data: existing } = await supabaseAdmin
+    .from('profiles')
+    .select('id')
+    .eq('email', email.toLowerCase())
+    .maybeSingle();
+
+  if (existing) {
+    return errorResponse(res, 'An account with this email already exists. Please sign in instead.', 409);
+  }
+
   // Register with Supabase Auth
   const { data: authData, error: authError } = await supabase.auth.signUp({
     email,
@@ -35,11 +48,13 @@ exports.register = asyncHandler(async (req, res) => {
   });
 
   if (authError) {
-    if (authError.message.includes('already registered')) {
-      return errorResponse(res, 'Email already registered', 409);
-    }
     logger.error('Supabase register error:', authError);
     return errorResponse(res, authError.message, 400);
+  }
+
+  // Supabase returns a fake user object for existing emails — detect it
+  if (!authData.user || authData.user.identities?.length === 0) {
+    return errorResponse(res, 'An account with this email already exists. Please sign in instead.', 409);
   }
 
   const userId = authData.user.id;
