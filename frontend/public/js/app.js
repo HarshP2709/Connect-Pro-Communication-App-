@@ -81,7 +81,13 @@ const API = {
         return null;
       }
       const json = await res.json();
-      if (!res.ok) throw Object.assign(new Error(json.message || 'Request failed'), { status: res.status, errors: json.errors });
+      if (!res.ok) {
+        // Give a friendlier message for rate-limit errors
+        const msg = res.status === 429
+          ? (json.message || 'Too many attempts — please wait a few minutes and try again.')
+          : (json.message || 'Request failed');
+        throw Object.assign(new Error(msg), { status: res.status, errors: json.errors });
+      }
       return json;
     } catch (err) {
       clearTimeout(timeoutId);
