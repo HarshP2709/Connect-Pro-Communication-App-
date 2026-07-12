@@ -33,9 +33,8 @@ const url = (relPath) => BASE + relPath.replace(/^\//, '');
 const _resolveBackendURL = () => {
   // 1. Explicit override injected before this script (highest priority)
   if (typeof window !== 'undefined' && window.__CP_BACKEND_URL__) return window.__CP_BACKEND_URL__;
-  // 2. Always point to the Render backend (works on Vercel AND local Live Server)
-  //    Only use localhost:5000 when the developer explicitly sets the override above.
-  return 'https://connectpro23.onrender.com';
+  // 2. Dynamically use current origin (supports monolithic deploys out-of-the-box)
+  return window.location.origin;
 };
 
 const CONFIG = {
@@ -110,12 +109,12 @@ const API = {
     } catch { return false; }
   },
 
-  get:    (ep, opts)    => API.request('GET',    ep, null, opts),
-  post:   (ep, data)    => API.request('POST',   ep, data),
-  put:    (ep, data)    => API.request('PUT',    ep, data),
-  patch:  (ep, data)    => API.request('PATCH',  ep, data),
-  delete: (ep)          => API.request('DELETE', ep),
-  upload: (ep, fd)      => API.request('POST',   ep, fd),
+  get: (ep, opts) => API.request('GET', ep, null, opts),
+  post: (ep, data) => API.request('POST', ep, data),
+  put: (ep, data) => API.request('PUT', ep, data),
+  patch: (ep, data) => API.request('PATCH', ep, data),
+  delete: (ep) => API.request('DELETE', ep),
+  upload: (ep, fd) => API.request('POST', ep, fd),
 };
 
 // ─── Auth Helpers ─────────────────────────────────────────────────────────────
@@ -155,7 +154,7 @@ const Auth = {
   },
 
   logout() {
-    API.post('/api/auth/logout').catch(() => {});
+    API.post('/api/auth/logout').catch(() => { });
     API.setToken(null);
     this.setUser(null);
     window.location.href = url('pages/auth/login.html');
@@ -192,9 +191,9 @@ const Toast = {
   },
 
   success: (title, msg) => Toast.show('success', title, msg),
-  error:   (title, msg) => Toast.show('error', title, msg),
+  error: (title, msg) => Toast.show('error', title, msg),
   warning: (title, msg) => Toast.show('warning', title, msg),
-  info:    (title, msg) => Toast.show('info', title, msg),
+  info: (title, msg) => Toast.show('info', title, msg),
 };
 
 // ─── Theme ────────────────────────────────────────────────────────────────────
@@ -223,12 +222,12 @@ const Theme = {
 
 // ─── Ripple Effect ────────────────────────────────────────────────────────────
 const addRipple = (btn) => {
-  btn.addEventListener('click', function(e) {
+  btn.addEventListener('click', function (e) {
     const rect = this.getBoundingClientRect();
     const ripple = document.createElement('span');
     ripple.className = 'ripple-wave';
     const size = Math.max(rect.width, rect.height);
-    ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size/2}px;top:${e.clientY - rect.top - size/2}px`;
+    ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px`;
     this.appendChild(ripple);
     ripple.addEventListener('animationend', () => ripple.remove());
   });
@@ -296,7 +295,7 @@ const Utils = {
 // ─── Backend Wake-up Ping ─────────────────────────────────────────────────────
 // Render free tier sleeps after inactivity. Ping /health on page load so the
 // server is warm by the time the user submits the login / register form.
-fetch(`${CONFIG.BACKEND_URL}/health`, { method: 'GET' }).catch(() => {});
+fetch(`${CONFIG.BACKEND_URL}/health`, { method: 'GET' }).catch(() => { });
 
 // ─── DOM Ready ────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {

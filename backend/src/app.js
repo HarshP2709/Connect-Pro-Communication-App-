@@ -48,18 +48,14 @@ app.use(helmet({
 const _frontendUrl = (process.env.FRONTEND_URL || '').replace(/\/$/, '');
 
 const ALLOWED_ORIGINS = [
-  _frontendUrl,
-  // All Vercel deployment URLs for this project (production + all preview aliases)
-  'https://connect-pro-communication-app.vercel.app',
-  'https://connect-pro-communication-r58ut0gqb.vercel.app',
-  'https://connect-pro-communication-40fof88fe.vercel.app',
-  'http://localhost:3000',
+  _frontendUrl,                      // Dynamically binds FRONTEND_URL from your .env
+  'http://localhost:5000',           // Monolithic local host port
+  'http://127.0.0.1:5000',
+  'http://localhost:3000',           // Local dev ports
   'http://127.0.0.1:3000',
   'http://localhost:5500',           // VS Code Live Server
-  'http://127.0.0.1:5500',
-  'http://localhost:5173',           // Vite dev server
-  'http://127.0.0.1:5173',
-].filter(Boolean);
+  'https://connect-pro-communication-app.vercel.app' // Vercel alias
+];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -109,8 +105,11 @@ if (process.env.NODE_ENV !== 'test') {
   }));
 }
 
-// ─── Static Files ─────────────────────────────────────────────────────────────
+// ─── Static Files & Frontend serving ───────────────────────────────────────────
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
+// Serve frontend static assets from public folder inside backend
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // ─── Health Check ─────────────────────────────────────────────────────────────
 app.get('/health', (req, res) => {
@@ -131,6 +130,14 @@ app.use('/api/files', fileRoutes);
 app.use('/api/whiteboards', whiteboardRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
+
+// SPA Wildcard fallback routing to serve index.html for virtual browser URLs
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api') || req.path.startsWith('/uploads') || req.path.startsWith('/health')) {
+    return next();
+  }
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
 
 // ─── Error Handling ───────────────────────────────────────────────────────────
 app.use(notFound);
