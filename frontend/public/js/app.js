@@ -67,11 +67,14 @@ const API = {
     if (data && !(data instanceof FormData)) config.body = JSON.stringify(data);
     if (data instanceof FormData) { delete headers['Content-Type']; config.body = data; }
 
+    // Auth endpoints return 401 for wrong credentials — never refresh-loop on them
+    const isAuthEndpoint = endpoint.startsWith('/api/auth/');
+
     try {
       const res = await fetch(url, config);
       clearTimeout(timeoutId);
-      if (res.status === 401) {
-        // Try to refresh token
+      if (res.status === 401 && !isAuthEndpoint) {
+        // Try to refresh an expired session token (non-auth routes only)
         const refreshed = await this.refreshToken();
         if (refreshed) return this.request(method, endpoint, data, opts);
         Auth.logout();
