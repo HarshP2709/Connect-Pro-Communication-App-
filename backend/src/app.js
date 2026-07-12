@@ -63,6 +63,8 @@ app.use(cors({
     if (!origin) return callback(null, true);
     // Allow any Vercel preview deployment for this project
     if (origin.endsWith('.vercel.app')) return callback(null, true);
+    // Allow any Render deployment for this project
+    if (origin.endsWith('.onrender.com')) return callback(null, true);
     if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
     callback(new Error(`CORS: origin '${origin}' not allowed`));
   },
