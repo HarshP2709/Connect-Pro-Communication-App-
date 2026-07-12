@@ -34,7 +34,10 @@ app.use(helmet({
       fontSrc: ["'self'", 'fonts.gstatic.com'],
       imgSrc: ["'self'", 'data:', 'blob:', '*.supabase.co'],
       scriptSrc: ["'self'", "'unsafe-inline'"],
-      connectSrc: ["'self'", process.env.SUPABASE_URL, 'wss:', 'ws:'],
+      // Filter out undefined so helmet never receives an invalid directive value
+      connectSrc: ["'self'", 'wss:', 'ws:', '*.supabase.co'].concat(
+        process.env.SUPABASE_URL ? [process.env.SUPABASE_URL] : []
+      ),
       mediaSrc: ["'self'", 'blob:'],
     },
   },
@@ -42,21 +45,24 @@ app.use(helmet({
 
 // ─── CORS ─────────────────────────────────────────────────────────────────────
 const ALLOWED_ORIGINS = [
-  process.env.FRONTEND_URL,          // production / env-configured origin
-  // Vercel production frontend — hardcoded so CORS works even if FRONTEND_URL is unset
+  process.env.FRONTEND_URL,
+  // All Vercel deployment URLs for this project (production + all preview aliases)
+  'https://connect-pro-communication-app.vercel.app',
   'https://connect-pro-communication-r58ut0gqb.vercel.app',
   'http://localhost:3000',
   'http://127.0.0.1:3000',
   'http://localhost:5500',           // VS Code Live Server
-  'http://127.0.0.1:5500',          // VS Code Live Server (IP variant)
+  'http://127.0.0.1:5500',
   'http://localhost:5173',           // Vite dev server
   'http://127.0.0.1:5173',
-].filter(Boolean);                   // drop undefined when FRONTEND_URL is not set
+].filter(Boolean);
 
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (curl, Postman, server-to-server)
     if (!origin) return callback(null, true);
+    // Allow any Vercel preview deployment for this project
+    if (origin.endsWith('.vercel.app')) return callback(null, true);
     if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
     callback(new Error(`CORS: origin '${origin}' not allowed`));
   },

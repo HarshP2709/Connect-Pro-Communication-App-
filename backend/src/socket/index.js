@@ -13,10 +13,12 @@ let io;
 
 const SOCKET_ALLOWED_ORIGINS = [
   process.env.FRONTEND_URL,
+  'https://connect-pro-communication-app.vercel.app',
+  'https://connect-pro-communication-r58ut0gqb.vercel.app',
   'http://localhost:3000',
   'http://127.0.0.1:3000',
   'http://localhost:5500',    // VS Code Live Server
-  'http://127.0.0.1:5500',   // VS Code Live Server (IP variant)
+  'http://127.0.0.1:5500',
   'http://localhost:5173',    // Vite dev server
   'http://127.0.0.1:5173',
 ].filter(Boolean);
@@ -26,6 +28,7 @@ const initSocket = (server) => {
     cors: {
       origin: (origin, callback) => {
         if (!origin) return callback(null, true);
+        if (origin.endsWith('.vercel.app')) return callback(null, true);
         if (SOCKET_ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
         callback(new Error(`Socket CORS: origin '${origin}' not allowed`));
       },
