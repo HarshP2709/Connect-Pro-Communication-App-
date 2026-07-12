@@ -16,7 +16,9 @@ const handleValidation = (req, res, next) => {
 
 // ─── Auth Validators ──────────────────────────────────────────────────────────
 const validateRegister = [
-  body('email').isEmail().normalizeEmail().withMessage('Valid email is required'),
+  // normalizeEmail() is intentionally omitted — it mutates the address (strips dots,
+  // lowercases Gmail aliases) and must match exactly what Supabase Auth stores.
+  body('email').isEmail().withMessage('Valid email is required'),
   body('password')
     .isLength({ min: 8 })
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
@@ -29,13 +31,13 @@ const validateRegister = [
 ];
 
 const validateLogin = [
-  body('email').isEmail().normalizeEmail().withMessage('Valid email is required'),
+  body('email').isEmail().withMessage('Valid email is required'),
   body('password').notEmpty().withMessage('Password is required'),
   handleValidation,
 ];
 
 const validateForgotPassword = [
-  body('email').isEmail().normalizeEmail().withMessage('Valid email is required'),
+  body('email').isEmail().withMessage('Valid email is required'),
   handleValidation,
 ];
 
