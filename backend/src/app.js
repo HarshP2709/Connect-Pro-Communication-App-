@@ -44,11 +44,15 @@ app.use(helmet({
 }));
 
 // ─── CORS ─────────────────────────────────────────────────────────────────────
+// Strip trailing slash from FRONTEND_URL so exact-match never fails
+const _frontendUrl = (process.env.FRONTEND_URL || '').replace(/\/$/, '');
+
 const ALLOWED_ORIGINS = [
-  process.env.FRONTEND_URL,
+  _frontendUrl,
   // All Vercel deployment URLs for this project (production + all preview aliases)
   'https://connect-pro-communication-app.vercel.app',
   'https://connect-pro-communication-r58ut0gqb.vercel.app',
+  'https://connect-pro-communication-40fof88fe.vercel.app',
   'http://localhost:3000',
   'http://127.0.0.1:3000',
   'http://localhost:5500',           // VS Code Live Server
