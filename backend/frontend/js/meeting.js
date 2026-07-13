@@ -286,7 +286,7 @@ function initSocket() {
 
   Room.socket.on('chat-message', (msg) => {
     appendChatMessage(msg);
-    if (msg.message_type === 'file') {
+    if (msg.type === 'file' || msg.message_type === 'file') {
       let fileInfo = {};
       try {
         fileInfo = typeof msg.content === 'string' ? JSON.parse(msg.content) : msg.content;
@@ -854,7 +854,7 @@ function appendChatMessage(msg) {
   const bubble = document.createElement('div');
   bubble.className = `chat-bubble ${isOwn ? 'own' : ''}`;
 
-  const isFile = msg.message_type === 'file';
+  const isFile = msg.type === 'file' || msg.message_type === 'file';
   let contentHtml = '';
   if (isFile) {
     let fileInfo = {};

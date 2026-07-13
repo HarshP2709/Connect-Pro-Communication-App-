@@ -3,6 +3,7 @@
 const { supabaseAdmin } = require('../config/supabase');
 const { successResponse, errorResponse, parsePagination, generateStoragePath, formatBytes } = require('../utils/helpers');
 const { asyncHandler } = require('../middleware/errorHandler');
+const logger = require('../utils/logger');
 
 /**
  * POST /api/files/upload - Upload file to Supabase Storage
@@ -115,6 +116,10 @@ exports.downloadFile = asyncHandler(async (req, res) => {
   const { data: signedData, error: signedErr } = await supabaseAdmin.storage
     .from(file.bucket)
     .createSignedUrl(file.storage_path, 300); // 5-minute expiry
+
+  if (signedErr) {
+    logger.error(`createSignedUrl failed for file ${file.id} (path: ${file.storage_path}, bucket: ${file.bucket}): ${signedErr.message}`);
+  }
 
   if (!signedErr && signedData?.signedUrl) {
     return successResponse(res, { url: signedData.signedUrl, name: file.name });
