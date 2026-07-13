@@ -817,6 +817,97 @@
       flex-direction: column;
       gap: 16px;
     }
+
+    /* Whiteboard Container */
+    #meeting-whiteboard-container {
+      position: fixed;
+      inset: 60px 20px 20px 20px;
+      background: #1e1e24;
+      z-index: 900;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    #meeting-whiteboard-container .whiteboard-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: #121215;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      align-items: center;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    #meeting-whiteboard-container .whiteboard-status {
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #meeting-whiteboard-container .whiteboard-status span {
+      font-size: 11px;
+      color: #cbd5e1;
+      background: #2b2b36;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    #close-meeting-whiteboard {
+      color: white;
+      padding: 4px 12px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    #meeting-whiteboard-iframe {
+      flex: 1;
+      border: none;
+      border-radius: 0 0 12px 12px;
+      background: #121215;
+    }
+
+    @media (max-width: 768px) {
+      #meeting-whiteboard-container {
+        inset: 12px;
+        border-radius: 8px;
+      }
+
+      #meeting-whiteboard-container .whiteboard-header {
+        padding: 10px 12px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+
+      #meeting-whiteboard-iframe {
+        border-radius: 0 0 8px 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .video-grid.grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .video-grid.grid-3 {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, 1fr);
+      }
+
+      .video-grid.grid-4 {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+      }
+
+      .video-grid.grid-6 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -979,18 +1070,12 @@
   </div>
 
   <!-- Meeting Whiteboard Section -->
-  <div id="meeting-whiteboard-container" class="hidden"
-    style="position:fixed;inset:60px 20px 20px 20px;background:#1e1e24;z-index:900;border-radius:12px;border:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column;box-shadow:0 20px 25px -5px rgba(0,0,0,0.5)">
-    <div
-      style="display:flex;justify-content:space-between;padding:12px 20px;background:#121215;border-bottom:1px solid rgba(255,255,255,0.1);align-items:center;border-top-left-radius:12px;border-top-right-radius:12px">
-      <span style="font-weight:700;color:white;display:flex;align-items:center;gap:8px">🖊️ Meeting Whiteboard <span
-          style="font-size:11px;color:#cbd5e1;background:#2b2b36;padding:2px 8px;border-radius:20px"
-          id="wb-status-tag">Collaboration Mode</span></span>
-      <button class="btn btn-ghost btn-sm" id="close-meeting-whiteboard"
-        style="color:white;padding:4px 12px;border-radius:6px;background:rgba(255,255,255,0.05)">✕ Close</button>
+  <div id="meeting-whiteboard-container" class="hidden">
+    <div class="whiteboard-header">
+      <span class="whiteboard-status">🖊️ Meeting Whiteboard <span id="wb-status-tag">Collaboration Mode</span></span>
+      <button class="btn btn-ghost btn-sm" id="close-meeting-whiteboard">✕ Close</button>
     </div>
-    <iframe id="meeting-whiteboard-iframe"
-      style="flex:1;border:none;border-radius:0 0 12px 12px;background:#121215"></iframe>
+    <iframe id="meeting-whiteboard-iframe"></iframe>
   </div>
 
   <!-- Side Panel -->
