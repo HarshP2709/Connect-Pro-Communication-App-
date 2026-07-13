@@ -692,6 +692,30 @@ function initControls() {
       hostRemove(socketId);
     }
   });
+
+  // Chat file download click listener
+  const chatMessages = document.getElementById('chat-messages');
+  chatMessages?.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-action="download-file"]');
+    if (!btn) return;
+    const fileId = btn.dataset.fileId;
+    const fileName = btn.dataset.fileName;
+    if (fileId) {
+      downloadFile(fileId, fileName);
+    }
+  });
+
+  // Files list download click listener
+  const filesList = document.getElementById('meeting-files-list');
+  filesList?.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-action="download-file"]');
+    if (!btn) return;
+    const fileId = btn.dataset.fileId;
+    const fileName = btn.dataset.fileName;
+    if (fileId) {
+      downloadFile(fileId, fileName);
+    }
+  });
 }
 
 function initKeyboardShortcuts() {
@@ -852,7 +876,7 @@ function appendChatMessage(msg) {
           <div style="font-size:12px;font-weight:600;color:white;text-overflow:ellipsis;white-space:nowrap;overflow:hidden">${escHtml(fileInfo.name)}</div>
           <div style="font-size:10px;color:rgba(255,255,255,0.4)">${fileInfo.size ? ((fileInfo.size / 1024).toFixed(1) + ' KB') : '0 KB'}</div>
         </div>
-        <a href="${fileInfo.public_url}" target="_blank" download="${escHtml(fileInfo.name)}" style="color:var(--primary-color);font-size:14px;text-decoration:none">⬇</a>
+        <button data-action="download-file" data-file-id="${fileInfo.id}" data-file-name="${escHtml(fileInfo.name)}" title="Download" style="color:var(--primary-color);font-size:14px;text-decoration:none;background:none;border:none;padding:0;outline:none;cursor:pointer">⬇</button>
       </div>
     `;
   } else {
@@ -1248,7 +1272,7 @@ function renderFileItem(file) {
         ${sizeStr} • ${escHtml(uploaderName)}
       </div>
     </div>
-    <a href="${file.public_url}" target="_blank" download="${escHtml(file.name)}" class="btn btn-ghost btn-icon btn-sm" title="Download" style="font-size:14px;color:var(--primary-color);text-decoration:none">⬇</a>
+    <button data-action="download-file" data-file-id="${file.id}" data-file-name="${escHtml(file.name)}" class="btn btn-ghost btn-icon btn-sm" title="Download" style="font-size:14px;color:var(--primary-color);text-decoration:none;background:none;border:none;padding:0;outline:none;cursor:pointer">⬇</button>
   `;
   return item;
 }
@@ -1275,6 +1299,22 @@ async function uploadAndShareFile(file) {
   } catch (err) {
     console.error('File upload error:', err);
     Toast.show('error', 'Upload Failed', err.message || 'Failed to upload/share file');
+  }
+}
+
+async function downloadFile(id, name) {
+  try {
+    const res = await API.get(`/api/files/${id}/download`);
+    const { url } = res.data;
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name || 'download';
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  } catch (e) {
+    Toast.show('error', 'Download Failed', e.message || 'Failed to download file');
   }
 }
 
