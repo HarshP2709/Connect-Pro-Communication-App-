@@ -304,7 +304,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ─── Socket.io Sync ──────────────────────────────────────
-  if (WB.meetingId) {
+  const isIframe = window.parent && window.parent.Room && window.parent.Room.socket;
+  if (isIframe) {
+    WB.socket = window.parent.Room.socket;
+    document.getElementById('wb-sync-status').textContent = '● Live Sync';
+    document.getElementById('wb-sync-status').style.color = '#4ade80';
+  } else if (WB.meetingId) {
     WB.socket = io(CONFIG.BACKEND_URL, { auth: { token: API.token } });
     WB.socket.on('connect', () => {
       document.getElementById('wb-sync-status').textContent = '● Live Sync';
@@ -316,6 +321,14 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('wb-sync-status').textContent = '○ Offline';
       document.getElementById('wb-sync-status').style.color = 'rgba(255,255,255,0.3)';
     });
+  }
+
+  if (WB.socket) {
+    // Clear previous listeners to avoid duplicates when iframe reloads
+    WB.socket.off('whiteboard-draw');
+    WB.socket.off('whiteboard-clear');
+    WB.socket.off('whiteboard-undo');
+
     WB.socket.on('whiteboard-draw', (data) => {
       if (!data) return;
       ctx.save();
