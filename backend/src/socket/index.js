@@ -203,15 +203,11 @@ const initSocket = (server) => {
 
     socket.on('screen-share-started', () => {
       if (!socket.currentRoom) return;
-      const room = rooms.get(socket.currentRoom);
-      if (room?.host !== socket.userId) return;
       socket.to(socket.currentRoom).emit('screen-share-started', { socketId: socket.id, user: socket.user });
     });
 
     socket.on('screen-share-stopped', () => {
       if (!socket.currentRoom) return;
-      const room = rooms.get(socket.currentRoom);
-      if (room?.host !== socket.userId) return;
       socket.to(socket.currentRoom).emit('screen-share-stopped', { socketId: socket.id });
     });
 
@@ -314,22 +310,16 @@ const initSocket = (server) => {
     // ─── Whiteboard Sync ─────────────────────────────────────────────────────
     socket.on('whiteboard-draw', (data) => {
       if (!socket.currentRoom) return;
-      const room = rooms.get(socket.currentRoom);
-      if (room?.host !== socket.userId) return;
       socket.to(socket.currentRoom).emit('whiteboard-draw', { ...data, user: socket.user });
     });
 
     socket.on('whiteboard-clear', () => {
       if (!socket.currentRoom) return;
-      const room = rooms.get(socket.currentRoom);
-      if (room?.host !== socket.userId) return;
       io.to(socket.currentRoom).emit('whiteboard-clear');
     });
 
     socket.on('whiteboard-undo', (data) => {
       if (!socket.currentRoom) return;
-      const room = rooms.get(socket.currentRoom);
-      if (room?.host !== socket.userId) return;
       socket.to(socket.currentRoom).emit('whiteboard-undo', data);
     });
 

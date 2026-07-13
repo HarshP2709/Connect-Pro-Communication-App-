@@ -1,0 +1,19 @@
+﻿files : <script src="../../js/app.js"></script>
+files : <script>
+history : <script src="../../js/app.js"></script>
+history : <script>
+index : <script src="../../js/app.js"></script>
+index : <script src="../../js/dashboard.js"></script>
+meetings : <script src="../../js/app.js"></script>
+meetings : <script>
+notifications : <script src="../../js/app.js"></script>
+notifications : <script>
+profile : <script src="../../js/app.js"></script>
+profile : <script src="../../js/profile.js"></script>
+schedule : <script src="../../js/app.js"></script>
+schedule : <script>
+settings : <script src="../../js/app.js"></script>
+settings : <script src="../../js/settings.js"></script>
+whiteboard : <script src="https://cdn.socket.io/4.6.2/socket.io.min.js"></script>
+whiteboard : <script src="../../js/app.js"></script>
+whiteboard : <script src="../../js/whiteboard.js"></script>

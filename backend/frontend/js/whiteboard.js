@@ -7,21 +7,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   if (!Auth.requireAuth()) return;
 
-  // Verify host status
-  const params = new URLSearchParams(window.location.search);
-  const mId = params.get('meeting');
-  if (mId) {
-    API.get(`/api/meetings/${mId}`).then(res => {
-      const isHost = res?.data?.host_id === Auth.getUser()?.id;
-      if (!isHost) {
-        Toast.error('Access Denied', 'Only the meeting host can access the whiteboard.');
-        setTimeout(() => window.close(), 2500);
-      }
-    }).catch(err => {
-      console.error('Failed to verify host status:', err);
-    });
-  }
-
   const canvas = document.getElementById('wb-canvas');
   const ctx = canvas.getContext('2d');
   const area = document.getElementById('canvas-area');
