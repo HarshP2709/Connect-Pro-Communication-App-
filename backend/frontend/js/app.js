@@ -325,6 +325,62 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileNav.classList.toggle('open');
     });
   }
+
+  // Sidebar (dashboard layouts)
+  const sidebar = document.getElementById('sidebar');
+  const pageHeader = document.querySelector('.page-header');
+  if (sidebar && pageHeader) {
+    let toggleBtn = document.getElementById('sidebar-toggle');
+    if (!toggleBtn) {
+      const firstChild = pageHeader.firstElementChild;
+      if (firstChild) {
+        firstChild.style.display = 'flex';
+        firstChild.style.alignItems = 'center';
+        firstChild.style.gap = 'var(--space-3)';
+
+        toggleBtn = document.createElement('button');
+        toggleBtn.className = 'btn btn-ghost btn-icon';
+        toggleBtn.id = 'sidebar-toggle';
+        toggleBtn.style.display = 'none';
+        toggleBtn.title = 'Toggle menu';
+        toggleBtn.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        `;
+        firstChild.insertBefore(toggleBtn, firstChild.firstChild);
+      }
+    }
+
+    if (toggleBtn) {
+      const mainContent = document.getElementById('main-content');
+      const checkMobile = () => {
+        const isMobile = window.innerWidth <= 768;
+        toggleBtn.style.display = isMobile ? 'flex' : 'none';
+        if (isMobile && mainContent) {
+          mainContent.style.marginLeft = '0';
+        } else if (mainContent) {
+          mainContent.style.marginLeft = '';
+        }
+      };
+
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+
+      toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && sidebar.classList.contains('open') && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+          sidebar.classList.remove('open');
+        }
+      });
+    }
+  }
 });
 
 // Expose globals

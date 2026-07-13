@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   updateUserUI(user);
   loadDashboard(user);
-  initSidebar();
   initGreeting(user);
   initModals();
   initDropdown();
@@ -197,30 +196,7 @@ function getNotifIcon(type) {
   return icons[type] || '🔔';
 }
 
-// ─── Sidebar ──────────────────────────────────────────────────────────────────
-function initSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  const mainContent = document.getElementById('main-content');
-  const toggleBtn = document.getElementById('sidebar-toggle');
 
-  // Show hamburger on mobile
-  const checkMobile = () => {
-    const isMobile = window.innerWidth <= 768;
-    toggleBtn?.style.setProperty('display', isMobile ? 'flex' : 'none');
-    if (isMobile) mainContent?.style.setProperty('margin-left', '0');
-  };
-  checkMobile();
-  window.addEventListener('resize', checkMobile);
-
-  toggleBtn?.addEventListener('click', () => sidebar?.classList.toggle('open'));
-
-  // Close sidebar on overlay click (mobile)
-  document.addEventListener('click', (e) => {
-    if (window.innerWidth <= 768 && sidebar?.classList.contains('open') && !sidebar.contains(e.target) && e.target !== toggleBtn) {
-      sidebar.classList.remove('open');
-    }
-  });
-}
 
 // ─── Dropdown ────────────────────────────────────────────────────────────────
 function initDropdown() {

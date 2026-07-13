@@ -426,6 +426,19 @@
         grid-template-columns: 1fr 1fr;
       }
     }
+
+    .dashboard-activity-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: var(--space-6);
+      margin-top: var(--space-8);
+    }
+
+    @media (max-width: 992px) {
+      .dashboard-activity-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -659,7 +672,7 @@
         </div>
 
         <!-- Recent Activity + Notifications -->
-        <div style="margin-top:var(--space-8);display:grid;grid-template-columns:1fr 360px;gap:var(--space-6)">
+        <div class="dashboard-activity-grid">
           <div class="glass-card" style="padding:var(--space-6)">
             <h3 style="font-size:var(--text-lg);font-weight:700;margin-bottom:var(--space-5)">Recent Activity</h3>
             <div id="activity-list">
