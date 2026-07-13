@@ -40,6 +40,9 @@ const ICE_SERVERS = [
 document.addEventListener('DOMContentLoaded', async () => {
   if (!Auth.requireAuth()) return;
 
+  // Register cancel button handler immediately so it works in the waiting room
+  document.getElementById('btn-cancel-waiting')?.addEventListener('click', leaveMeeting);
+
   const params = new URLSearchParams(window.location.search);
   let rawId = params.get('id') || '';
   // If someone pasted a full meeting URL into the join field, extract just the ID
@@ -125,6 +128,7 @@ function initSocket() {
       initKeyboardShortcuts();
       updateControlStates();
       addLocalVideoTile();
+      loadSharedFiles();
     }
 
     // Populate waiting room if host
@@ -242,11 +246,26 @@ function initSocket() {
   Room.socket.on('screen-share-started', ({ socketId, user }) => {
     const tile = document.getElementById(`tile-${socketId}`);
     tile?.classList.add('screen-share');
+    if (tile) {
+      const video = tile.querySelector('video');
+      const avatar = tile.querySelector('.tile-overlay.hidden-bg');
+      if (video) video.style.display = 'block';
+      if (avatar) avatar.style.display = 'none';
+    }
     Toast.info(`${user.full_name} is sharing their screen`);
   });
 
   Room.socket.on('screen-share-stopped', ({ socketId }) => {
-    document.getElementById(`tile-${socketId}`)?.classList.remove('screen-share');
+    const tile = document.getElementById(`tile-${socketId}`);
+    tile?.classList.remove('screen-share');
+    if (tile) {
+      const participant = Room.participants[socketId];
+      const cameraEnabled = participant ? participant.videoEnabled : false;
+      const video = tile.querySelector('video');
+      const avatar = tile.querySelector('.tile-overlay.hidden-bg');
+      if (video) video.style.display = cameraEnabled ? 'block' : 'none';
+      if (avatar) avatar.style.display = cameraEnabled ? 'none' : 'flex';
+    }
   });
 
   Room.socket.on('hand-raised', ({ socketId, user, raised }) => {
@@ -267,6 +286,20 @@ function initSocket() {
 
   Room.socket.on('chat-message', (msg) => {
     appendChatMessage(msg);
+    if (msg.message_type === 'file') {
+      let fileInfo = {};
+      try {
+        fileInfo = typeof msg.content === 'string' ? JSON.parse(msg.content) : msg.content;
+      } catch { }
+      if (fileInfo && fileInfo.id) {
+        addToFilePaneList(fileInfo);
+        const user = Auth.getUser();
+        const isOwn = msg.sender_id === user?.id || msg.sender?.id === user?.id;
+        if (!isOwn) {
+          Toast.info(`${msg.sender?.full_name || 'Participant'} shared a file: ${fileInfo.name}`);
+        }
+      }
+    }
     if (!Room.panelOpen || Room.activeTab !== 'chat') {
       Room.chatUnread++;
       const badge = document.getElementById('chat-badge');
@@ -334,8 +367,14 @@ function createPeerConnection(targetSocketId, isInitiator) {
   const pc = new RTCPeerConnection({ iceServers: ICE_SERVERS });
   Room.peerConnections[targetSocketId] = pc;
 
-  // Add local tracks
-  Room.localStream.getTracks().forEach(track => pc.addTrack(track, Room.localStream));
+  // Add local tracks - use screen share video track if sharing
+  const videoTrack = Room.screenSharing && Room.screenStream
+    ? Room.screenStream.getVideoTracks()[0]
+    : Room.localStream.getVideoTracks()[0];
+  const audioTrack = Room.localStream.getAudioTracks()[0];
+
+  if (audioTrack) pc.addTrack(audioTrack, Room.localStream);
+  if (videoTrack) pc.addTrack(videoTrack, Room.localStream);
 
   // ICE candidates
   pc.onicecandidate = ({ candidate }) => {
@@ -566,9 +605,30 @@ function initControls() {
     tab.addEventListener('click', () => switchTab(tab.dataset.tab));
   });
 
+  // Attach File Button
+  const attachBtn = document.getElementById('chat-attach-btn');
+  const fileInput = document.getElementById('chat-file-input');
+  const panelUploadBtn = document.getElementById('panel-upload-btn');
+
+  attachBtn?.addEventListener('click', () => {
+    fileInput?.click();
+  });
+
+  panelUploadBtn?.addEventListener('click', () => {
+    fileInput?.click();
+  });
+
+  fileInput?.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    await uploadAndShareFile(file);
+    fileInput.value = '';
+  });
+
   // Whiteboard
   document.getElementById('btn-whiteboard')?.addEventListener('click', () => {
-    window.open(url('pages/dashboard/whiteboard.html') + `?meeting=${Room.meetingId}`, '_blank');
+    const pwd = new URLSearchParams(window.location.search).get('pwd') || '';
+    window.open(url('pages/dashboard/whiteboard.html') + `?meeting=${Room.meetingId}&pwd=${pwd}`, '_blank');
   });
 
   // View toggle
@@ -619,8 +679,6 @@ function initControls() {
   }
 
   // CSP click event listeners
-  document.getElementById('btn-cancel-waiting')?.addEventListener('click', leaveMeeting);
-
   const partList = document.getElementById('participant-list');
   partList?.addEventListener('click', (e) => {
     const btn = e.target.closest('button');
@@ -690,7 +748,13 @@ async function toggleScreenShare() {
     const videoTrack = Room.localStream.getVideoTracks()[0];
     Object.values(Room.peerConnections).forEach(pc => {
       const sender = pc.getSenders().find(s => s.track?.kind === 'video');
-      if (sender && videoTrack) sender.replaceTrack(videoTrack);
+      if (sender) {
+        if (videoTrack) {
+          sender.replaceTrack(videoTrack);
+        } else {
+          pc.removeTrack(sender);
+        }
+      }
     });
 
     const localVideo = document.getElementById('video-local');
@@ -709,7 +773,11 @@ async function toggleScreenShare() {
       // Replace video track in peer connections
       Object.values(Room.peerConnections).forEach(pc => {
         const sender = pc.getSenders().find(s => s.track?.kind === 'video');
-        if (sender) sender.replaceTrack(screenTrack);
+        if (sender) {
+          sender.replaceTrack(screenTrack);
+        } else {
+          pc.addTrack(screenTrack, Room.localStream);
+        }
       });
 
       const localVideo = document.getElementById('video-local');
@@ -761,9 +829,39 @@ function appendChatMessage(msg) {
 
   const bubble = document.createElement('div');
   bubble.className = `chat-bubble ${isOwn ? 'own' : ''}`;
+
+  const isFile = msg.message_type === 'file';
+  let contentHtml = '';
+  if (isFile) {
+    let fileInfo = {};
+    try {
+      fileInfo = typeof msg.content === 'string' ? JSON.parse(msg.content) : msg.content;
+    } catch {
+      fileInfo = { name: 'Shared File', public_url: '#' };
+    }
+    let icon = '📄';
+    if (fileInfo.mime_type?.startsWith('image/')) icon = '🖼️';
+    else if (fileInfo.mime_type?.startsWith('video/')) icon = '🎥';
+    else if (fileInfo.mime_type?.startsWith('audio/')) icon = '🎵';
+    else if (fileInfo.mime_type?.includes('pdf')) icon = '📕';
+
+    contentHtml = `
+      <div class="chat-file-card" style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);margin-top:4px">
+        <span style="font-size:20px">${icon}</span>
+        <div style="flex:1;min-width:0;text-align:left">
+          <div style="font-size:12px;font-weight:600;color:white;text-overflow:ellipsis;white-space:nowrap;overflow:hidden">${escHtml(fileInfo.name)}</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4)">${fileInfo.size ? ((fileInfo.size / 1024).toFixed(1) + ' KB') : '0 KB'}</div>
+        </div>
+        <a href="${fileInfo.public_url}" target="_blank" download="${escHtml(fileInfo.name)}" style="color:var(--primary-color);font-size:14px;text-decoration:none">⬇</a>
+      </div>
+    `;
+  } else {
+    contentHtml = `<div class="chat-text">${escHtml(msg.content)}</div>`;
+  }
+
   bubble.innerHTML = `
     ${!isOwn ? `<div class="chat-sender">${escHtml(msg.sender?.full_name || 'Participant')}</div>` : ''}
-    <div class="chat-text">${escHtml(msg.content)}</div>
+    ${contentHtml}
     <div class="chat-time">${formatChatTime(msg.created_at || new Date())}</div>
   `;
 
@@ -806,6 +904,7 @@ function switchTab(tab) {
   document.querySelectorAll('.panel-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
   document.getElementById('chat-tab').style.display = tab === 'chat' ? 'flex' : 'none';
   document.getElementById('participants-tab').style.display = tab === 'participants' ? 'flex' : 'none';
+  document.getElementById('files-tab').style.display = tab === 'files' ? 'flex' : 'none';
 }
 
 // ─── Participants List ────────────────────────────────────────────────────────
@@ -1088,6 +1187,95 @@ function hideLoading() {
 
 function escHtml(str) {
   return String(str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+async function loadSharedFiles() {
+  try {
+    const res = await API.get(`/api/files?meeting_id=${encodeURIComponent(Room.meetingDbId)}`);
+    const files = res.data?.files || res.data || [];
+    const list = document.getElementById('meeting-files-list');
+    const emptyState = document.getElementById('files-empty-state');
+    if (!list) return;
+
+    const items = list.querySelectorAll('.file-item');
+    items.forEach(it => it.remove());
+
+    if (files.length > 0) {
+      if (emptyState) emptyState.style.display = 'none';
+      files.forEach(file => {
+        list.appendChild(renderFileItem(file));
+      });
+    } else {
+      if (emptyState) emptyState.style.display = 'block';
+    }
+  } catch (err) {
+    console.error('Failed to load shared files:', err);
+  }
+}
+
+function addToFilePaneList(fileInfo) {
+  const list = document.getElementById('meeting-files-list');
+  const emptyState = document.getElementById('files-empty-state');
+  if (!list) return;
+
+  if (list.querySelector(`[data-file-id="${fileInfo.id}"]`)) return;
+
+  if (emptyState) emptyState.style.display = 'none';
+  const item = renderFileItem(fileInfo);
+  item.setAttribute('data-file-id', fileInfo.id);
+  list.appendChild(item);
+}
+
+function renderFileItem(file) {
+  const item = document.createElement('div');
+  item.className = 'file-item';
+  item.style.cssText = 'padding:10px 12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);border-radius:6px;margin-bottom:8px;position:relative;display:flex;align-items:center;gap:10px';
+
+  let icon = '📄';
+  if (file.mime_type?.startsWith('image/')) icon = '🖼️';
+  else if (file.mime_type?.startsWith('video/')) icon = '🎥';
+  else if (file.mime_type?.startsWith('audio/')) icon = '🎵';
+  else if (file.mime_type?.includes('pdf')) icon = '📕';
+
+  const sizeStr = file.size ? ((file.size / 1024).toFixed(1) + ' KB') : '0 KB';
+  const uploaderName = file.uploader?.full_name || 'Participant';
+
+  item.innerHTML = `
+    <div style="font-size:20px">${icon}</div>
+    <div style="flex:1;min-width:0;text-align:left">
+      <div style="font-size:13px;font-weight:600;color:white;text-overflow:ellipsis;white-space:nowrap;overflow:hidden">${escHtml(file.name)}</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.4)">
+        ${sizeStr} • ${escHtml(uploaderName)}
+      </div>
+    </div>
+    <a href="${file.public_url}" target="_blank" download="${escHtml(file.name)}" class="btn btn-ghost btn-icon btn-sm" title="Download" style="font-size:14px;color:var(--primary-color);text-decoration:none">⬇</a>
+  `;
+  return item;
+}
+
+async function uploadAndShareFile(file) {
+  Toast.show('info', 'Uploading File', `Starting upload for ${file.name}...`);
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('meeting_id', Room.meetingDbId);
+
+    const res = await API.post('/api/files/upload', formData);
+    if (!res || !res.data) {
+      throw new Error('Upload request failed');
+    }
+
+    const fileRecord = res.data;
+    Room.socket.emit('chat-message', {
+      content: JSON.stringify(fileRecord),
+      type: 'file'
+    });
+
+    Toast.show('success', 'File Uploaded', `${file.name} successfully shared.`);
+  } catch (err) {
+    console.error('File upload error:', err);
+    Toast.show('error', 'Upload Failed', err.message || 'Failed to upload/share file');
+  }
 }
 
 window.addEventListener('beforeunload', cleanup);

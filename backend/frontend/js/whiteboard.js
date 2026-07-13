@@ -25,23 +25,24 @@ document.addEventListener('DOMContentLoaded', () => {
     snapshot: null,    // for shapes preview
     socket: null,
     meetingId: new URLSearchParams(window.location.search).get('meeting'),
+    password: new URLSearchParams(window.location.search).get('pwd') || '',
   };
 
   // ─── Canvas Setup ────────────────────────────────────────
   function resizeCanvas() {
     const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    canvas.width  = area.clientWidth;
+    canvas.width = area.clientWidth;
     canvas.height = area.clientHeight;
     ctx.putImageData(img, 0, 0);
     setContextStyle();
   }
 
   function setContextStyle() {
-    ctx.lineWidth   = WB.size;
+    ctx.lineWidth = WB.size;
     ctx.strokeStyle = hexToRgba(WB.color, WB.opacity);
-    ctx.fillStyle   = hexToRgba(WB.color, WB.opacity);
-    ctx.lineCap     = 'round';
-    ctx.lineJoin    = 'round';
+    ctx.fillStyle = hexToRgba(WB.color, WB.opacity);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
   }
 
   resizeCanvas();
@@ -89,10 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── Drawing Events ───────────────────────────────────────
   const getPos = (e) => {
     const rect = canvas.getBoundingClientRect();
-    const src  = e.touches?.[0] || e;
+    const src = e.touches?.[0] || e;
     return {
-      x: (src.clientX - rect.left) * (canvas.width  / rect.width),
-      y: (src.clientY - rect.top)  * (canvas.height / rect.height),
+      x: (src.clientX - rect.left) * (canvas.width / rect.width),
+      y: (src.clientY - rect.top) * (canvas.height / rect.height),
     };
   };
 
@@ -100,17 +101,17 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const { x, y } = getPos(e);
     WB.drawing = true;
-    WB.startX  = x;
-    WB.startY  = y;
-    WB.lastX   = x;
-    WB.lastY   = y;
+    WB.startX = x;
+    WB.startY = y;
+    WB.lastX = x;
+    WB.lastY = y;
 
     if (WB.tool === 'text') {
       drawText(x, y);
       return;
     }
 
-    if (['line','rect','circle','arrow'].includes(WB.tool)) {
+    if (['line', 'rect', 'circle', 'arrow'].includes(WB.tool)) {
       WB.snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
     } else {
       ctx.beginPath();
@@ -132,7 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (WB.socket) WB.socket.emit('whiteboard-draw', { tool: WB.tool, x, y, lastX: WB.lastX, lastY: WB.lastY, color: WB.color, size: WB.size, opacity: WB.opacity });
     } else if (WB.tool === 'eraser') {
       ctx.clearRect(x - WB.size, y - WB.size, WB.size * 2, WB.size * 2);
-    } else if (['line','rect','circle','arrow'].includes(WB.tool)) {
+      if (WB.socket) WB.socket.emit('whiteboard-draw', { tool: 'eraser', x, y, size: WB.size });
+    } else if (['line', 'rect', 'circle', 'arrow'].includes(WB.tool)) {
       ctx.putImageData(WB.snapshot, 0, 0);
       drawShape(WB.tool, WB.startX, WB.startY, x, y);
     }
@@ -142,7 +144,23 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const onEnd = (e) => {
+    if (!WB.drawing) return;
     WB.drawing = false;
+    // Broadcast shape drawing on release
+    if (['line', 'rect', 'circle', 'arrow'].includes(WB.tool)) {
+      if (WB.socket) {
+        WB.socket.emit('whiteboard-draw', {
+          tool: WB.tool,
+          x1: WB.startX,
+          y1: WB.startY,
+          x2: WB.lastX,
+          y2: WB.lastY,
+          color: WB.color,
+          size: WB.size,
+          opacity: WB.opacity
+        });
+      }
+    }
     if (WB.snapshot) WB.snapshot = null;
     ctx.beginPath();
   };
@@ -188,26 +206,32 @@ document.addEventListener('DOMContentLoaded', () => {
     input.style.cssText = `position:fixed;left:${x + canvas.getBoundingClientRect().left}px;top:${y + canvas.getBoundingClientRect().top}px;background:rgba(0,0,0,0.5);color:${WB.color};border:1px dashed ${WB.color};font-size:${WB.size * 4 + 8}px;outline:none;padding:4px 8px;min-width:150px;z-index:100`;
     document.body.appendChild(input);
     input.focus();
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === 'Escape') {
-        if (input.value) {
-          ctx.font = `${WB.size * 4 + 8}px Inter, sans-serif`;
-          ctx.fillStyle = hexToRgba(WB.color, WB.opacity);
-          ctx.fillText(input.value, x, y);
-        }
-        input.remove();
-        WB.drawing = false;
-      }
-    });
-    input.addEventListener('blur', () => {
+    const commitText = () => {
       if (input.value) {
         ctx.font = `${WB.size * 4 + 8}px Inter, sans-serif`;
         ctx.fillStyle = hexToRgba(WB.color, WB.opacity);
         ctx.fillText(input.value, x, y);
+        if (WB.socket) {
+          WB.socket.emit('whiteboard-draw', {
+            tool: 'text',
+            x,
+            y,
+            text: input.value,
+            color: WB.color,
+            size: WB.size,
+            opacity: WB.opacity
+          });
+        }
       }
       input.remove();
       WB.drawing = false;
+    };
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === 'Escape') {
+        commitText();
+      }
     });
+    input.addEventListener('blur', commitText);
   }
 
   // ─── Undo / Redo ─────────────────────────────────────────
@@ -285,6 +309,8 @@ document.addEventListener('DOMContentLoaded', () => {
     WB.socket.on('connect', () => {
       document.getElementById('wb-sync-status').textContent = '● Live Sync';
       document.getElementById('wb-sync-status').style.color = '#4ade80';
+      // Join the meeting room so that other participants receive drawing events
+      WB.socket.emit('join-room', { meetingId: WB.meetingId, password: WB.password });
     });
     WB.socket.on('disconnect', () => {
       document.getElementById('wb-sync-status').textContent = '○ Offline';
@@ -292,12 +318,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     WB.socket.on('whiteboard-draw', (data) => {
       if (!data) return;
-      ctx.strokeStyle = hexToRgba(data.color, data.opacity);
-      ctx.lineWidth   = data.size;
-      ctx.beginPath();
-      ctx.moveTo(data.lastX, data.lastY);
-      ctx.lineTo(data.x, data.y);
-      ctx.stroke();
+      ctx.save();
+      ctx.strokeStyle = hexToRgba(data.color || '#ffffff', data.opacity !== undefined ? data.opacity : 1);
+      ctx.fillStyle = hexToRgba(data.color || '#ffffff', data.opacity !== undefined ? data.opacity : 1);
+      ctx.lineWidth = data.size || 4;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      if (data.tool === 'pen' || data.tool === 'brush') {
+        ctx.lineWidth = data.tool === 'brush' ? data.size * 3 : data.size;
+        ctx.beginPath();
+        ctx.moveTo(data.lastX, data.lastY);
+        ctx.lineTo(data.x, data.y);
+        ctx.stroke();
+      } else if (data.tool === 'eraser') {
+        ctx.clearRect(data.x - data.size, data.y - data.size, data.size * 2, data.size * 2);
+      } else if (['line', 'rect', 'circle', 'arrow'].includes(data.tool)) {
+        drawShape(data.tool, data.x1, data.y1, data.x2, data.y2);
+      } else if (data.tool === 'text') {
+        ctx.font = `${data.size * 4 + 8}px Inter, sans-serif`;
+        ctx.fillText(data.text, data.x, data.y);
+      }
+      ctx.restore();
     });
     WB.socket.on('whiteboard-clear', () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -313,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ─── Utils ───────────────────────────────────────────────
   function hexToRgba(hex, opacity = 1) {
-    const r = parseInt(hex.slice(1,3), 16), g = parseInt(hex.slice(3,5), 16), b = parseInt(hex.slice(5,7), 16);
+    const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
     return `rgba(${r},${g},${b},${opacity})`;
   }
 

@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   initGreeting(user);
   initModals();
   initDropdown();
-  loadNotifications();
+  initMeetingsGrid();
+  initNotificationsList();
 });
 
 // ─── User UI ──────────────────────────────────────────────────────────────────
@@ -30,9 +31,9 @@ function updateUserUI(user) {
 
   // Header
   Utils.setAvatar(document.getElementById('header-avatar'), user);
-  const dName  = document.getElementById('dropdown-name');
+  const dName = document.getElementById('dropdown-name');
   const dEmail = document.getElementById('dropdown-email');
-  if (dName)  dName.textContent  = user.full_name;
+  if (dName) dName.textContent = user.full_name;
   if (dEmail) dEmail.textContent = user.email;
 
   // Admin nav
@@ -89,7 +90,7 @@ async function loadDashboard(user) {
 
 // ─── Meetings Rendering ───────────────────────────────────────────────────────
 function renderMeetings(meetings) {
-  const grid  = document.getElementById('meetings-grid');
+  const grid = document.getElementById('meetings-grid');
   const empty = document.getElementById('meetings-empty');
   if (!grid) return;
 
@@ -103,7 +104,7 @@ function renderMeetings(meetings) {
   empty?.classList.add('hidden');
 
   grid.innerHTML = meetings.map(m => `
-    <div class="meeting-card" onclick="joinMeeting('${m.meeting_id}')">
+    <div class="meeting-card" data-meeting-id="${m.meeting_id}">
       <div class="meeting-status status-${m.status}">
         <span class="status-dot ${m.status}"></span>
         ${m.status.charAt(0).toUpperCase() + m.status.slice(1)}
@@ -115,11 +116,11 @@ function renderMeetings(meetings) {
       </div>
       <div class="meeting-actions">
         ${m.status !== 'ended' ? `
-          <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();joinMeeting('${m.meeting_id}')">
+          <button class="btn btn-primary btn-sm btn-join">
             ${m.status === 'active' ? '▶ Join' : '🚀 Start'}
           </button>
         ` : '<span class="badge badge-gray">Ended</span>'}
-        <button class="btn btn-ghost btn-icon btn-sm" onclick="event.stopPropagation();Utils.copyToClipboard(url('pages/meeting/room.html')+'?id=${m.meeting_id}')" title="Copy link">
+        <button class="btn btn-ghost btn-icon btn-sm btn-copy" title="Copy link">
           🔗
         </button>
       </div>
@@ -171,7 +172,7 @@ async function loadNotifications() {
         return;
       }
       list.innerHTML = notifs.map(n => `
-        <div class="activity-item" style="cursor:pointer" onclick="markNotifRead('${n.id}')">
+        <div class="activity-item" style="cursor:pointer" data-notif-id="${n.id}">
           <div style="font-size:18px">${getNotifIcon(n.type)}</div>
           <div>
             <div style="font-size:var(--text-sm);font-weight:${n.is_read ? '400' : '600'}">${escHtml(n.title)}</div>
@@ -187,7 +188,7 @@ async function loadNotifications() {
 }
 
 async function markNotifRead(id) {
-  await API.patch(`/api/notifications/${id}/read`).catch(() => {});
+  await API.patch(`/api/notifications/${id}/read`).catch(() => { });
   loadNotifications();
 }
 
@@ -198,9 +199,9 @@ function getNotifIcon(type) {
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
 function initSidebar() {
-  const sidebar     = document.getElementById('sidebar');
+  const sidebar = document.getElementById('sidebar');
   const mainContent = document.getElementById('main-content');
-  const toggleBtn   = document.getElementById('sidebar-toggle');
+  const toggleBtn = document.getElementById('sidebar-toggle');
 
   // Show hamburger on mobile
   const checkMobile = () => {
@@ -224,7 +225,7 @@ function initSidebar() {
 // ─── Dropdown ────────────────────────────────────────────────────────────────
 function initDropdown() {
   const headerAvatar = document.getElementById('header-avatar');
-  const dropdown     = document.getElementById('profile-dropdown');
+  const dropdown = document.getElementById('profile-dropdown');
 
   headerAvatar?.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -248,7 +249,7 @@ function initModals() {
     if (el && !el.value) {
       const now = new Date();
       const pad = n => String(n).padStart(2, '0');
-      el.value = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      el.value = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
     }
     newMeetingModal?.classList.remove('hidden');
   };
@@ -331,8 +332,52 @@ function joinMeeting(meetingId) {
   window.location.href = url('pages/meeting/room.html') + '?id=' + encodeURIComponent(meetingId);
 }
 
+function initMeetingsGrid() {
+  const grid = document.getElementById('meetings-grid');
+  if (!grid) return;
+
+  grid.addEventListener('click', (e) => {
+    const card = e.target.closest('.meeting-card');
+    if (!card) return;
+
+    const meetingId = card.getAttribute('data-meeting-id');
+    if (!meetingId) return;
+
+    const copyBtn = e.target.closest('.btn-copy');
+    const joinBtn = e.target.closest('.btn-join');
+
+    if (copyBtn) {
+      e.stopPropagation();
+      Utils.copyToClipboard(url('pages/meeting/room.html') + '?id=' + encodeURIComponent(meetingId));
+      return;
+    }
+
+    if (joinBtn || card) {
+      joinMeeting(meetingId);
+    }
+  });
+}
+
+function initNotificationsList() {
+  // Bind click listener for list notifications
+  const list = document.getElementById('notif-list');
+  if (list) {
+    list.addEventListener('click', (e) => {
+      const item = e.target.closest('.activity-item');
+      if (!item) return;
+      const notifId = item.getAttribute('data-notif-id');
+      if (notifId) {
+        markNotifRead(notifId);
+      }
+    });
+  }
+
+  // Clean load of data
+  loadNotifications();
+}
+
 function escHtml(str) {
-  return String(str || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  return String(str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 
