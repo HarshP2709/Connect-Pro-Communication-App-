@@ -79,6 +79,7 @@
 .hero-badge-dot { width: 8px; height: 8px; background: var(--green-400); border-radius: 50%; animation: pulse 2s ease infinite; }
 
 .hero-title {
+  font-family: var(--font-sans);
   font-size: clamp(2.5rem, 7vw, 5rem);
   font-weight: 900;
   line-height: 1.05;
@@ -201,7 +202,7 @@
   letter-spacing: 0.1em;
   margin-bottom: var(--space-4);
 }
-.section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: var(--space-4); }
+.section-title { font-family: var(--font-sans); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: var(--space-4); }
 .section-desc { font-size: var(--text-lg); color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
 
 .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
@@ -300,7 +301,7 @@
   text-align: center;
   background: radial-gradient(ellipse at center, rgba(99,102,241,0.1) 0%, transparent 70%);
 }
-.cta-title { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; margin-bottom: var(--space-5); }
+.cta-title { font-family: var(--font-sans); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; margin-bottom: var(--space-5); }
 .cta-desc { font-size: var(--text-lg); color: var(--text-secondary); max-width: 560px; margin: 0 auto var(--space-10); }
 
 /* ─── Footer ─────────────────────────────────────────────── */
