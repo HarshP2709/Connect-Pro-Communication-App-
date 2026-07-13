@@ -11,6 +11,19 @@ exports.uploadFile = asyncHandler(async (req, res) => {
   if (!req.file) return errorResponse(res, 'No file provided', 400);
 
   const { meeting_id, description } = req.body;
+
+  if (meeting_id) {
+    const { data: meeting } = await supabaseAdmin
+      .from('meetings')
+      .select('host_id')
+      .eq('id', meeting_id)
+      .single();
+
+    if (meeting && meeting.host_id !== req.userId) {
+      return errorResponse(res, 'Only the host is allowed to upload files in this meeting', 403);
+    }
+  }
+
   const bucket = process.env.STORAGE_BUCKET_FILES || 'meeting-files';
   const storagePath = generateStoragePath(bucket, req.userId, req.file.originalname);
 
@@ -110,6 +123,21 @@ exports.downloadFile = asyncHandler(async (req, res) => {
     .single();
 
   if (!file) return errorResponse(res, 'File not found', 404);
+
+  if (file.uploader_id !== req.userId) {
+    if (!file.meeting_id) {
+      return errorResponse(res, 'Only the host or uploader is allowed to download files', 403);
+    }
+    const { data: meeting } = await supabaseAdmin
+      .from('meetings')
+      .select('host_id')
+      .eq('id', file.meeting_id)
+      .single();
+
+    if (!meeting || meeting.host_id !== req.userId) {
+      return errorResponse(res, 'Only the host or uploader is allowed to download files', 403);
+    }
+  }
 
   // Try signed URL first (works for both public and private buckets)
   const { data: signedData, error: signedErr } = await supabaseAdmin.storage

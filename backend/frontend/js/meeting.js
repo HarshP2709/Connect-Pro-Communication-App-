@@ -676,7 +676,15 @@ function initControls() {
   if (!Room.isHost) {
     document.getElementById('opt-lock')?.remove();
     document.getElementById('waiting-room-section')?.remove();
+    document.getElementById('btn-whiteboard')?.remove();
+    document.getElementById('btn-screen')?.remove();
+    document.getElementById('panel-upload-btn')?.remove();
+    document.getElementById('chat-attach-btn')?.remove();
   }
+
+  // Handle file downloads via signed URL
+  document.getElementById('chat-messages')?.addEventListener('click', handleFileDownloadClick);
+  document.getElementById('files-list')?.addEventListener('click', handleFileDownloadClick);
 
   // CSP click event listeners
   const partList = document.getElementById('participant-list');
@@ -852,7 +860,7 @@ function appendChatMessage(msg) {
           <div style="font-size:12px;font-weight:600;color:white;text-overflow:ellipsis;white-space:nowrap;overflow:hidden">${escHtml(fileInfo.name)}</div>
           <div style="font-size:10px;color:rgba(255,255,255,0.4)">${fileInfo.size ? ((fileInfo.size / 1024).toFixed(1) + ' KB') : '0 KB'}</div>
         </div>
-        <a href="${fileInfo.public_url}" target="_blank" download="${escHtml(fileInfo.name)}" style="color:var(--primary-color);font-size:14px;text-decoration:none">⬇</a>
+        ${Room.isHost ? `<button data-action="download-file" data-file-id="${fileInfo.id}" style="background:none;border:none;color:var(--primary-color);font-size:14px;cursor:pointer;padding:4px">⬇</button>` : ''}
       </div>
     `;
   } else {
@@ -1248,7 +1256,7 @@ function renderFileItem(file) {
         ${sizeStr} • ${escHtml(uploaderName)}
       </div>
     </div>
-    <a href="${file.public_url}" target="_blank" download="${escHtml(file.name)}" class="btn btn-ghost btn-icon btn-sm" title="Download" style="font-size:14px;color:var(--primary-color);text-decoration:none">⬇</a>
+    ${Room.isHost ? `<button data-action="download-file" data-file-id="${file.id}" class="btn btn-ghost btn-icon btn-sm" title="Download" style="font-size:14px;color:var(--primary-color);cursor:pointer">⬇</button>` : ''}
   `;
   return item;
 }
@@ -1275,6 +1283,36 @@ async function uploadAndShareFile(file) {
   } catch (err) {
     console.error('File upload error:', err);
     Toast.show('error', 'Upload Failed', err.message || 'Failed to upload/share file');
+  }
+}
+
+async function handleFileDownloadClick(e) {
+  const btn = e.target.closest('[data-action="download-file"]');
+  if (!btn) return;
+  e.preventDefault();
+  const fileId = btn.dataset.fileId;
+  if (!fileId) return;
+
+  try {
+    const originalText = btn.textContent;
+    btn.textContent = '⏳';
+    btn.disabled = true;
+
+    const res = await API.get(`/api/files/${fileId}/download`);
+    btn.textContent = originalText;
+    btn.disabled = false;
+
+    if (res?.data?.url) {
+      const link = document.createElement('a');
+      link.href = res.data.url;
+      link.target = '_blank';
+      link.click();
+    } else {
+      Toast.error('Download failed', 'No URL returned');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    Toast.error('Download failed', err.message);
   }
 }
 
