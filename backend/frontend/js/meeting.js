@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!Auth.requireAuth()) return;
 
   const params = new URLSearchParams(window.location.search);
-  let rawId    = params.get('id') || '';
+  let rawId = params.get('id') || '';
   // If someone pasted a full meeting URL into the join field, extract just the ID
   try {
     const u = new URL(rawId);
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const { meeting, is_host } = res.data;
     Room.meetingDbId = meeting.id;
-    Room.isHost      = is_host;
+    Room.isHost = is_host;
     document.getElementById('room-title').textContent = meeting.title;
     document.getElementById('meeting-id-display').textContent = meeting.meeting_id;
 
@@ -111,7 +111,7 @@ function initSocket() {
     });
   });
 
-  Room.socket.on('room-joined', ({ meeting, participants, isHost }) => {
+  Room.socket.on('room-joined', ({ meeting, participants, isHost, waitingRoom }) => {
     Room.isHost = isHost;
     const localUserId = Auth.getUser()?.id;
 
@@ -125,6 +125,15 @@ function initSocket() {
       initKeyboardShortcuts();
       updateControlStates();
       addLocalVideoTile();
+    }
+
+    // Populate waiting room if host
+    if (isHost && waitingRoom && waitingRoom.length > 0) {
+      waitingRoom.forEach(p => {
+        if (!document.getElementById(`waiting-${p.socketId}`)) {
+          addWaitingParticipant(p.user, p.socketId);
+        }
+      });
     }
 
     // Connect to existing participants — skip self (by socketId OR userId)
@@ -169,6 +178,26 @@ function initSocket() {
     Room.socket.emit('join-room', { meetingId: Room.meetingId });
   });
 
+  Room.socket.on('join-rejected', ({ message }) => {
+    hideLoading();
+    Toast.error(message || 'Access denied by host');
+    setTimeout(() => window.location.href = url('pages/dashboard/index.html'), 3000);
+  });
+
+  Room.socket.on('participant-waiting-left', ({ socketId }) => {
+    document.getElementById(`waiting-${socketId}`)?.remove();
+    const counter = document.getElementById('waiting-count');
+    if (counter) {
+      const current = parseInt(counter.textContent) || 0;
+      counter.textContent = Math.max(0, current - 1);
+    }
+    const list = document.getElementById('waiting-list');
+    if (list && list.children.length === 0) {
+      const section = document.getElementById('waiting-room-section');
+      if (section) section.style.display = 'none';
+    }
+  });
+
   // WebRTC signaling
   Room.socket.on('webrtc-offer', async ({ from, offer, user }) => {
     if (!Room.peerConnections[from]) createPeerConnection(from, false);
@@ -187,7 +216,7 @@ function initSocket() {
   Room.socket.on('webrtc-ice-candidate', async ({ from, candidate }) => {
     const pc = Room.peerConnections[from];
     if (pc && candidate) {
-      try { await pc.addIceCandidate(new RTCIceCandidate(candidate)); } catch {}
+      try { await pc.addIceCandidate(new RTCIceCandidate(candidate)); } catch { }
     }
   });
 
@@ -365,7 +394,7 @@ function setupVoiceDetection(socketId, stream) {
       requestAnimationFrame(detect);
     };
     detect();
-  } catch {}
+  } catch { }
 }
 
 // ─── Video Tiles ─────────────────────────────────────────────────────────────
@@ -471,10 +500,10 @@ function updateGridLayout() {
 
   grid.className = 'video-grid ' + (
     count === 1 ? 'grid-1' :
-    count === 2 ? 'grid-2' :
-    count <= 4  ? 'grid-4' :
-    count <= 6  ? 'grid-6' :
-    count <= 9  ? 'grid-9' : 'grid-12'
+      count === 2 ? 'grid-2' :
+        count <= 4 ? 'grid-4' :
+          count <= 6 ? 'grid-6' :
+            count <= 9 ? 'grid-9' : 'grid-12'
   );
 
   document.getElementById('participant-count').textContent = count;
@@ -626,10 +655,10 @@ function setVideo(enabled) {
   const camIconNode = btn && Array.from(btn.childNodes).find(n => n.nodeType === Node.TEXT_NODE);
   if (camIconNode) camIconNode.textContent = enabled ? '📹\n          ' : '🚫\n          ';
 
-  const localVideo  = document.getElementById('video-local');
+  const localVideo = document.getElementById('video-local');
   const localAvatar = document.querySelector('#tile-local .tile-overlay.hidden-bg');
-  if (localVideo)  localVideo.style.display  = enabled ? 'block' : 'none';
-  if (localAvatar) localAvatar.style.display = enabled ? 'none'  : 'flex';
+  if (localVideo) localVideo.style.display = enabled ? 'block' : 'none';
+  if (localAvatar) localAvatar.style.display = enabled ? 'none' : 'flex';
 
   Room.socket.emit('toggle-video', { enabled });
 }
@@ -758,7 +787,7 @@ function closePanel() {
 function switchTab(tab) {
   Room.activeTab = tab;
   document.querySelectorAll('.panel-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
-  document.getElementById('chat-tab').style.display         = tab === 'chat'         ? 'flex' : 'none';
+  document.getElementById('chat-tab').style.display = tab === 'chat' ? 'flex' : 'none';
   document.getElementById('participants-tab').style.display = tab === 'participants' ? 'flex' : 'none';
 }
 
@@ -789,7 +818,7 @@ function updateParticipantList() {
 
 function addWaitingParticipant(user, socketId) {
   const section = document.getElementById('waiting-room-section');
-  const list    = document.getElementById('waiting-list');
+  const list = document.getElementById('waiting-list');
   const counter = document.getElementById('waiting-count');
   if (!section || !list) return;
 
@@ -824,13 +853,24 @@ function admitParticipant(socketId) {
   Room.socket.emit('admit-participant', { targetSocketId: socketId });
   document.getElementById(`waiting-${socketId}`)?.remove();
   const counter = document.getElementById('waiting-count');
-  counter.textContent = Math.max(0, parseInt(counter.textContent) - 1);
+  if (counter) counter.textContent = Math.max(0, (parseInt(counter.textContent) || 0) - 1);
+  const list = document.getElementById('waiting-list');
+  if (list && list.children.length === 0) {
+    const section = document.getElementById('waiting-room-section');
+    if (section) section.style.display = 'none';
+  }
 }
 
 function denyParticipant(socketId) {
+  Room.socket.emit('reject-participant', { targetSocketId: socketId });
   document.getElementById(`waiting-${socketId}`)?.remove();
   const counter = document.getElementById('waiting-count');
-  counter.textContent = Math.max(0, parseInt(counter.textContent) - 1);
+  if (counter) counter.textContent = Math.max(0, (parseInt(counter.textContent) || 0) - 1);
+  const list = document.getElementById('waiting-list');
+  if (list && list.children.length === 0) {
+    const section = document.getElementById('waiting-room-section');
+    if (section) section.style.display = 'none';
+  }
 }
 
 // ─── Emoji Reactions ──────────────────────────────────────────────────────────
@@ -900,9 +940,9 @@ function toggleView() {
       videoArea.appendChild(speakerWrap);
     }
 
-    const speakerMain    = document.getElementById('speaker-main');
+    const speakerMain = document.getElementById('speaker-main');
     const speakerSidebar = document.getElementById('speaker-sidebar');
-    speakerMain.innerHTML    = '';
+    speakerMain.innerHTML = '';
     speakerSidebar.innerHTML = '';
 
     const tiles = Array.from(document.querySelectorAll('.video-tile'));
@@ -912,7 +952,7 @@ function toggleView() {
         ? 'width:100%;height:100%;border-radius:12px;overflow:hidden;'
         : 'width:100%;aspect-ratio:4/3;border-radius:8px;overflow:hidden;flex-shrink:0;';
       if (i === 0) speakerMain.appendChild(clone);
-      else         speakerSidebar.appendChild(clone);
+      else speakerSidebar.appendChild(clone);
     });
 
     document.getElementById('speaker-wrap').classList.remove('hidden');
@@ -932,7 +972,7 @@ function togglePiP() {
   const video = document.getElementById('pip-video');
 
   if (document.pictureInPictureElement) {
-    document.exitPictureInPicture().catch(() => {});
+    document.exitPictureInPicture().catch(() => { });
     pip?.classList.remove('visible');
     return;
   }
@@ -967,8 +1007,8 @@ function startTimer() {
     const m = Math.floor((elapsed % 3600) / 60);
     const s = elapsed % 60;
     const str = h > 0
-      ? `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`
-      : `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+      ? `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+      : `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
     document.getElementById('meeting-timer').textContent = str;
     document.getElementById('meeting-timer-mobile').textContent = str;
   }, 1000);
@@ -983,13 +1023,13 @@ function updateControlStates() {
 // ─── End / Leave Meeting ──────────────────────────────────────────────────────
 async function leaveMeeting() {
   cleanup();
-  try { await API.post(`/api/meetings/${Room.meetingDbId}/join`); } catch {}
+  try { await API.post(`/api/meetings/${Room.meetingDbId}/join`); } catch { }
   window.location.href = url('pages/dashboard/index.html');
 }
 
 async function endMeeting() {
   cleanup();
-  try { await API.post(`/api/meetings/${Room.meetingDbId}/end`); } catch {}
+  try { await API.post(`/api/meetings/${Room.meetingDbId}/end`); } catch { }
   window.location.href = url('pages/dashboard/index.html');
 }
 
@@ -1013,7 +1053,7 @@ function hideLoading() {
 }
 
 function escHtml(str) {
-  return String(str || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  return String(str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 window.addEventListener('beforeunload', cleanup);

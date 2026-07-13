@@ -29,6 +29,7 @@ const initSocket = (server) => {
       origin: (origin, callback) => {
         if (!origin) return callback(null, true);
         if (origin.endsWith('.vercel.app')) return callback(null, true);
+        if (origin.endsWith('.onrender.com')) return callback(null, true);
         if (SOCKET_ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
         callback(new Error(`Socket CORS: origin '${origin}' not allowed`));
       },
@@ -67,6 +68,9 @@ const initSocket = (server) => {
   io.on('connection', (socket) => {
     logger.info(`Socket connected: ${socket.user.full_name} (${socket.id})`);
 
+    // Join a room named after their userId to allow targeted targeting via io.to(userId)
+    socket.join(socket.userId);
+
     // Update online status
     supabaseAdmin.from('profiles').update({ last_seen: new Date().toISOString(), is_online: true }).eq('id', socket.userId);
 
@@ -97,17 +101,25 @@ const initSocket = (server) => {
             meetingId: meeting.id,
             host: meeting.host_id,
             participants: new Map(),
-            locked: false,
+            locked: meeting.enable_waiting_room !== false,
             waitingRoom: [],
+            admitted: new Set(),
           });
         }
 
         const room = rooms.get(roomId);
 
         // Waiting room check
-        if (room.locked && socket.userId !== room.host) {
+        const isAdmitted = room.admitted.has(socket.id);
+        if (room.locked && socket.userId !== room.host && !isAdmitted) {
+          socket.waitingRoomId = roomId; // Mark that this socket is waiting in this room
           socket.emit('waiting-room', { message: 'Waiting for host to admit you' });
-          room.waitingRoom.push({ socketId: socket.id, user: socket.user });
+
+          // Avoid duplicate entries in waitingRoom
+          if (!room.waitingRoom.some(w => w.socketId === socket.id)) {
+            room.waitingRoom.push({ socketId: socket.id, user: socket.user });
+          }
+
           io.to(room.host).emit('participant-waiting', { user: socket.user, socketId: socket.id });
           return;
         }
@@ -136,6 +148,7 @@ const initSocket = (server) => {
           meeting,
           participants: Array.from(room.participants.values()),
           isHost: meeting.host_id === socket.userId,
+          waitingRoom: meeting.host_id === socket.userId ? room.waitingRoom : [],
         });
 
         // Create notification for host
@@ -278,7 +291,19 @@ const initSocket = (server) => {
       const waiting = room.waitingRoom.find((p) => p.socketId === targetSocketId);
       if (waiting) {
         room.waitingRoom = room.waitingRoom.filter((p) => p.socketId !== targetSocketId);
+        room.admitted.add(targetSocketId);
         io.to(targetSocketId).emit('admitted', { room: socket.currentRoom });
+      }
+    });
+
+    socket.on('reject-participant', ({ targetSocketId }) => {
+      if (!socket.currentRoom) return;
+      const room = rooms.get(socket.currentRoom);
+      if (room?.host !== socket.userId) return;
+      const waiting = room.waitingRoom.find((p) => p.socketId === targetSocketId);
+      if (waiting) {
+        room.waitingRoom = room.waitingRoom.filter((p) => p.socketId !== targetSocketId);
+        io.to(targetSocketId).emit('join-rejected', { message: 'The host has declined your request to join.' });
       }
     });
 
@@ -317,10 +342,22 @@ const initSocket = (server) => {
 };
 
 const handleLeave = (socket) => {
+  const waitingRoomId = socket.waitingRoomId;
+  if (waitingRoomId) {
+    const room = rooms.get(waitingRoomId);
+    if (room) {
+      room.waitingRoom = room.waitingRoom.filter(p => p.socketId !== socket.id);
+      // Notify the host that this waiting participant left
+      io.to(room.host).emit('participant-waiting-left', { socketId: socket.id });
+    }
+    socket.waitingRoomId = null;
+  }
+
   if (socket.currentRoom) {
     const room = rooms.get(socket.currentRoom);
     if (room) {
       room.participants.delete(socket.id);
+      room.admitted.delete(socket.id);
       if (room.participants.size === 0) {
         rooms.delete(socket.currentRoom);
       }
