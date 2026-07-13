@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,62 +9,164 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/design-system.css">
   <style>
-    body { overflow: hidden; background: #0a0a12; }
-    .wb-layout { display: flex; flex-direction: column; height: 100vh; }
+    body {
+      overflow: hidden;
+      background: #0a0a12;
+    }
+
+    .wb-layout {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
 
     .wb-header {
-      height: 52px; display: flex; align-items: center; justify-content: space-between;
-      padding: 0 16px; background: #0f0f1a; border-bottom: 1px solid rgba(255,255,255,0.06);
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      background: #0f0f1a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       flex-shrink: 0;
     }
-    .wb-title { font-size: 14px; font-weight: 700; color: white; }
-    .wb-header-actions { display: flex; gap: 8px; align-items: center; }
 
-    .wb-body { display: flex; flex: 1; overflow: hidden; }
+    .wb-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .wb-header-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .wb-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
 
     .wb-toolbar {
-      width: 52px; background: #0d0d18; border-right: 1px solid rgba(255,255,255,0.06);
-      display: flex; flex-direction: column; align-items: center;
-      padding: 12px 6px; gap: 4px; overflow-y: auto; flex-shrink: 0;
+      width: 52px;
+      background: #0d0d18;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 6px;
+      gap: 4px;
+      overflow-y: auto;
+      flex-shrink: 0;
     }
 
     .wb-tool {
-      width: 40px; height: 40px; border-radius: 10px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; font-size: 18px;
-      color: rgba(255,255,255,0.6); transition: all 0.15s;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+      transition: all 0.15s;
       border: 1px solid transparent;
     }
-    .wb-tool:hover { background: rgba(255,255,255,0.06); color: white; }
-    .wb-tool.active { background: rgba(99,102,241,0.2); border-color: rgba(99,102,241,0.4); color: #a78bfa; }
 
-    .wb-sep { width: 28px; height: 1px; background: rgba(255,255,255,0.08); margin: 4px 0; }
+    .wb-tool:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: white;
+    }
 
-    .canvas-area { flex: 1; position: relative; overflow: hidden; background: #12121e; }
-    #wb-canvas { cursor: crosshair; display: block; touch-action: none; }
+    .wb-tool.active {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.4);
+      color: #a78bfa;
+    }
+
+    .wb-sep {
+      width: 28px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      margin: 4px 0;
+    }
+
+    .canvas-area {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: #12121e;
+    }
+
+    #wb-canvas {
+      cursor: crosshair;
+      display: block;
+      touch-action: none;
+    }
 
     .wb-options {
-      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
-      display: flex; align-items: center; gap: 12px;
-      background: rgba(13,13,24,0.95); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px; padding: 8px 16px; backdrop-filter: blur(16px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(13, 13, 24, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 8px 16px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     }
 
-    .wb-opt-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; }
+    .wb-opt-label {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
 
     .color-swatch {
-      width: 24px; height: 24px; border-radius: 50%; cursor: pointer;
-      border: 2px solid transparent; transition: all 0.15s; flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.15s;
+      flex-shrink: 0;
     }
-    .color-swatch.active { border-color: white; transform: scale(1.2); }
 
-    .stroke-slider { width: 80px; accent-color: #6366f1; }
+    .color-swatch.active {
+      border-color: white;
+      transform: scale(1.2);
+    }
 
-    .color-input { display: none; }
+    .stroke-slider {
+      width: 80px;
+      accent-color: #6366f1;
+    }
 
-    .wb-hint { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); font-size: 11px; color: rgba(255,255,255,0.3); pointer-events: none; white-space: nowrap; }
+    .color-input {
+      display: none;
+    }
+
+    .wb-hint {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+      white-space: nowrap;
+    }
   </style>
 </head>
+
 <body>
   <div id="toast-container"></div>
 
@@ -118,7 +221,9 @@
             <div class="color-swatch" style="background:#60a5fa" data-color="#60a5fa"></div>
             <div class="color-swatch" style="background:#a78bfa" data-color="#a78bfa"></div>
             <div class="color-swatch" style="background:#f472b6" data-color="#f472b6"></div>
-            <label class="color-swatch" style="background: conic-gradient(red, yellow, green, cyan, blue, magenta, red);cursor:pointer;overflow:hidden;position:relative" title="Custom color">
+            <label class="color-swatch"
+              style="background: conic-gradient(red, yellow, green, cyan, blue, magenta, red);cursor:pointer;overflow:hidden;position:relative"
+              title="Custom color">
               <input type="color" id="custom-color" class="color-input">
             </label>
           </div>
@@ -134,8 +239,9 @@
     </div>
   </div>
 
-  <script src="https://cdn.socket.io/4.6.2/socket.io.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script src="../../js/app.js"></script>
   <script src="../../js/whiteboard.js"></script>
 </body>
+
 </html>
