@@ -323,6 +323,11 @@ const initSocket = (server) => {
       socket.to(socket.currentRoom).emit('whiteboard-undo', data);
     });
 
+    socket.on('toggle-whiteboard', ({ active }) => {
+      if (!socket.currentRoom) return;
+      socket.to(socket.currentRoom).emit('whiteboard-toggled', { active, user: socket.user });
+    });
+
     // ─── Meeting Notes ────────────────────────────────────────────────────────
     socket.on('meeting-note', async ({ content }) => {
       if (!socket.currentRoom) return;

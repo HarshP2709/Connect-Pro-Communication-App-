@@ -307,6 +307,27 @@ function initSocket() {
     }
   });
 
+  Room.socket.on('whiteboard-toggled', ({ active, user }) => {
+    const parentContainer = document.getElementById('meeting-whiteboard-container');
+    const iframe = document.getElementById('meeting-whiteboard-iframe');
+    if (!parentContainer || !iframe) return;
+
+    if (active) {
+      if (parentContainer.classList.contains('hidden')) {
+        const pwd = new URLSearchParams(window.location.search).get('pwd') || '';
+        iframe.src = url('pages/dashboard/whiteboard.html') + `?meeting=${Room.meetingId}&pwd=${pwd}`;
+        parentContainer.classList.remove('hidden');
+        Toast.info(`${user?.full_name || 'Participant'} started a whiteboard session 🖊️`);
+      }
+    } else {
+      if (!parentContainer.classList.contains('hidden')) {
+        parentContainer.classList.add('hidden');
+        iframe.removeAttribute('src');
+        Toast.info('Whiteboard session ended');
+      }
+    }
+  });
+
   Room.socket.on('typing-start', ({ user }) => {
     let typing = document.getElementById('typing-indicator');
     if (!typing) {
@@ -626,9 +647,32 @@ function initControls() {
   });
 
   // Whiteboard
-  document.getElementById('btn-whiteboard')?.addEventListener('click', () => {
+  const wbBtn = document.getElementById('btn-whiteboard');
+  const wbContainer = document.getElementById('meeting-whiteboard-container');
+  const wbIframe = document.getElementById('meeting-whiteboard-iframe');
+
+  wbBtn?.addEventListener('click', () => {
+    if (!wbContainer || !wbIframe) return;
+    const isHidden = wbContainer.classList.contains('hidden');
     const pwd = new URLSearchParams(window.location.search).get('pwd') || '';
-    window.open(url('pages/dashboard/whiteboard.html') + `?meeting=${Room.meetingId}&pwd=${pwd}`, '_blank');
+
+    if (isHidden) {
+      wbIframe.src = url('pages/dashboard/whiteboard.html') + `?meeting=${Room.meetingId}&pwd=${pwd}`;
+      wbContainer.classList.remove('hidden');
+      Room.socket?.emit('toggle-whiteboard', { active: true });
+    } else {
+      wbContainer.classList.add('hidden');
+      wbIframe.removeAttribute('src');
+      Room.socket?.emit('toggle-whiteboard', { active: false });
+    }
+  });
+
+  const wbCloseBtn = document.getElementById('close-meeting-whiteboard');
+  wbCloseBtn?.addEventListener('click', () => {
+    if (!wbContainer || !wbIframe) return;
+    wbContainer.classList.add('hidden');
+    wbIframe.removeAttribute('src');
+    Room.socket?.emit('toggle-whiteboard', { active: false });
   });
 
   // View toggle
