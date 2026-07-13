@@ -251,7 +251,15 @@ function initSocket() {
     if (tile) {
       const video = tile.querySelector('video');
       const avatar = tile.querySelector('.tile-overlay.hidden-bg');
-      if (video) video.style.display = 'block';
+      if (video) {
+        video.style.display = 'block';
+        if (video.srcObject) {
+          const stream = video.srcObject;
+          video.srcObject = null;
+          video.srcObject = stream;
+        }
+        video.play().catch(e => console.warn('Video play info:', e));
+      }
       if (avatar) avatar.style.display = 'none';
     }
     Toast.info(`${user.full_name} is sharing their screen`);
@@ -265,7 +273,14 @@ function initSocket() {
       const cameraEnabled = participant ? participant.videoEnabled : false;
       const video = tile.querySelector('video');
       const avatar = tile.querySelector('.tile-overlay.hidden-bg');
-      if (video) video.style.display = cameraEnabled ? 'block' : 'none';
+      if (video) {
+        video.style.display = cameraEnabled ? 'block' : 'none';
+        if (cameraEnabled && video.srcObject) {
+          const stream = video.srcObject;
+          video.srcObject = null;
+          video.srcObject = stream;
+        }
+      }
       if (avatar) avatar.style.display = cameraEnabled ? 'none' : 'flex';
     }
   });
@@ -420,14 +435,19 @@ function createPeerConnection(targetSocketId, isInitiator) {
     setupVoiceDetection(targetSocketId, stream);
   };
 
-  // If initiator, create offer
-  if (isInitiator) {
-    pc.onnegotiationneeded = async () => {
+  pc.onnegotiationneeded = async () => {
+    try {
+      // Receiver skips initial negotiation to avoid glare
+      if (!isInitiator && pc.connectionState === 'new') return;
+      if (pc.signalingState !== 'stable') return;
+
       const offer = await pc.createOffer();
       await pc.setLocalDescription(offer);
       Room.socket.emit('webrtc-offer', { to: targetSocketId, offer });
-    };
-  }
+    } catch (err) {
+      console.error('Negotiation error:', err);
+    }
+  };
 
   return pc;
 }
