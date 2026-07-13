@@ -179,13 +179,21 @@ const Toast = {
         <div class="toast-title">${title}</div>
         ${message ? `<div class="toast-message">${message}</div>` : ''}
       </div>
-      <button onclick="this.closest('.toast').remove()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;padding:4px;line-height:1">✕</button>
+      <button class="toast-close-btn" style="background:none;border:none;color:var(--text-muted);cursor:pointer;padding:4px;line-height:1">✕</button>
       <div class="toast-progress" style="animation-duration:${d}ms"></div>
     `;
     container.appendChild(toast);
+
+    // Attaching programmatic click event listener to bypass CSP script-src-attr restriction
+    toast.querySelector('.toast-close-btn')?.addEventListener('click', () => {
+      toast.remove();
+    });
+
     setTimeout(() => {
-      toast.classList.add('removing');
-      toast.addEventListener('animationend', () => toast.remove());
+      if (toast.parentNode) {
+        toast.classList.add('removing');
+        toast.addEventListener('animationend', () => toast.remove());
+      }
     }, d);
     return toast;
   },

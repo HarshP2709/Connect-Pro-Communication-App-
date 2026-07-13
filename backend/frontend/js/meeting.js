@@ -617,6 +617,23 @@ function initControls() {
     document.getElementById('opt-lock')?.remove();
     document.getElementById('waiting-room-section')?.remove();
   }
+
+  // CSP click event listeners
+  document.getElementById('btn-cancel-waiting')?.addEventListener('click', leaveMeeting);
+
+  const partList = document.getElementById('participant-list');
+  partList?.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const socketId = btn.dataset.socketId;
+    const action = btn.dataset.action;
+    if (!socketId || !action) return;
+    if (action === 'mute') {
+      hostMute(socketId);
+    } else if (action === 'remove') {
+      hostRemove(socketId);
+    }
+  });
 }
 
 function initKeyboardShortcuts() {
@@ -809,8 +826,8 @@ function updateParticipantList() {
         <div style="font-size:13px;font-weight:600;color:white">${escHtml(p.full_name)}${p.isLocal ? ' (You)' : ''}</div>
       </div>
       ${Room.isHost && !p.isLocal ? `
-        <button onclick="hostMute('${p.socketId}')" title="Mute" style="background:none;border:none;cursor:pointer;font-size:14px;color:rgba(255,255,255,0.5)">🔇</button>
-        <button onclick="hostRemove('${p.socketId}')" title="Remove" style="background:none;border:none;cursor:pointer;font-size:14px;color:rgba(239,68,68,0.7)">✕</button>
+        <button data-action="mute" data-socket-id="${p.socketId}" title="Mute" style="background:none;border:none;cursor:pointer;font-size:14px;color:rgba(255,255,255,0.5)">🔇</button>
+        <button data-action="remove" data-socket-id="${p.socketId}" title="Remove" style="background:none;border:none;cursor:pointer;font-size:14px;color:rgba(239,68,68,0.7)">✕</button>
       ` : ''}
     </div>
   `).join('');
@@ -829,13 +846,30 @@ function addWaitingParticipant(user, socketId) {
   const item = document.createElement('div');
   item.className = 'waiting-room-item';
   item.id = `waiting-${socketId}`;
-  item.innerHTML = `
-    <span style="font-size:13px;font-weight:600;color:white">${escHtml(user.full_name)}</span>
-    <div style="display:flex;gap:8px">
-      <button class="btn btn-success btn-sm" onclick="admitParticipant('${socketId}')">Admit</button>
-      <button class="btn btn-danger btn-sm" onclick="denyParticipant('${socketId}')">Deny</button>
-    </div>
-  `;
+
+  const nameSpan = document.createElement('span');
+  nameSpan.style.cssText = 'font-size:13px;font-weight:600;color:white';
+  nameSpan.textContent = user.full_name;
+
+  const btnGroup = document.createElement('div');
+  btnGroup.style.display = 'flex';
+  btnGroup.style.gap = '8px';
+
+  const admitBtn = document.createElement('button');
+  admitBtn.className = 'btn btn-success btn-sm';
+  admitBtn.textContent = 'Admit';
+  admitBtn.addEventListener('click', () => admitParticipant(socketId));
+
+  const denyBtn = document.createElement('button');
+  denyBtn.className = 'btn btn-danger btn-sm';
+  denyBtn.textContent = 'Deny';
+  denyBtn.addEventListener('click', () => denyParticipant(socketId));
+
+  btnGroup.appendChild(admitBtn);
+  btnGroup.appendChild(denyBtn);
+
+  item.appendChild(nameSpan);
+  item.appendChild(btnGroup);
   list.appendChild(item);
 }
 
