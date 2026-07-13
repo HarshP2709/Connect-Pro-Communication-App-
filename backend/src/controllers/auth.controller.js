@@ -59,6 +59,14 @@ exports.register = asyncHandler(async (req, res) => {
 
   const userId = authData.user.id;
 
+  // Auto-confirm the user email so they don't get locked out in environments
+  // where email delivery is not configured or fails.
+  try {
+    await supabaseAdmin.auth.admin.updateUserById(userId, { email_confirm: true });
+  } catch (adminErr) {
+    logger.warn('Admin auto-confirm failed:', adminErr.message);
+  }
+
   // Upsert profile (trigger also handles this, but ensures immediate availability)
   await supabaseAdmin.from('profiles').upsert({
     id: userId,
@@ -93,6 +101,9 @@ exports.login = asyncHandler(async (req, res) => {
   });
 
   if (authError) {
+    if (authError.message?.toLowerCase().includes('confirm') || authError.message?.toLowerCase().includes('verified')) {
+      return errorResponse(res, 'Please confirm your email address before signing in.', 401);
+    }
     return errorResponse(res, 'Invalid email or password', 401);
   }
 
