@@ -34,6 +34,7 @@ app.use(helmet({
       fontSrc: ["'self'", 'fonts.gstatic.com'],
       imgSrc: ["'self'", 'data:', 'blob:', '*.supabase.co'],
       scriptSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrcAttr: ["'unsafe-inline'"],
       // Filter out undefined so helmet never receives an invalid directive value
       connectSrc: ["'self'", 'wss:', 'ws:', '*.supabase.co'].concat(
         process.env.SUPABASE_URL ? [process.env.SUPABASE_URL] : []
