@@ -100,14 +100,32 @@ exports.login = asyncHandler(async (req, res) => {
   const userId = authData.user.id;
 
   // Fetch profile
-  const { data: profile, error: profileError } = await supabaseAdmin
+  let { data: profile, error: profileError } = await supabaseAdmin
     .from('profiles')
     .select('*')
     .eq('id', userId)
     .single();
 
+  // Self-heal profile if missing (helps recover from decoupled schema/auth state)
   if (profileError || !profile) {
-    return errorResponse(res, 'User profile not found', 404);
+    logger.warn(`Profile missing for authenticated user ${userId}, attempting self-healing.`);
+    const authUser = authData.user;
+    const fallbackName = authUser.user_metadata?.full_name || email.split('@')[0];
+
+    const { data: repairedProfile, error: healError } = await supabaseAdmin.from('profiles').upsert({
+      id: userId,
+      email: email,
+      full_name: fallbackName,
+      role: 'user',
+      is_active: true,
+      is_verified: true,
+    }, { onConflict: 'id' }).select().single();
+
+    if (healError || !repairedProfile) {
+      logger.error('Self-healing failed:', healError);
+      return errorResponse(res, 'User profile not found', 404);
+    }
+    profile = repairedProfile;
   }
 
   if (!profile.is_active) {
