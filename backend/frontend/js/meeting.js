@@ -658,7 +658,12 @@ function initControls() {
   document.getElementById('btn-camera').addEventListener('click', () => setVideo(!Room.videoEnabled));
 
   // Screen Share
-  document.getElementById('btn-screen').addEventListener('click', toggleScreenShare);
+  const screenBtn = document.getElementById('btn-screen');
+  if (!navigator.mediaDevices || typeof navigator.mediaDevices.getDisplayMedia !== 'function') {
+    if (screenBtn) screenBtn.style.display = 'none';
+  } else {
+    screenBtn.addEventListener('click', toggleScreenShare);
+  }
 
   // Emoji
   const emojiPicker = document.getElementById('emoji-picker');
@@ -913,6 +918,9 @@ async function toggleScreenShare() {
     Toast.info('Screen sharing stopped');
   } else {
     try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+        throw new Error('Screen sharing is not supported on this mobile browser. Please use a desktop computer.');
+      }
       Room.screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
       Room.screenSharing = true;
 
