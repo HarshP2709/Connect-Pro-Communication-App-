@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const page = document.body.dataset.page || detectPage();
 
-  if (page === 'login')           initLogin();
-  else if (page === 'register')   initRegister();
-  else if (page === 'forgot')     initForgot();
-  else if (page === 'reset')      initReset();
+  if (page === 'login') initLogin();
+  else if (page === 'register') initRegister();
+  else if (page === 'forgot') initForgot();
+  else if (page === 'reset') initReset();
 
   // Password visibility toggle
   document.querySelectorAll('.password-toggle').forEach(btn => {
@@ -33,10 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function detectPage() {
   const path = window.location.pathname;
-  if (path.includes('login'))          return 'login';
-  if (path.includes('register'))       return 'register';
-  if (path.includes('forgot'))         return 'forgot';
-  if (path.includes('reset'))          return 'reset';
+  if (path.includes('login')) return 'login';
+  if (path.includes('register')) return 'register';
+  if (path.includes('forgot')) return 'forgot';
+  if (path.includes('reset')) return 'reset';
   return 'login';
 }
 
@@ -47,7 +47,7 @@ function initLogin() {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email    = document.getElementById('email').value.trim();
+    const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
     const remember = document.getElementById('remember-me')?.checked;
 
@@ -103,10 +103,10 @@ function initRegister() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const full_name = document.getElementById('full_name').value.trim();
-    const email     = document.getElementById('email').value.trim();
-    const password  = document.getElementById('password').value;
-    const confirm   = document.getElementById('confirm_password').value;
-    const terms     = document.getElementById('terms').checked;
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirm = document.getElementById('confirm_password').value;
+    const terms = document.getElementById('terms').checked;
 
     if (!full_name) return showFormError('Full name is required');
     if (!email) return showFormError('Email is required');
@@ -125,7 +125,7 @@ function initRegister() {
       API.setToken(res.data.access_token);
       Auth.setUser(res.data.user);
 
-      Toast.success('Account created! 🎉', 'Please verify your email address.');
+      Toast.success('Account created! 🎉', 'Welcome to ConnectPro.');
       setTimeout(() => window.location.href = url('pages/dashboard/index.html'), 1200);
     } catch (err) {
       showFormError(err.message || 'Registration failed. Please try again.');
@@ -170,8 +170,8 @@ function initReset() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const password = document.getElementById('new-password').value;
-    const confirm  = document.getElementById('confirm-password').value;
-    const token    = new URLSearchParams(window.location.search).get('token') || '';
+    const confirm = document.getElementById('confirm-password').value;
+    const token = new URLSearchParams(window.location.search).get('token') || '';
 
     if (password !== confirm) return Toast.error('Passwords do not match');
     if (password.length < 8) return Toast.error('Password too short', 'Minimum 8 characters required');
@@ -188,11 +188,11 @@ function initReset() {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function setLoading(loading, btnId, textId, spinnerId) {
-  const btn     = document.getElementById(btnId);
-  const text    = document.getElementById(textId);
+  const btn = document.getElementById(btnId);
+  const text = document.getElementById(textId);
   const spinner = document.getElementById(spinnerId);
-  if (btn)     btn.disabled = loading;
-  if (text)    text.classList.toggle('hidden', loading);
+  if (btn) btn.disabled = loading;
+  if (text) text.classList.toggle('hidden', loading);
   if (spinner) spinner.classList.toggle('hidden', !loading);
 }
 

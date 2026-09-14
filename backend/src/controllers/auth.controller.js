@@ -37,14 +37,12 @@ exports.register = asyncHandler(async (req, res) => {
     return errorResponse(res, 'An account with this email already exists. Please sign in instead.', 409);
   }
 
-  // Register with Supabase Auth
-  const { data: authData, error: authError } = await supabase.auth.signUp({
+  // Register with Supabase Admin to bypass email rate limits
+  const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
     email,
     password,
-    options: {
-      data: { full_name },
-      emailRedirectTo: `${process.env.FRONTEND_URL}/auth/verify-email`,
-    },
+    email_confirm: true,
+    user_metadata: { full_name },
   });
 
   if (authError) {
@@ -52,20 +50,12 @@ exports.register = asyncHandler(async (req, res) => {
     return errorResponse(res, authError.message, 400);
   }
 
-  // Supabase returns a fake user object for existing emails — detect it
-  if (!authData.user || authData.user.identities?.length === 0) {
+  // Supabase admin.createUser returns { user: ... }
+  if (!authData.user) {
     return errorResponse(res, 'An account with this email already exists. Please sign in instead.', 409);
   }
 
   const userId = authData.user.id;
-
-  // Auto-confirm the user email so they don't get locked out in environments
-  // where email delivery is not configured or fails.
-  try {
-    await supabaseAdmin.auth.admin.updateUserById(userId, { email_confirm: true });
-  } catch (adminErr) {
-    logger.warn('Admin auto-confirm failed:', adminErr.message);
-  }
 
   // Upsert profile (trigger also handles this, but ensures immediate availability)
   await supabaseAdmin.from('profiles').upsert({
