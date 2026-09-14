@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (toggleBtn) {
-      const mainContent = document.getElementById('main-content');
+      const mainContent = document.querySelector('.main-content');
       const checkMobile = () => {
         const isMobile = window.innerWidth <= 768;
         toggleBtn.style.display = isMobile ? 'flex' : 'none';
