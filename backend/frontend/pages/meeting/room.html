@@ -104,21 +104,44 @@
 
     /* Pinned logic */
     .video-grid.has-pinned {
-      grid-template-columns: 1fr 240px;
-      grid-auto-rows: 120px;
-      align-content: start;
-      justify-items: stretch;
-      overflow-y: auto;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      align-items: flex-start;
+      align-content: flex-start;
+      gap: 12px;
+      /* custom scrollbar for the filmstrip */
+      scrollbar-width: thin;
+    }
+
+    .video-grid.has-pinned::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .video-grid.has-pinned::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
     }
 
     .video-grid.has-pinned .video-tile {
-      grid-column: 2;
+      width: 160px;
+      flex: 0 0 160px;
+      height: 90px;
+      z-index: 2;
     }
 
     .video-grid.has-pinned .video-tile.pinned-main {
-      grid-column: 1;
-      grid-row: 1 / 10;
-      height: 100%;
+      position: absolute;
+      top: 174px;
+      /* 72 padding + 90 tile + 12 gap */
+      bottom: 112px;
+      left: 16px;
+      right: 16px;
+      width: calc(100% - 32px);
+      height: calc(100% - 286px);
+      z-index: 1;
     }
 
     .video-tile.speaking {
@@ -873,19 +896,21 @@
         min-height: 160px;
       }
 
-      .video-grid.has-pinned {
-        grid-template-columns: 1fr;
-        grid-auto-rows: min-content;
-      }
-
       .video-grid.has-pinned .video-tile {
-        grid-column: 1;
+        width: 100px;
+        flex: 0 0 100px;
+        height: 75px;
       }
 
       .video-grid.has-pinned .video-tile.pinned-main {
-        grid-column: 1;
-        grid-row: 1;
-        min-height: 40vh;
+        position: absolute;
+        top: 159px;
+        /* 72 padding + 75 tile + 12 gap */
+        bottom: 100px;
+        left: 12px;
+        right: 12px;
+        width: calc(100% - 24px);
+        height: calc(100% - 259px);
       }
 
       .video-grid.grid-2 {
