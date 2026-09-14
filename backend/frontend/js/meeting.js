@@ -519,10 +519,19 @@ function addLocalVideoTile() {
     </div>
   `;
 
+  const actions = document.createElement('div');
+  actions.className = 'tile-actions';
+  actions.innerHTML = `
+    <button class="tile-action-btn btn-pin" title="Pin video" data-socket-id="${tileId}">
+      📌
+    </button>
+  `;
+
   tile.appendChild(video);
   tile.appendChild(overlay);
   tile.appendChild(avatarWrap);
   tile.appendChild(info);
+  tile.appendChild(actions);
 
   document.getElementById('video-grid').appendChild(tile);
 
@@ -565,12 +574,21 @@ function addRemoteVideoTile(socketId, user) {
     </div>
   `;
 
+  const actions = document.createElement('div');
+  actions.className = 'tile-actions';
+  actions.innerHTML = `
+    <button class="tile-action-btn btn-pin" title="Pin video" data-socket-id="${socketId}">
+      📌
+    </button>
+  `;
+
   video.addEventListener('loadedmetadata', () => { avatarWrap.style.display = 'none'; });
 
   tile.appendChild(video);
   tile.appendChild(overlay);
   tile.appendChild(avatarWrap);
   tile.appendChild(info);
+  tile.appendChild(actions);
 
   document.getElementById('video-grid').appendChild(tile);
 }
@@ -595,8 +613,44 @@ function updateGridLayout() {
   document.getElementById('participant-count').textContent = count;
 }
 
+let pinnedSocketId = null;
+
+function togglePinVideo(socketId) {
+  const grid = document.getElementById('video-grid');
+
+  if (pinnedSocketId === socketId) {
+    // Unpin
+    document.getElementById(`tile-${socketId}`)?.classList.remove('pinned-main');
+    grid.classList.remove('has-pinned');
+    pinnedSocketId = null;
+    Toast.info('Video unpinned');
+    return;
+  }
+
+  if (pinnedSocketId) {
+    document.getElementById(`tile-${pinnedSocketId}`)?.classList.remove('pinned-main');
+  }
+
+  pinnedSocketId = socketId;
+  const tile = document.getElementById(`tile-${socketId}`);
+  if (tile) {
+    tile.classList.add('pinned-main');
+    grid.classList.add('has-pinned');
+    Toast.info('Video pinned to main screen');
+  }
+}
+
 // ─── Controls ────────────────────────────────────────────────────────────────
 function initControls() {
+  // Pin video handler (delegated to grid)
+  document.getElementById('video-grid')?.addEventListener('click', (e) => {
+    const pinBtn = e.target.closest('.btn-pin');
+    if (pinBtn) {
+      const socketId = pinBtn.dataset.socketId;
+      togglePinVideo(socketId);
+    }
+  });
+
   // Mic
   document.getElementById('btn-mic').addEventListener('click', () => setAudio(!Room.audioEnabled));
 
