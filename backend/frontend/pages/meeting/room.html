@@ -753,10 +753,30 @@
         height: 72px;
       }
 
+      .controls-center {
+        flex: 1;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+        justify-content: flex-start;
+      }
+
+      .controls-center::-webkit-scrollbar {
+        display: none;
+      }
+
+      .controls-left {
+        display: none;
+      }
+
       .ctrl-btn {
         width: 40px;
         height: 40px;
         font-size: 16px;
+        flex-shrink: 0;
       }
 
       .end-call-btn {
@@ -778,6 +798,10 @@
       .speaker-sidebar .video-tile {
         min-width: 140px;
         aspect-ratio: 4/3;
+      }
+
+      .meeting-id-badge {
+        display: none !important;
       }
 
       .video-grid {
