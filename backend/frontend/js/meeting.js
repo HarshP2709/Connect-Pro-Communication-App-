@@ -494,6 +494,8 @@ function addLocalVideoTile() {
   video.autoplay = true;
   video.muted = true;
   video.playsInline = true;
+  video.setAttribute('playsinline', 'true');
+  video.setAttribute('webkit-playsinline', 'true');
   video.srcObject = Room.localStream;
   if (!Room.videoEnabled) video.style.display = 'none';
 
@@ -540,6 +542,8 @@ function addRemoteVideoTile(socketId, user) {
   video.id = `video-${socketId}`;
   video.autoplay = true;
   video.playsInline = true;
+  video.setAttribute('playsinline', 'true');
+  video.setAttribute('webkit-playsinline', 'true');
 
   const overlay = document.createElement('div');
   overlay.className = 'tile-overlay';
