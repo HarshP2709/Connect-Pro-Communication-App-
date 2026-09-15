@@ -918,11 +918,12 @@ async function toggleScreenShare() {
   } else {
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
-        throw new Error('Screen sharing is not natively supported by your browser.');
+        Toast.info('Mobile browsers do not support native screen sharing. Please join on a desktop to share your screen, or use the Files/Whiteboard tab.');
+        return;
       }
 
       // Request display media without audio. 
-      // Mobile platforms (Android/iOS) universally throw a TypeError if audio: true is requested for screen sharing.
+      // Mobile platforms universally throw a TypeError if audio: true is requested.
       Room.screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false });
       Room.screenSharing = true;
 
@@ -950,7 +951,7 @@ async function toggleScreenShare() {
       });
     } catch (err) {
       if (err.name !== 'NotAllowedError') {
-        Toast.error('Screen share failed', err.message || 'Unsupported on this device.');
+        Toast.error('Screen share failed', 'Unsupported on this device.');
       }
     }
   }
