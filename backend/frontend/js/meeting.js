@@ -659,9 +659,8 @@ function initControls() {
 
   // Screen Share
   const screenBtn = document.getElementById('btn-screen');
-  if (!navigator.mediaDevices || typeof navigator.mediaDevices.getDisplayMedia !== 'function') {
-    if (screenBtn) screenBtn.style.display = 'none';
-  } else {
+  if (screenBtn) {
+    screenBtn.style.display = 'flex';
     screenBtn.addEventListener('click', toggleScreenShare);
   }
 
@@ -919,7 +918,8 @@ async function toggleScreenShare() {
   } else {
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
-        throw new Error('Screen sharing is not supported on this mobile browser. Please use a desktop computer.');
+        Toast.error('Screen share not supported natively. Trying fallback...');
+        // Some mobile browsers might still trigger if we just try, or at least we don't throw an error immediately
       }
       Room.screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
       Room.screenSharing = true;
@@ -947,7 +947,13 @@ async function toggleScreenShare() {
         if (Room.screenSharing) toggleScreenShare();
       });
     } catch (err) {
-      if (err.name !== 'NotAllowedError') Toast.error('Screen share failed', err.message);
+      if (err.name !== 'NotAllowedError') {
+        let msg = err.message;
+        if (err.message.includes('not a function') || err.name === 'TypeError') {
+          msg = 'Screen share requires a secure connection (HTTPS) or is not supported by your mobile browser.';
+        }
+        Toast.error('Screen share failed', msg);
+      }
     }
   }
 }
