@@ -918,10 +918,12 @@ async function toggleScreenShare() {
   } else {
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
-        Toast.error('Screen share not supported natively. Trying fallback...');
-        // Some mobile browsers might still trigger if we just try, or at least we don't throw an error immediately
+        throw new Error('Screen sharing is not natively supported by your browser.');
       }
-      Room.screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+
+      // Request display media without audio. 
+      // Mobile platforms (Android/iOS) universally throw a TypeError if audio: true is requested for screen sharing.
+      Room.screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false });
       Room.screenSharing = true;
 
       const screenTrack = Room.screenStream.getVideoTracks()[0];
@@ -948,41 +950,7 @@ async function toggleScreenShare() {
       });
     } catch (err) {
       if (err.name !== 'NotAllowedError') {
-        if (err.message && err.message.includes('not a function') || err.name === 'TypeError' || !navigator.mediaDevices.getDisplayMedia) {
-          // Fallback to rear camera for mobile browsers that don't support getDisplayMedia (like Android Chrome)
-          try {
-            Toast.info('Native screen share unsupported. Falling back to rear camera view.');
-            Room.screenStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: true });
-            Room.screenSharing = true;
-
-            const screenTrack = Room.screenStream.getVideoTracks()[0];
-
-            Object.values(Room.peerConnections).forEach(pc => {
-              const sender = pc.getSenders().find(s => s.track?.kind === 'video');
-              if (sender) {
-                sender.replaceTrack(screenTrack);
-              } else {
-                pc.addTrack(screenTrack, Room.localStream);
-              }
-            });
-
-            const localVideo = document.getElementById('video-local');
-            if (localVideo) localVideo.srcObject = Room.screenStream;
-
-            document.getElementById('btn-screen')?.classList.add('active');
-            Room.socket.emit('screen-share-started');
-            Toast.success('Rear camera sharing started');
-
-            screenTrack.addEventListener('ended', () => {
-              if (Room.screenSharing) toggleScreenShare();
-            });
-            return; // Exit cleanly if fallback succeeds
-          } catch (fallbackErr) {
-            Toast.error('Screen share and rear camera fallback both failed.');
-          }
-        } else {
-          Toast.error('Screen share failed', err.message);
-        }
+        Toast.error('Screen share failed', err.message || 'Unsupported on this device.');
       }
     }
   }
