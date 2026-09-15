@@ -941,6 +941,70 @@
       }
     }
 
+    /* ── Mobile Landscape ── */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .video-grid {
+        padding: 40px 12px 64px 12px;
+      }
+
+      .controls-bar {
+        bottom: 8px;
+        height: 54px;
+        left: 12px;
+        right: 12px;
+        width: calc(100% - 24px);
+      }
+
+      .controls-center {
+        justify-content: center;
+      }
+
+      .ctrl-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+      }
+
+      .end-call-btn {
+        width: 40px;
+        height: 40px;
+      }
+
+      .video-grid.has-pinned {
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .video-grid.has-pinned .video-tile {
+        width: 100px;
+        height: 70px;
+        flex: 0 0 70px;
+        margin-bottom: 8px;
+      }
+
+      .video-grid.has-pinned .video-tile.pinned-main {
+        position: absolute;
+        top: 48px;
+        left: 124px;
+        right: 12px;
+        bottom: 70px;
+        width: calc(100% - 136px);
+        height: calc(100% - 118px);
+        min-height: 0;
+      }
+
+      .video-grid.grid-2 {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+      }
+
+      .video-grid.grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr;
+      }
+    }
+
     /* ── Waiting Room Screen ── */
     .waiting-screen {
       position: fixed;

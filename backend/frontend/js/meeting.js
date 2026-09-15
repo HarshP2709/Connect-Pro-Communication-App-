@@ -948,11 +948,41 @@ async function toggleScreenShare() {
       });
     } catch (err) {
       if (err.name !== 'NotAllowedError') {
-        let msg = err.message;
-        if (err.message.includes('not a function') || err.name === 'TypeError') {
-          msg = 'Screen share requires a secure connection (HTTPS) or is not supported by your mobile browser.';
+        if (err.message && err.message.includes('not a function') || err.name === 'TypeError' || !navigator.mediaDevices.getDisplayMedia) {
+          // Fallback to rear camera for mobile browsers that don't support getDisplayMedia (like Android Chrome)
+          try {
+            Toast.info('Native screen share unsupported. Falling back to rear camera view.');
+            Room.screenStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: true });
+            Room.screenSharing = true;
+
+            const screenTrack = Room.screenStream.getVideoTracks()[0];
+
+            Object.values(Room.peerConnections).forEach(pc => {
+              const sender = pc.getSenders().find(s => s.track?.kind === 'video');
+              if (sender) {
+                sender.replaceTrack(screenTrack);
+              } else {
+                pc.addTrack(screenTrack, Room.localStream);
+              }
+            });
+
+            const localVideo = document.getElementById('video-local');
+            if (localVideo) localVideo.srcObject = Room.screenStream;
+
+            document.getElementById('btn-screen')?.classList.add('active');
+            Room.socket.emit('screen-share-started');
+            Toast.success('Rear camera sharing started');
+
+            screenTrack.addEventListener('ended', () => {
+              if (Room.screenSharing) toggleScreenShare();
+            });
+            return; // Exit cleanly if fallback succeeds
+          } catch (fallbackErr) {
+            Toast.error('Screen share and rear camera fallback both failed.');
+          }
+        } else {
+          Toast.error('Screen share failed', err.message);
         }
-        Toast.error('Screen share failed', msg);
       }
     }
   }
