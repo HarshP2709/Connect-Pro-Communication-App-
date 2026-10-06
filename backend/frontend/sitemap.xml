@@ -2,21 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
-    <loc>https://connectpro.com/</loc>
+    <loc>https://connect-pro27.onrender.com/</loc>
     <lastmod>2024-10-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <!-- About Page -->
   <url>
-    <loc>https://connectpro.com/pages/about.html</loc>
+    <loc>https://connect-pro27.onrender.com/pages/about.html</loc>
     <lastmod>2024-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Contact Page -->
   <url>
-    <loc>https://connectpro.com/pages/contact.html</loc>
+    <loc>https://connect-pro27.onrender.com/pages/contact.html</loc>
     <lastmod>2024-10-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>

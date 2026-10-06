@@ -5,4 +5,4 @@ Disallow: /pages/dashboard/
 Disallow: /pages/meeting/
 
 # Sitemap location
-Sitemap: https://connectpro.com/sitemap.xml
+Sitemap: https://connect-pro27.onrender.com/sitemap.xml
