@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /pages/auth/
+Disallow: /pages/dashboard/
+Disallow: /pages/meeting/
+
+# Sitemap location
+Sitemap: https://connectpro.com/sitemap.xml
